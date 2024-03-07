@@ -27,7 +27,7 @@ export default function EmployerSignUpPage() {
     };
     return (
         <form className="my-8" onSubmit={handleSubmit}>
-            <div className="flex justify-center items-center gap-5  mb-4">
+            <div className="flex justify-center flex-col sm:flex-row items-center gap-5  mb-4">
                 <LabelInputContainer>
                     <Label htmlFor="firstname" className='text-slate-50'>First name</Label>
                     <Input id="firstname" placeholder="Abubakar" type="text"

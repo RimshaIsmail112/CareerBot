@@ -14,8 +14,8 @@ export default function AuthLayout({children}) {
     const router = useRouter();
     const pathname = usePathname();
     const [isChecked, setIsChecked] = useState(pathname.includes("employer"));
-    const form = <div className='w-auto md:w-[50vw] h-auto flex justify-center items-center'>{children}</div>
-    const copyRight = <div className='flex justify-center items-center h-[10vh] font-bold text-slate-50'>
+    const form = <div className='w-auto md:w-[50vw] mt-12 md:mt-0 h-auto flex justify-center items-center'>{children}</div>
+    const copyRight = <div className='flex mt-12 md:mt-0 justify-center items-center h-auto md:h-[10vh] font-bold text-slate-50'>
         &#169;2024 CareerSync
     </div>
     useEffect(() => {
@@ -34,9 +34,9 @@ export default function AuthLayout({children}) {
 
     return (
         <>
-            <div className="h-auto pb-4 w-auto md:w-screen bg-slate-950 relative flex flex-col md:flex-row justify-between antialiased">
+            <div className="h-auto md:h-screen pb-4 w-auto bg-slate-950 relative flex flex-col md:flex-row justify-between antialiased">
                 <div className='h-auto flex flex-col w-auto md:w-[50vw] px-5 md:pl-14'>
-                    <div className='flex flex-col sm:flex-row gap-3 sm:gap-0 sm:justify-between items-center z-20 h-auto px-5 py-10 sm:py-0'>
+                    <div className='flex flex-col sm:flex-row gap-3 sm:gap-0 sm:justify-between items-center z-20 h-auto md:h-[20vh] px-5 mt-10 md:mt-0'>
                         <Image src={'/Logo-White.svg'} alt={'CareerSync'} width={70} height={70}/>
                         <div className="flex items-center space-x-2">
                             <Switch className='dark' defaultChecked={isChecked} onCheckedChange={handleSwitcher} id="airplane-mode"/>
@@ -58,7 +58,7 @@ export default function AuthLayout({children}) {
                     {width >= 768 ? copyRight : form}
                 </div>
                 {width < 768 ? copyRight : form}
-                <BackgroundBeams/>
+                <BackgroundBeams />
             </div>
         </>
     )

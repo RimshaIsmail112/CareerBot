@@ -21,8 +21,8 @@ export default function CandidateSignUpPage() {
         setShowPassword(!showPassword);
     };
     return (
-        <form className="my-8" onSubmit={handleSubmit}>
-            <div className="flex justify-center items-center gap-5  mb-4">
+        <form className="mt-8" onSubmit={handleSubmit}>
+            <div className="flex flex-col sm:flex-row justify-center items-center gap-5  mb-4">
                 <LabelInputContainer>
                     <Label htmlFor="firstname" className='text-slate-50'>First name</Label>
                     <Input id="firstname" placeholder="Abubakar" type="text"

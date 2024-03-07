@@ -24,7 +24,7 @@ export default function CandidateSignInPage() {
     };
 
     return (
-        <form className="my-12" onSubmit={handleSubmit}>
+        <form className="mt-12" onSubmit={handleSubmit}>
             <LabelInputContainer className="mb-4">
                 <Label htmlFor="email" className='text-slate-50'>Email Address</Label>
                 <Input id="email" Icon={<MdOutlineAlternateEmail size={20}/>} placeholder="example@gmail.com"
