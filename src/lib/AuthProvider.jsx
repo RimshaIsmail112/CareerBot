@@ -1,12 +1,13 @@
 'use client'
 import React from 'react';
 import {SessionProvider} from "next-auth/react";
-function SessionProvider({children}) {
+import RedirectToHome from "@/components/redirectComponents/RedirectToHome";
+function AuthProvider({children}) {
     return (
         <SessionProvider>
-            {children}
+                {children}
         </SessionProvider>
     );
 }
 
-export default SessionProvider;
+export default AuthProvider;

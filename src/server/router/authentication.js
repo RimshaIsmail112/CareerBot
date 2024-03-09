@@ -10,8 +10,8 @@ require("../database/connection");
 router.post(
   "/candidate/signup",
   [
-    body("firstName", "First Name Is Required").notEmpty(),
-    body("lastName", "Last Name Is Required").notEmpty(),
+    body("firstName", "Please Fill Out All the Fields Before Submitting").notEmpty(),
+    body("lastName", "Please Fill Out All the Fields Before Submitting").notEmpty(),
     body("email", "Please Provide A Valid Email Address").isEmail(),
     body("password", "Password Must Be At Least 6 Characters Long").isLength({
       min: 6,
@@ -20,11 +20,11 @@ router.post(
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
+      return res.status(400).json({ error: errors.array()[0].msg });
     } else {
       const { firstName, lastName, email, password } = req.body;
       if (!firstName || !lastName || !email || !password) {
-        return res.status(400).json({ error: "All Fields Are Required" });
+        return res.status(400).json({ error: "Please fill out all the fields before submitting" });
       }
       try {
         const candidateExists = await Candidate.findOne({ email: email });
@@ -56,20 +56,19 @@ router.post(
 router.post(
   "/candidate/signin",
   [
+    body("email", "Please Fill Out All the Fields Before Submitting").notEmpty(),
+    body("password", "Please Fill Out All the Fields Before Submitting").notEmpty(),
     body("email", "Please Provide A Valid Email Address").isEmail(),
-    body("password", "Password Must Be At Least 6 Characters Long").isLength({
-      min: 6,
-    }),
   ],
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
+      return res.status(400).json({ error: errors.array()[0].msg });
     } else {
       try {
         const { email, password } = req.body;
         if (!email || !password) {
-          return res.status(400).json({ error: "All Fields Are Required" });
+          return res.status(400).json({ error: "Please Fill Out All the Fields Before Submitting" });
         }
         const candidateLogin = await Candidate.findOne({ email: email });
         if (!candidateLogin) {
@@ -96,8 +95,8 @@ router.post(
 router.post(
   "/employer/signup",
   [
-    body("firstName", "First Name Is Required").notEmpty(),
-    body("lastName", "Last Name Is Required").notEmpty(),
+    body("firstName", "Please Fill Out All the Fields Before Submitting").notEmpty(),
+    body("lastName", "Please Fill Out All the Fields Before Submitting").notEmpty(),
     body("email", "Please Provide A Valid Email Address").isEmail(),
     body("password", "Password Must Be At Least 6 Characters Long").isLength({
       min: 6,
@@ -106,7 +105,7 @@ router.post(
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
+      return res.status(400).json({ error: errors.array()[0].msg });
     } else {
       const { firstName, lastName, email, password } = req.body;
       if (!firstName || !lastName || !email || !password) {
@@ -140,15 +139,14 @@ router.post(
 router.post(
   "/employer/signin",
   [
+    body("email", "Please Fill Out All the Fields Before Submitting").notEmpty(),
+    body("password", "Please Fill Out All the Fields Before Submitting").notEmpty(),
     body("email", "Please Provide A Valid Email Address").isEmail(),
-    body("password", "Password Must Be At Least 6 Characters Long").isLength({
-      min: 6,
-    }),
   ],
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
+      return res.status(400).json({ error: errors.array()[0].msg });
     } else {
       try {
         const { email, password } = req.body;
