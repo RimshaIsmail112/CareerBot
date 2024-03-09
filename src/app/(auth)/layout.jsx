@@ -11,6 +11,7 @@ export default function AuthLayout({children}) {
     const {width} = useWindowSize();
     const [heading, setHeading] = useState("")
     const [description, setDescription] = useState("")
+    const [switcherText, setSwitcherText] = useState("Switch to Employer")
     const router = useRouter();
     const pathname = usePathname();
     const [isChecked, setIsChecked] = useState(pathname.includes("employer"));
@@ -30,6 +31,7 @@ export default function AuthLayout({children}) {
     const handleSwitcher = (checked) => {
         checked ? router.push('/employer/signin') : router.push('/candidate/signin')
         setIsChecked(checked);
+        setSwitcherText(checked? "Switch to Candidate" : "Switch to Employer");
     }
 
     return (
@@ -40,8 +42,7 @@ export default function AuthLayout({children}) {
                         <Image src={'/Logo-White.svg'} alt={'CareerSync'} width={70} height={70}/>
                         <div className="flex items-center space-x-2">
                             <Switch className='dark' defaultChecked={isChecked} onCheckedChange={handleSwitcher} id="airplane-mode"/>
-                            <Label htmlFor="airplane-mode" className='font-bold text-slate-50'>Switch to
-                                Employer</Label>
+                            <Label htmlFor="airplane-mode" className='font-bold text-slate-50'>{switcherText}</Label>
                         </div>
                     </div>
                     <div className='hidden md:flex justify-between z-20 items-center h-[70vh]'>
