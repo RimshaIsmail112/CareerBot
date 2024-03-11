@@ -99,7 +99,7 @@ export default function CandidateSignIn() {
                 <div className="flex flex-col sm:flex-row justify-between gap-4 items-center">
                     <button
                         className="bg-slate-50 text-[1rem] flex justify-center items-center gap-1 dark:bg-zinc-800 w-full text-slate-950 rounded-md h-10 font-medium transition-all duration-300 transform active:bg-slate-900 hover:bg-slate-950 hover:border-slate-50 hover:border-2 hover:text-slate-50"
-                        onClick={() => signIn('github', { callbackUrl: 'http://localhost:3001/' })}
+                        onClick={async () => await signIn('github', { callbackUrl: 'http://localhost:3001/' })}
                     >
                         <BsGithub size={20}/>
                         Github
@@ -107,7 +107,7 @@ export default function CandidateSignIn() {
                     <span className="text-slate-400">or</span>
                     <button
                         className="bg-slate-50 text-[1rem] flex justify-center items-center gap-1 dark:bg-zinc-800 w-full text-slate-950 rounded-md h-10 font-medium transition-all duration-300 transform active:bg-slate-900 hover:bg-slate-950 hover:border-slate-50 hover:border-2 hover:text-slate-50"
-                        onClick={() => signIn('google', { callbackUrl: 'http://localhost:3001/' })}
+                        onClick={async () => await signIn('google', { callbackUrl: 'http://localhost:3001/' })}
                     >
                         <FcGoogle size={20}/>
                         Google

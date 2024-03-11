@@ -10,16 +10,20 @@ function RedirectToHome({children}) {
     const {data: session, status} = useSession();
     const [loading, setLoading] = React.useState(true);
     useEffect(() => {
-        if (status === "authenticated" || status === "loading") {
+        setTimeout(() => {
             setLoading(false);
-        }
+        }, 3000);
     }, []);
-    if (loading || typeof window === "undefined") return <FullPageLoader/>;
+
+    if (status === "loading" && !session) {
+        return <FullPageLoader/>
+    }
     if (typeof window !== "undefined" && !session) {
-        router.push("/candidate/signin");
+        router.replace("/candidate/signin");
+        return null;
     }
     else {
-        return <div>{children}</div>
+        return loading ? <FullPageLoader/> : <div>{children}</div>
     }
 }
 

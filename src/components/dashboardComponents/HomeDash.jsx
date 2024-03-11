@@ -6,16 +6,15 @@ import FullPageLoader from "@/components/ui/FullPageLoader";
 
 function HomeDash(props) {
     const {data} = useSession();
-    const [loading, setLoading] = React.useState(true);
     return (
             <div className='flex flex-col justify-center items-center bg-slate-950 w-screen h-screen'>
                 <div className='w-2/3 flex flex-col justify-center items-center gap-5'>
                     <h1 className='text-slate-50 font-medium'>Welcome <span
-                        className='font-bold'>{data.user.name}</span> to
+                        className='font-bold'>{data && data.user.name}</span> to
                         CareerSync </h1>
                     <button
                         className="bg-slate-50 text-[1rem] flex justify-center items-center gap-1 dark:bg-zinc-800 w-full text-slate-950 rounded-md h-10 font-medium transition-all duration-300 transform active:bg-slate-900 hover:bg-slate-950 hover:border-slate-50 hover:border-2 hover:text-slate-50"
-                        onClick={() => signOut({ callbackUrl: 'http://localhost:3000/candidate/signin' })}
+                        onClick={async () => await signOut({ callbackUrl: 'http://localhost:3000/candidate/signin', redirect: false})}
                     >
                         Sign Out
                         <PiSignInBold size={20}/>

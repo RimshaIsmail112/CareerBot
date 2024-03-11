@@ -33,6 +33,7 @@ export default function Authentication({children}) {
             setDescription("Welcome to CareerSync, your passport to career advancement. Seamlessly connect with opportunities and take the next step towards a brighter, fulfilling future.");
         }
     }, [pathname])
+
     const handleSwitcher = (checked) => {
         checked ? router.push('/employer/signin') : router.push('/candidate/signin')
         setIsChecked(checked);
