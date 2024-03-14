@@ -1,6 +1,6 @@
 
 import React from "react";
-import InputOTPForm from "@/components/authComponents/InputOTPForm"; 
-export default function OTPPage() {
-    return <InputOTPForm otpFor={'Candidate'} />;
+import ForgotPassword from "@/components/authComponents/ForgotPassword";
+export default function forgotPassword() {
+    return <ForgotPassword resetFor={'Candidate'} />;
 }

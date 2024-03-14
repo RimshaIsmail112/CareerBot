@@ -8,12 +8,6 @@ import FullPageLoader from "@/components/ui/FullPageLoader";
 function RedirectToHome({children}) {
     const router = useRouter();
     const {data: session, status} = useSession();
-    const [loading, setLoading] = React.useState(true);
-    useEffect(() => {
-        setTimeout(() => {
-            setLoading(false);
-        }, 3000);
-    }, []);
 
     if (status === "loading" && !session) {
         return <FullPageLoader/>
@@ -23,7 +17,7 @@ function RedirectToHome({children}) {
         return null;
     }
     else {
-        return loading ? <FullPageLoader/> :<div>{children}</div>
+        return <div>{children}</div>
     }
 }
 
