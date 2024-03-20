@@ -2,12 +2,12 @@
 
 import React from 'react';
 import ProfileLayout from '@/components/profileComponents/ProfileLayout'; // Adjust this path as needed
-import ProfileDetails from '@/components/profileComponents/ProfileDetails'; // Adjust this path as needed
+import ProfileEmployer from '@/components/profileComponents/ProfileEmployer'; // Adjust this path as needed
 
 export default function CandidateProfilePage() {
   return (
     <ProfileLayout>
-      <ProfileDetails />
+      <ProfileEmployer />
     </ProfileLayout>
   );
 }
