@@ -1,9 +1,13 @@
+// profile/candidate/page.jsx
+
 import React from 'react';
+import ProfileLayout from '@/components/profileComponents/ProfileLayout'; // Adjust this path as needed
+import ProfileDetails from '@/components/profileComponents/ProfileCandidate'; // Adjust this path as needed
 
-function CandidateProfile() {
-    return (
-        <div className='text-slate-50 flex justify-center items-center text-lg'>Profile</div>
-    );
+export default function CandidateProfilePage() {
+  return (
+    <ProfileLayout>
+      <ProfileDetails />
+    </ProfileLayout>
+  );
 }
-
-export default CandidateProfile;

@@ -1,8 +1,8 @@
 import React from 'react';
-import Authentication from "@/components/authComponents/Authentication";
+import Double from "@/components/GlobalLayout/Double";
 
 export default function AuthLayout({children}) {
-    return <Authentication>
+    return <Double>
         {children}
-    </Authentication>
+    </Double>
 }

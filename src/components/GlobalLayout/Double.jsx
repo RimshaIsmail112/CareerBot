@@ -8,7 +8,7 @@ import {BackgroundBeams} from "@/components/ui/background-beams";
 import RedirectToHome from "@/components/redirectComponents/RedirectToHome";
 import FullPageLoader from "@/components/ui/FullPageLoader";
 
-export default function Authentication({children}) {
+export default function Double({children}) {
     const [heading, setHeading] = useState("")
     const [description, setDescription] = useState("")
     const [switcherText, setSwitcherText] = useState("Switch to Employer")
@@ -19,7 +19,7 @@ export default function Authentication({children}) {
     const child = <div
         className={`w-auto md:w-[50vw] ${pathname !== '/candidate/otp' && pathname !== '/employer/otp' ? 'mt-12' : 'mt-0'}  md:mt-0 md:mb-16 h-auto flex justify-center items-center`}>{children}</div>
     const copyRight = <div
-        className={`flex py-8 md:pb-5 justify-center z-20  ${pathname !== '/candidate/otp' && pathname !== '/employer/otp' ? 'md:w-[50vw]' : 'w-auto'} items-center h-auto md:h-[10vh] font-bold text-slate-50`}>
+        className={`flex py-8 md:pb-5 justify-center z-20 content-end  ${pathname !== '/candidate/otp' && pathname !== '/employer/otp' ? 'md:w-[50vw]' : 'w-auto'} items-center h-auto md:h-[10vh] font-bold text-slate-50`}>
         &#169;2024 CareerSync
     </div>
     useEffect(() => {
@@ -52,7 +52,7 @@ export default function Authentication({children}) {
                                className='font-bold text-slate-50'>{switcherText}</Label>
                     </div>
                 </div>
-                <div className='flex justify-center z-20 items-center h-auto md:h-[70vh]'>
+                <div className='flex justify-center z-20 items-center h-auto sm:h-[90vh] md:h-[70vh]'>
                     {pathname !== '/candidate/otp' && pathname !== '/employer/otp' && <div className="md:flex hidden flex-col justify-center items-center w-[50vw] p-5">
                         <h1 className="relative z-10 text-lg md:text-3xl  bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-600  text-center font-sans font-bold">
                             {heading}
@@ -65,7 +65,7 @@ export default function Authentication({children}) {
                     {child}
                 </div>
                 {copyRight}
-                <BackgroundBeams/>
+                <BackgroundBeams className='h-screen'/>
             </div>
         </RedirectToHome>
 

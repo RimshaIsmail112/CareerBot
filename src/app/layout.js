@@ -11,7 +11,7 @@ export const metadata = {
 };
 
 export default function RootLayout({children}) {
-    return (<html lang="en">
+    return (<html class="scroll-smooth" lang="en">
     <body className={`${notoSans.className} bg-slate-950`}>
         <AuthProvider>
             {children}
