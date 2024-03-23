@@ -23,10 +23,10 @@ function Modal({onClose, onSave, type, children}) {
     });
 
     const handleChange = (e) => {
-        const {name, value} = e.target;
-        setEntry(prev => ({...prev, [name]: value}));
+        const { name, value } = e.target;
+        setEntry(prev => ({...prev, [name]: value}));  // This should correctly update the state
     };
-
+    
     const handleSave = () => {
         onSave(entry);
         onClose(); // Close modal on save
@@ -65,6 +65,7 @@ function ProfileDetailsForm() {
     });
     const [isWorkExperienceModalOpen, setIsWorkExperienceModalOpen] = useState(false);
     const [isEducationModalOpen, setIsEducationModalOpen] = useState(false);
+    const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
     const handleChange = (e) => {
         const {name, value} = e.target;
@@ -79,6 +80,7 @@ function ProfileDetailsForm() {
         if (file) {
             const reader = new FileReader();
             reader.onloadend = () => {
+                console.log(reader.result); // Log the Base64 string
                 setFormData(prevState => ({
                     ...prevState,
                     profilePicture: reader.result
@@ -87,6 +89,7 @@ function ProfileDetailsForm() {
             reader.readAsDataURL(file);
         }
     };
+    
 
     const deleteProfilePicture = () => {
         setFormData(prevState => ({
@@ -123,9 +126,10 @@ function ProfileDetailsForm() {
     const addEducation = (educationEntry) => {
         setFormData(prevState => ({
             ...prevState,
-            education: [...prevState.education, educationEntry]
+            education: [...prevState.education, educationEntry]  // Ensure duration is included
         }));
     };
+    
     const handleDelete = (index, name) => {
         setFormData(prevState => ({
             ...prevState,
@@ -134,13 +138,66 @@ function ProfileDetailsForm() {
     }
 
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log('Form data submitted:', formData);
-    };
+    const handleSubmit = async (e) => {
+        e.preventDefault(); // Prevent default form submission behavior
+            console.log(formData); // Log formData to ensure it includes profilePicture
 
+        // Prepare data to send: Here, we only send fullName
+        const dataToSend = {
+            fullName: formData.fullName,
+            email: formData.email,
+            preferredJobLocation: formData.preferredJobLocation,
+            phone: formData.phone,
+            skills: formData.skills,
+            workExperiences: formData.workExperiences,
+            education: formData.education,
+            profilePicture: formData.profilePicture
+        };
+    
+        try {
+            const response = await fetch('http://localhost:3000/candidate-profile', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(dataToSend) // Send only the fullName
+            });
+    
+            if (!response.ok) {
+                throw new Error(`Error: ${response.statusText}`);
+            }
+    // Show success message
+    setShowSuccessMessage(true);
+    setTimeout(() => setShowSuccessMessage(false), 5000); // Hide after 5 seconds
+
+    // Reset form data
+    setFormData({
+        fullName: '',
+        email: '',
+        preferredJobLocation: '',
+        phone: '',
+        skills: [],
+        currentSkill: '',
+        workExperiences: [],
+        education: [],
+        profilePicture: null
+    });
+            const result = await response.json();
+            console.log('Profile saved successfully:', result);
+            // Here you can handle UI feedback that data was sent successfully
+        } catch (error) {
+            console.error('Error saving profile:', error);
+            // Here you can handle UI feedback for errors
+        }
+    };
+    
     return (
         <form className="bg-transparent shadow-md rounded px-8 pt-6 pb-8 mb-4 w-full " onSubmit={handleSubmit}>
+             {showSuccessMessage && (
+                <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
+                    Data Submitted Successfully!
+                </div>
+            )}
             <h2 className="text-2xl font-bold text-slate-50 text-center mb-6">Candidate Profile</h2>
             <div className="space-y-4">
                 <div className="flex flex-col justify-center items-center gap-5">
@@ -163,14 +220,16 @@ function ProfileDetailsForm() {
                            className='text-slate-50 bg-slate-900 placeholder:text-slate-400'/>
                 </LabelInputContainer>
                 <LabelInputContainer className="mb-4">
-                    <Label htmlFor="email" className='text-slate-50'>Email Address</Label>
-                    <Input id="email"
-                           onChange={handleChange}
-                           value={formData.email}
-                           name="email"
-                           placeholder="example@gmail.com"
-                           type="email" className='text-slate-50 bg-slate-900 placeholder:text-slate-400'/>
-                </LabelInputContainer>
+    <Label htmlFor="email" className='text-slate-50'>Email Address</Label>
+    <Input id="email"
+           type="email"
+           name="email"
+           value={formData.email}
+           onChange={handleChange}
+           placeholder="example@gmail.com"
+           className='text-slate-50 bg-slate-900 placeholder:text-slate-400'/>
+</LabelInputContainer>
+
                 <LabelInputContainer className="mb-4">
                     <Label htmlFor="phone" className='text-slate-50'>Phone No.</Label>
                     <Input id="phone"
@@ -180,15 +239,18 @@ function ProfileDetailsForm() {
                            placeholder="+923001234567"
                            type="name" className='text-slate-50 bg-slate-900 placeholder:text-slate-400'/>
                 </LabelInputContainer>
+
                 <LabelInputContainer className="mb-4">
-                    <Label htmlFor="preferredJobLocation" className='text-slate-50'>Preferred Job Location</Label>
-                    <Input id="preferredJobLocation" Icon={<MdOutlineAlternateEmail size={20}/>}
-                           onChange={handleChange}
-                           value={formData.preferredJobLocation}
-                           name="preferredJobLocation"
-                           placeholder="Lohore"
-                           type="text" className='text-slate-50 bg-slate-900 placeholder:text-slate-400'/>
-                </LabelInputContainer>
+    <Label htmlFor="preferredJobLocation" className='text-slate-50'>Preferred Job Location</Label>
+    <Input id="preferredJobLocation"
+           type="text"
+           name="preferredJobLocation"
+           value={formData.preferredJobLocation}
+           onChange={handleChange}
+           placeholder="City, Country"
+           className='text-slate-50 bg-slate-900 placeholder:text-slate-400'/>
+</LabelInputContainer>
+
                 <LabelInputContainer className="mb-4">
                     <Label htmlFor="skills" className='text-slate-50'>Skills (Press Enter to add)</Label>
                     <Input
@@ -254,7 +316,7 @@ function ProfileDetailsForm() {
                             <MdDelete className='text-slate-50' size={20} />
                         </button>
                         <p><strong>{edu.degree} | {edu.universityName}</strong></p>
-                        <p><strong></strong> {edu.location} | <span className="italic"> {edu.date}</span></p>
+                        <p><strong></strong> {edu.location} | <span className="italic"> {edu.duration}</span></p>
                         <p><strong></strong> {edu.description}</p>
                     </div>
                 ))}
@@ -284,10 +346,18 @@ function ProfileDetailsForm() {
                                    onChange={handleChange}
                                    placeholder="Location" name="location"
                                    type="text" className='text-slate-50 bg-slate-900 placeholder:text-slate-400 mt-4'/>
-                            <Input id="duration" Icon={<MdOutlineAlternateEmail size={20}/>}
-                                   onChange={handleChange}
-                                   placeholder="Duration (Ex: June 18 - Present)" name="duration"
-                                   type="text" className='text-slate-50 bg-slate-900 placeholder:text-slate-400 mt-4'/>
+
+<Input
+    id="duration"  
+    Icon={<MdOutlineAlternateEmail size={20}/>}
+    onChange={handleChange}  // This should be updating the correct part of the state
+    placeholder="Duration (Ex: June 18 - Present)"
+    name="duration"  
+    type="text"
+    className='text-slate-50 bg-slate-900 placeholder:text-slate-400 mt-4'
+/>
+
+
                             <Textarea id="description" Icon={<MdOutlineAlternateEmail size={20}/>}
                                       onChange={handleChange}
                                       placeholder="Description (Press Enter for new line)" name="description"
@@ -312,10 +382,18 @@ function ProfileDetailsForm() {
                                    onChange={handleChange}
                                    placeholder="Location" name="location"
                                    type="text" className='text-slate-50 bg-slate-900 placeholder:text-slate-400 mt-4'/>
-                            <Input id="duration" Icon={<MdOutlineAlternateEmail size={20}/>}
-                                   onChange={handleChange}
-                                   placeholder="Duration (Ex: June 18 - Present)" name="duration"
-                                   type="text" className='text-slate-50 bg-slate-900 placeholder:text-slate-400 mt-4'/>
+
+    <Input
+    id="duration"
+    Icon={<MdOutlineAlternateEmail size={20}/>}
+    onChange={handleChange}
+    placeholder="Duration (Ex: June 18 - Present)"
+    name="duration" 
+    type="text"
+    className='text-slate-50 bg-slate-900 placeholder:text-slate-400 mt-4'
+        />
+
+
                             <Textarea id="description" Icon={<MdOutlineAlternateEmail size={20}/>}
                                       onChange={handleChange}
                                       placeholder="Description (Press Enter for new line)" name="description"

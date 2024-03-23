@@ -46,11 +46,46 @@ function EmployerDetailsForm() {
       reader.readAsDataURL(file);
     }
   };
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Form data submitted:', formData);
-    // Implement form submission logic here
-  };
+    // Convert form data to JSON
+    const jsonData = JSON.stringify(formData);
+    
+    try {
+        const response = await fetch('http://localhost:3000/api/employer-profile', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: jsonData
+        });
+        
+        if (!response.ok) {
+            throw new Error(`Error: ${response.statusText}`);
+        }
+        
+        const result = await response.json();
+        console.log('Profile saved successfully:', result);
+        // Show success message and reset form
+        alert('Data Submitted Successfully');
+        setFormData({
+            companyName: '',
+            industry: '',
+            address: '',
+            contact: '',
+            companyDescription: '',
+            websiteURL: '',
+            facebookURL: '',
+            instagramURL: '',
+            twitterURL: '',
+            profilePicture: null
+        });
+        setTimeout(() => alert(''), 5000);  // Clear alert after 5 seconds
+    } catch (error) {
+        console.error('Error saving profile:', error);
+        // Handle submission error here (e.g., show an error message)
+    }
+};
 
   return (
       <form className="bg-transparent shadow-md rounded px-8 pt-6 pb-8 mb-4 w-full " onSubmit={handleSubmit}>
