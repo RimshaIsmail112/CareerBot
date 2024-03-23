@@ -66,13 +66,8 @@ function ProfileDetailsForm() {
     });
     const [isWorkExperienceModalOpen, setIsWorkExperienceModalOpen] = useState(false);
     const [isEducationModalOpen, setIsEducationModalOpen] = useState(false);
-<<<<<<< HEAD
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-=======
     const [isLoading, setIsLoading] = useState(false);
-
->>>>>>> 726d6ab86a0ce12862b0787b5eb3c9d9884da743
-
     const handleChange = (e) => {
         const {name, value} = e.target;
         setFormData(prevState => ({
