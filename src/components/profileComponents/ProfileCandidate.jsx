@@ -68,6 +68,9 @@ function ProfileDetailsForm() {
     const [isEducationModalOpen, setIsEducationModalOpen] = useState(false);
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+
+
+
     const handleChange = (e) => {
         const {name, value} = e.target;
         setFormData(prevState => ({
