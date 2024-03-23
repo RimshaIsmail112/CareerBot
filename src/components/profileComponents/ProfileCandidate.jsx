@@ -70,6 +70,7 @@ function ProfileDetailsForm() {
     const [isLoading, setIsLoading] = useState(false);
 
 
+
     const handleChange = (e) => {
         const {name, value} = e.target;
         setFormData(prevState => ({

@@ -28,6 +28,7 @@ const candidateSchema = new mongoose.Schema({
       },
     },
   ],
+  verified: Boolean,
 });
 
 candidateSchema.pre("save", async function (next) {

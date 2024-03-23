@@ -28,6 +28,7 @@ const employerSchema = new mongoose.Schema({
       },
     },
   ],
+  verified: Boolean,
 });
 
 employerSchema.pre("save", async function (next) {

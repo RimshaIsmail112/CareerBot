@@ -1,5 +1,5 @@
 "use client";
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import {Input} from "@/components/ui/input";
 import {Label} from "@/components/ui/label";
 import {cn} from "@/lib/utils";
@@ -14,9 +14,11 @@ import {useForm} from "react-hook-form";
 import {Alert, AlertDescription, AlertTitle} from "@/components/ui/alert";
 import {TiWarning} from "react-icons/ti";
 import {signIn, useSession} from "next-auth/react";
+import {AppConext} from "@/Context/Candidate_Employer_Data";
 
 
 export default function CandidateSignIn() {
+    const {setCandidateID} = useContext(AppConext);
     const router = useRouter();
     const [showPassword, setShowPassword] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
@@ -43,6 +45,7 @@ export default function CandidateSignIn() {
                         setShowAlert(false);
                     }, 4000);
                 } else {
+                    setCandidateID(data.id);
                     router.push("/");
                 }
             })
