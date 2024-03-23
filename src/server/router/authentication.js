@@ -75,15 +75,15 @@ router.post(
           return res.status(404).json({ error: "Candidate Not Found" });
         }
         const isMatch = await bcrypt.compare(password, candidateLogin.password);
+        if (!isMatch) {
+          return res.status(401).json({ error: "Invalid Credentials" });
+        }
         const token = await candidateLogin.generateAuthenticationToken();
         res.cookie("jwtToken", token, {
           expires: new Date(Date.now() + 2592000000),
           httpOnly: true,
         });
-        if (!isMatch) {
-          return res.status(401).json({ error: "Invalid Credentials" });
-        }
-        res.json({ message: "Candidate Sign In Successfully" });
+        res.json({ message: "Candidate Sign In Successfully", id: candidateLogin['_id'] });
       } catch (error) {
         console.error(error);
         res.status(500).json({ error: "Internal Server Error" });

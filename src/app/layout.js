@@ -2,6 +2,7 @@ import {Noto_Sans} from "next/font/google";
 import "./globals.css";
 import AuthProvider from "@/lib/AuthProvider";
 import React from "react";
+import CandidateEmployerData from "@/Context/Candidate_Employer_Data";
 
 
 const notoSans = Noto_Sans({subsets: ["latin"]});
@@ -11,12 +12,13 @@ export const metadata = {
 };
 
 export default function RootLayout({children}) {
-    return (<html class="scroll-smooth" lang="en">
+    return (<html className="scroll-smooth" lang="en">
     <body className={`${notoSans.className} bg-slate-950`}>
-        <AuthProvider>
-            {children}
-        </AuthProvider>
+        <CandidateEmployerData>
+            <AuthProvider>
+                {children}
+            </AuthProvider>
+        </CandidateEmployerData>
     </body>
-
     </html>);
 }
