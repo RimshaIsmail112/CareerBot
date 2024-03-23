@@ -10,6 +10,7 @@ import {MdDelete, MdOutlineAlternateEmail} from "react-icons/md";
 import {Textarea} from "@/components/ui/textarea";
 import {PiSignInBold} from "react-icons/pi";
 import {IoIosCloseCircle} from "react-icons/io";
+import {ReloadIcon} from "@radix-ui/react-icons";
 
 
 function Modal({onClose, onSave, type, children}) {
@@ -65,7 +66,12 @@ function ProfileDetailsForm() {
     });
     const [isWorkExperienceModalOpen, setIsWorkExperienceModalOpen] = useState(false);
     const [isEducationModalOpen, setIsEducationModalOpen] = useState(false);
+<<<<<<< HEAD
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+=======
+    const [isLoading, setIsLoading] = useState(false);
+
+>>>>>>> 726d6ab86a0ce12862b0787b5eb3c9d9884da743
 
     const handleChange = (e) => {
         const {name, value} = e.target;
@@ -266,14 +272,15 @@ function ProfileDetailsForm() {
                     <div className="flex flex-wrap gap-2 mt-2">
                         {formData.skills.map((skill, index) => (
                             <div key={index} className="flex items-center">
-                                <div className="bg-slate-600 flex justify-center items-center text-slate-50 text-sm font-semibold px-2 py-1 rounded">
+                                <div
+                                    className="bg-slate-600 flex justify-center items-center text-slate-50 text-sm font-semibold px-2 py-1 rounded">
                                     {skill}
                                     <button
                                         onClick={() => handleDelete(index, 'skills')}
                                         className="ml-1 flex justify-center items-center text-slate-50 hover:text-slate-400 transition-all duration-300"
                                     >
-                                    <IoIosCloseCircle/>
-                                </button>
+                                        <IoIosCloseCircle/>
+                                    </button>
                                 </div>
                             </div>
                         ))}
@@ -313,7 +320,7 @@ function ProfileDetailsForm() {
                             onClick={() => handleDelete(index, 'education')}
                             className="absolute top-0 right-0 p-1 text-red-500 hover:text-red-700"
                         >
-                            <MdDelete className='text-slate-50' size={20} />
+                            <MdDelete className='text-slate-50' size={20}/>
                         </button>
                         <p><strong>{edu.degree} | {edu.universityName}</strong></p>
                         <p><strong></strong> {edu.location} | <span className="italic"> {edu.duration}</span></p>
@@ -321,11 +328,16 @@ function ProfileDetailsForm() {
                     </div>
                 ))}
                 <button
-                    className="bg-slate-50 text-[1rem] flex justify-center items-center gap-1 dark:bg-zinc-800 w-full text-slate-950 rounded-md h-10 font-medium transition-all duration-300 transform active:bg-slate-900 hover:bg-slate-950 hover:border-slate-50 hover:border-2 hover:text-slate-50"
-                    type="submit"
+                    className="bg-slate-50 text-[1rem] flex justify-center items-center gap-1 dark:bg-zinc-800 w-full text-slate-950 rounded-md h-10 font-medium transition-all duration-300 transform disabled:bg-slate-700 disabled:text-slate-300 disabled:border-none active:bg-slate-900 hover:bg-slate-950 hover:border-slate-50 hover:border-2 hover:text-slate-50"
+                    onClick={handleSubmit} disabled={isLoading ? true : false}
                 >
-                    Submit
-                    <PiSignInBold size={20}/>
+                    {isLoading ? <div className='flex gap-1 justify-center items-center'>
+                        <ReloadIcon className="mr-2 h-4 w-4 animate-spin"/>
+                        Please wait
+                    </div> : <div className='flex gap-1 justify-center items-center'>
+                        Submit
+                        <PiSignInBold size={20}/>
+                    </div>}
                 </button>
 
             </div>

@@ -12,6 +12,7 @@ import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
 import {CgProfile} from "react-icons/cg";
 import {Textarea} from "@/components/ui/textarea";
 import {PiSignInBold} from "react-icons/pi";
+import {ReloadIcon} from "@radix-ui/react-icons";
 function EmployerDetailsForm() {
   const [formData, setFormData] = useState({
     companyName: '',
@@ -24,6 +25,7 @@ function EmployerDetailsForm() {
     instagramURL: '',
     twitterURL: ''
   });
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -149,7 +151,7 @@ function EmployerDetailsForm() {
                       onChange={handleChange}
                       value={formData.companyDescription}
                       placeholder="Write here..." name="companyDescription"
-                      className='text-slate-50 bg-slate-900 placeholder:text-slate-400 mt-4' />
+                      className='text-slate-50 bg-slate-900 placeholder:text-slate-400 mt-4'/>
 
           </LabelInputContainer>
           {/* Website URL Input */}
@@ -212,11 +214,16 @@ function EmployerDetailsForm() {
           </LabelInputContainer>
           {/* Submit Button */}
           <button
-              className="bg-slate-50 text-[1rem] flex justify-center items-center gap-1 dark:bg-zinc-800 w-full text-slate-950 rounded-md h-10 font-medium transition-all duration-300 transform active:bg-slate-900 hover:bg-slate-950 hover:border-slate-50 hover:border-2 hover:text-slate-50"
-              type="submit"
+              className="bg-slate-50 text-[1rem] flex justify-center items-center gap-1 dark:bg-zinc-800 w-full text-slate-950 rounded-md h-10 font-medium transition-all duration-300 transform disabled:bg-slate-700 disabled:text-slate-300 disabled:border-none active:bg-slate-900 hover:bg-slate-950 hover:border-slate-50 hover:border-2 hover:text-slate-50"
+              onClick={handleSubmit} disabled={isLoading ? true : false}
           >
-            Submit
-            <PiSignInBold size={20}/>
+            {isLoading ? <div className='flex gap-1 justify-center items-center'>
+              <ReloadIcon className="mr-2 h-4 w-4 animate-spin"/>
+              Please wait
+            </div> : <div className='flex gap-1 justify-center items-center'>
+              Submit
+              <PiSignInBold size={20}/>
+            </div>}
           </button>
         </div>
 
