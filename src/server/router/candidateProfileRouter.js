@@ -7,26 +7,25 @@ const CandidateProfile = require('../models/candidateProfile');
 router.post('/candidate-profile', upload.none(), async (req, res) => {
   console.log(req.body.profilePicture);
   try {
-    
-    const { fullName, email, preferredJobLocation,phone,skills,workExperiences,education  } = req.body;
-    const profileData = {
-      fullName,
-      email,
-      preferredJobLocation,
-      phone,
-      skills,
-      workExperiences,
-      education
-    };
+      const { fullName, email, preferredJobLocation, phone, skills, workExperiences, education } = req.body;
+      const profileData = {
+          fullName,
+          email,
+          preferredJobLocation,
+          phone,
+          skills,
+          workExperiences,
+          education
+      };
 
-    Object.keys(profileData).forEach(key => profileData[key] === undefined && delete profileData[key]);
+      Object.keys(profileData).forEach(key => profileData[key] === undefined && delete profileData[key]);
 
-    const profile = new CandidateProfile(profileData);
-    await profile.save();
-    res.status(201).send({ message: 'Profile saved successfully', profileData });
+      const profile = new CandidateProfile(profileData);
+      await profile.save();
+      res.status(201).send({ message: 'Profile saved successfully', profileData });
   } catch (error) {
-    console.error("Saving error:", error);
-    res.status(400).send({ message: 'Error saving profile', error: error.message });
+      console.error("Saving error:", error);
+      res.status(400).send({ message: 'Error saving profile', error: error.message });
   }
 });
 

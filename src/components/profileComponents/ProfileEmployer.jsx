@@ -50,11 +50,13 @@ function EmployerDetailsForm() {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Convert form data to JSON
-    const jsonData = JSON.stringify(formData);
+ if (!formData.companyName || !formData.industry || !formData.address || !formData.contact || !formData.companyDescription || !formData.websiteURL || !formData.facebookURL || !formData.instagramURL || !formData.twitterURL) {
+  alert('Please fill in all fields.');
+  return; 
+}    const jsonData = JSON.stringify(formData);
     
     try {
-        const response = await fetch('http://localhost:3000/api/employer-profile', {
+        const response = await fetch('http://localhost:3000/employer-profile', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -68,7 +70,6 @@ function EmployerDetailsForm() {
         
         const result = await response.json();
         console.log('Profile saved successfully:', result);
-        // Show success message and reset form
         alert('Data Submitted Successfully');
         setFormData({
             companyName: '',
@@ -85,7 +86,6 @@ function EmployerDetailsForm() {
         setTimeout(() => alert(''), 5000);  // Clear alert after 5 seconds
     } catch (error) {
         console.error('Error saving profile:', error);
-        // Handle submission error here (e.g., show an error message)
     }
 };
 

@@ -25,7 +25,7 @@ function Modal({onClose, onSave, type, children}) {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setEntry(prev => ({...prev, [name]: value}));  // This should correctly update the state
+        setEntry(prev => ({...prev, [name]: value}));  
     };
     
     const handleSave = () => {
@@ -120,17 +120,31 @@ function ProfileDetailsForm() {
     };
 
     const addWorkExperience = (workExperience) => {
+        if (!workExperience.companyName || !workExperience.location) {
+            alert('Please Add Your Work Experience');
+            setIsWorkExperienceModalOpen(true);
+            return;
+        }
         setFormData((prevState) => ({
             ...prevState,
             workExperiences: [...prevState.workExperiences, workExperience],
         }));
+        setIsWorkExperienceModalOpen(false);
     };
+    
 
     const addEducation = (educationEntry) => {
-        setFormData(prevState => ({
+        if (!educationEntry.degree || !educationEntry.universityName || !educationEntry.duration) {
+            alert('Please fill in the degree, university name, and duration.'); 
+            setIsEducationModalOpen(true); 
+            return; 
+        }
+    
+        setFormData((prevState) => ({
             ...prevState,
-            education: [...prevState.education, educationEntry]  // Ensure duration is included
+            education: [...prevState.education, educationEntry],
         }));
+        setIsEducationModalOpen(false); 
     };
     
     const handleDelete = (index, name) => {
@@ -145,6 +159,10 @@ function ProfileDetailsForm() {
         e.preventDefault(); // Prevent default form submission behavior
             console.log(formData); // Log formData to ensure it includes profilePicture
 
+            // if (!formData.fullName || !formData.email || !formData.phone || formData.skills.length === 0 || formData.workExperiences.length === 0 || formData.education.length === 0) {
+            //     alert('Please fill in all required fields.');
+            //     return; // Stop the function if validation fails
+            // }
         // Prepare data to send: Here, we only send fullName
         const dataToSend = {
             fullName: formData.fullName,
