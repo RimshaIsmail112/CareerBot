@@ -1,7 +1,10 @@
+// Candidate_Employer_Data.jsx
+
+
 'use client'
 import React, {createContext, useEffect, useState} from 'react';
 
-export const AppConext = createContext(null);
+export const AppContext = createContext(null);
 function CandidateEmployerData({children}) {
     const [candidateID, setCandidateID] = useState(null);
     const [candidateData, setCandidateData] = useState({});
@@ -17,11 +20,12 @@ function CandidateEmployerData({children}) {
 
     }, []);
     return (
-        <AppConext.Provider value={{candidateData, setCandidateData, employerData, setEmployerData, candidateID,setCandidateID}}>
+        <AppContext.Provider value={{candidateData, setCandidateData, employerData, setEmployerData, candidateID,setCandidateID}}>
             {children}
-        </AppConext.Provider>
+        </AppContext.Provider>
     );
 
 }
 
 export default CandidateEmployerData;
+

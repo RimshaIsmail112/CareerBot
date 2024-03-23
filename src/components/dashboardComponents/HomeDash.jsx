@@ -3,11 +3,11 @@ import React, {useContext, useEffect} from 'react';
 import {signOut, useSession} from "next-auth/react";
 import {PiSignInBold} from "react-icons/pi";
 import FullPageLoader from "@/components/ui/FullPageLoader";
-import {AppConext} from "@/Context/Candidate_Employer_Data";
+import {AppContext} from "@/Context/Candidate_Employer_Data";
 
 function HomeDash(props) {
     const {data} = useSession();
-    const {candidateID} = useContext(AppConext);
+    const {candidateID} = useContext(AppContext);
     return (
             <div className='flex flex-col justify-center items-center bg-slate-950 w-screen h-screen'>
                 <div className='w-2/3 flex flex-col justify-center items-center gap-5'>

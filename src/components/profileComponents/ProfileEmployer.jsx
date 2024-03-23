@@ -13,6 +13,7 @@ import {CgProfile} from "react-icons/cg";
 import {Textarea} from "@/components/ui/textarea";
 import {PiSignInBold} from "react-icons/pi";
 import {ReloadIcon} from "@radix-ui/react-icons";
+
 function EmployerDetailsForm() {
   const [formData, setFormData] = useState({
     companyName: '',

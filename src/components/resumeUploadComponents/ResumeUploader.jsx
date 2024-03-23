@@ -1,19 +1,20 @@
 'use client'
 // Import necessary components
-import React, {useState} from 'react';
+import React, {useState,useContext} from 'react';
 import {BackgroundGradient} from "@/components/ui/background-gradient";
 import {MdInsertDriveFile, MdOutlineCloudUpload, MdOutlineUploadFile} from "react-icons/md";
 import {PiSignInBold} from "react-icons/pi";
 import {ReloadIcon} from "@radix-ui/react-icons"
-
+import { AppContext } from "@/Context/Candidate_Employer_Data";
+import {useRouter} from "next/navigation";
 
 function ResumeUploader() {
     const [selectedFile, setSelectedFile] = useState(null); // Track a single file
     const [errorMessage, setErrorMessage] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const allowedFormats = ['application/pdf', 'image/png', 'image/jpeg', 'image/jpg', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
-
-
+    const {candidateData,setCandidateData} = useContext(AppContext);
+    const router = useRouter();
     const handleDragEnter = (e) => {
         e.preventDefault(); // Prevent default browser behavior
     };
@@ -68,9 +69,45 @@ function ResumeUploader() {
             }
             const {data} = await response.json();
            console.log('Upload successful:', data);
+
+           const skillNames = data.skills.map(skill => skill.name);
+           const workExperiences = data.workExperience.map(exp => ({
+            title: exp.jobTitle,
+            companyName: exp.organization,
+            location: exp.location.formatted, 
+            duration: `${exp.dates.startDate} - ${exp.dates.endDate}`, 
+            description: exp.jobDescription 
+        }));
+        
+const education = data.education.map(edu => ({
+    degree: edu.accreditation.education,
+    universityName: edu.organization,
+    location: edu.location.formatted,
+    duration: `${edu.dates.startDate ? new Date(edu.dates.startDate).toLocaleDateString() : ''} - ${edu.dates.completionDate ? new Date(edu.dates.completionDate).toLocaleDateString() : (edu.dates.isCurrent ? 'Present' : '')}`,
+    description: `Grade: ${edu.grade.raw || ''}` // Assuming you want to display the grade as part of the description.
+}));
+
+           setCandidateData(
+            {
+                fullName: data.name.raw,
+                 email: data.emails[0],
+                 preferredJobLocation: data.location.formatted,
+                phone:data.phoneNumbers[0],
+                skills: skillNames,
+                workExperiences,
+                education 
+            }
+            )
+
+
+
+       
+           // console.log(data.name.raw);
+
             setSelectedFile(null); // Clear selection after successful upload
             setErrorMessage(''); // Clear any error messages
             setIsLoading(false);
+            router.push("/candidate/profile");
         } catch (error) {
             console.error('Upload failed:', error);
             setErrorMessage('An error occurred during upload. Please try again.');

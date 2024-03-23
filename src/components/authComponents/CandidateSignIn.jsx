@@ -14,11 +14,11 @@ import {useForm} from "react-hook-form";
 import {Alert, AlertDescription, AlertTitle} from "@/components/ui/alert";
 import {TiWarning} from "react-icons/ti";
 import {signIn, useSession} from "next-auth/react";
-import {AppConext} from "@/Context/Candidate_Employer_Data";
+import {AppContext} from "@/Context/Candidate_Employer_Data";
 
 
 export default function CandidateSignIn() {
-    const {setCandidateID} = useContext(AppConext);
+    const {setCandidateID} = useContext(AppContext);
     const router = useRouter();
     const [showPassword, setShowPassword] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
