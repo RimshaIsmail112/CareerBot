@@ -1,14 +1,13 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const candidateProfileSchema = new mongoose.Schema({
   userId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Candidate'
-    // Removed 'required: true' to allow profile creation without a userId
+    ref: "Candidate",
   },
   fullName: {
     type: String,
-    required: [true, "Full name is required"] // Assuming you want to make fullName required
+    required: [true, "Full name is required"],
   },
   email: String,
   phone: String,
@@ -20,8 +19,8 @@ const candidateProfileSchema = new mongoose.Schema({
       companyName: String,
       location: String,
       duration: String,
-      description: String
-    }
+      description: String,
+    },
   ],
   education: [
     {
@@ -29,10 +28,10 @@ const candidateProfileSchema = new mongoose.Schema({
       universityName: String,
       location: String,
       duration: String,
-      description: String
-    }
+      description: String,
+    },
   ],
-  profilePicture: String
+  profilePictureUrl: String,
 });
 
-module.exports = mongoose.model('CandidateProfile', candidateProfileSchema);
+module.exports = mongoose.model("CandidateProfile", candidateProfileSchema);
