@@ -5,18 +5,18 @@ import {useRouter} from "next/navigation";
 import {useSession} from "next-auth/react";
 import FullPageLoader from "@/components/ui/FullPageLoader";
 import {useAppContext} from "@/Context/Candidate_Employer_Data";
+import ComponentLoader from "@/components/ui/ComponentLoader";
 
-async function RedirectToLogin({children}) {
+async function RedirectToHome({children}) {
     const {candidate} = useAppContext();
     const router = useRouter();
     const {data: session, status} = useSession();
 
     if (status === "loading" && !session) {
-        return <FullPageLoader/>
+        return <ComponentLoader/>
     }
     if (typeof window !== "undefined" && !session && !candidate.id){
-        console.log("Redirecting", router);
-        await router.replace("/candidate/signin");
+        await router.replace("/candidate/reset-password");
         return null;
     }
     else {
@@ -24,4 +24,4 @@ async function RedirectToLogin({children}) {
     }
 }
 
-export default RedirectToLogin;
+export default RedirectToHome;

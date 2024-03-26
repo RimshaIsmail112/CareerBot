@@ -1,5 +1,5 @@
 "use client";
-import React, {useContext, useState} from "react";
+import React, {useState} from "react";
 import {Input} from "@/components/ui/input";
 import {Label} from "@/components/ui/label";
 import {cn} from "@/lib/utils";
@@ -14,21 +14,24 @@ import {useForm} from "react-hook-form";
 import {Alert, AlertDescription, AlertTitle} from "@/components/ui/alert";
 import {TiWarning} from "react-icons/ti";
 import {signIn, useSession} from "next-auth/react";
-import {AppContext} from "@/Context/Candidate_Employer_Data";
+import {AppContext, useAppContext} from "@/Context/Candidate_Employer_Data";
+import {ImSpinner2} from "react-icons/im";
 
 
 export default function CandidateSignIn() {
-    const {setCandidateID} = useContext(AppContext);
+    const {setCandidate} = useAppContext();
     const router = useRouter();
     const [showPassword, setShowPassword] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
     const [alertMessage, setAlertMessage] = useState("");
+    const [isLoading, setIsLoading] = useState(null);
     const {
         register,
         handleSubmit,
         formState: {errors},
     } = useForm()
     const onSubmit = (data) => {
+        setIsLoading("signin");
         fetch("http://localhost:3000/candidate/signin", {
             method: "POST",
             headers: {
@@ -37,16 +40,18 @@ export default function CandidateSignIn() {
             body: JSON.stringify(data),
         })
             .then((res) => res.json())
-            .then((data) => {
+            .then( async (data) => {
                 if (data.error) {
                     setShowAlert(true);
                     setAlertMessage(data.error);
                     setTimeout(() => {
                         setShowAlert(false);
                     }, 4000);
+                    setIsLoading(null);
                 } else {
-                    setCandidateID(data.id);
-                    router.push("/");
+                    setCandidate({id:data.id, email:data.email});
+                    await router.push("/candidate/resume");
+                    setIsLoading(null);
                 }
             })
             .catch((error) => console.log(error));
@@ -75,7 +80,7 @@ export default function CandidateSignIn() {
                     Welcome to CareerSync
                 </h2>
                 <p className='text-sm w-full text-slate-200 italic'>
-                    "Today unlock your dream opportunities and discover tailored career paths."
+                    &quot;Today unlock your dream opportunities and discover tailored career paths.&quot;
                 </p>
                 <div className="mt-12 w-full">
                     <form onSubmit={handleSubmit(onSubmit)}>
@@ -97,37 +102,76 @@ export default function CandidateSignIn() {
                                    {...register("password")}/>
                         </LabelInputContainer>
                         <div className="flex justify-end items-center mb-4">
-                            <Link href="#" className="text-slate-300 text-sm hover:underline">Forgot Password?</Link>
+                            <Link href="/candidate/forgot-password" className="text-slate-300 text-sm hover:underline">Forgot Password?</Link>
                         </div>
                         <button
-                            className="bg-slate-50 text-[1rem] flex justify-center items-center gap-1 dark:bg-zinc-800 w-full text-slate-950 rounded-md h-10 font-medium transition-all duration-300 transform active:bg-slate-900 hover:bg-slate-950 hover:border-slate-50 hover:border-2 hover:text-slate-50"
+                            className="bg-slate-50 text-[1rem] flex justify-center items-center gap-1 dark:bg-zinc-800 w-full text-slate-950 rounded-md h-10 font-medium transition-all duration-300 transform disabled:bg-slate-700 disabled:text-slate-300 disabled:border-none active:bg-slate-900 hover:bg-slate-950 hover:border-slate-50 hover:border-2 hover:text-slate-50"
                             type="submit"
+                            disabled={isLoading === "signin"}
                         >
-                            Sign In
-                            <PiSignInBold size={20}/>
+                            {isLoading === "signin" ? (
+                                <>
+                                    <span>Please Wait</span>
+                                    <ImSpinner2 size={20} className="animate-spin"/>
+                                </>
+                            ) : (
+                                <>
+                                    <span>Sign In</span>
+                                    <PiSignInBold size={20}/>
+                                </>
+                            )}
                         </button>
                     </form>
                     <div
                         className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full"/>
                     <div className="flex flex-col sm:flex-row justify-between gap-4 items-center">
                         <button
-                            className="bg-slate-50 text-[1rem] flex justify-center items-center gap-1 dark:bg-zinc-800 w-full text-slate-950 rounded-md h-10 font-medium transition-all duration-300 transform active:bg-slate-900 hover:bg-slate-950 hover:border-slate-50 hover:border-2 hover:text-slate-50"
-                            onClick={async () => await signIn('github', {callbackUrl: 'http://localhost:3001/'})}
+                            className="bg-slate-50 text-[1rem] flex justify-center items-center gap-1 dark:bg-zinc-800 w-full text-slate-950 rounded-md h-10 font-medium transition-all duration-300 transform disabled:bg-slate-700 disabled:text-slate-300 disabled:border-none active:bg-slate-900 hover:bg-slate-950 hover:border-slate-50 hover:border-2 hover:text-slate-50"
+                            onClick={async () => {
+                                setIsLoading("github")
+                                await signIn('github', {callbackUrl: 'http://localhost:3001/'})
+                                setIsLoading(null)
+                            }}
+                            disabled={isLoading === "github"}
                         >
-                            <BsGithub size={20}/>
-                            Github
+                            {isLoading === "github" ? (
+                                <>
+                                    <span>Please Wait</span>
+                                    <ImSpinner2 size={20} className="animate-spin"/>
+                                </>
+                            ) : (
+                                <>
+                                    <BsGithub size={20}/>
+                                    <span>Github</span>
+                                </>
+                            )}
                         </button>
                         <span className="text-slate-400">or</span>
                         <button
-                            className="bg-slate-50 text-[1rem] flex justify-center items-center gap-1 dark:bg-zinc-800 w-full text-slate-950 rounded-md h-10 font-medium transition-all duration-300 transform active:bg-slate-900 hover:bg-slate-950 hover:border-slate-50 hover:border-2 hover:text-slate-50"
-                            onClick={async () => await signIn('google', {callbackUrl: 'http://localhost:3001/'})}
+                            className="bg-slate-50 text-[1rem] flex justify-center items-center gap-1 dark:bg-zinc-800 w-full text-slate-950 rounded-md h-10 font-medium transition-all duration-300 transform disabled:bg-slate-700 disabled:text-slate-300 disabled:border-none active:bg-slate-900 hover:bg-slate-950 hover:border-slate-50 hover:border-2 hover:text-slate-50"
+                            onClick={async () => {
+                                setIsLoading("google")
+                                await signIn('google', {callbackUrl: 'http://localhost:3001/'})
+                                setIsLoading(null)
+                            }}
+                            disabled={isLoading === "google"}
                         >
-                            <FcGoogle size={20}/>
-                            Google
+                            {isLoading === "google" ? (
+                                <>
+                                    <span>Please Wait</span>
+                                    <ImSpinner2 size={20} className="animate-spin"/>
+                                </>
+                            ) : (
+                                <>
+                                    <FcGoogle size={20}/>
+                                    <span>Google</span>
+
+                                </>
+                            )}
                         </button>
                     </div>
                     <div className="flex flex-col sm:flex-row justify-center items-center mt-6 text-sm">
-                        <span className="text-slate-400">Don't have an account? </span>
+                        <span className="text-slate-400">Don&apos;t have an account? </span>
                         <Link href="/candidate/signup"
                               className="text-slate-300 dark:text-zinc-900 font-medium hover:underline">
                             Sign up

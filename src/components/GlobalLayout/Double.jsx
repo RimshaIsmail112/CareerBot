@@ -5,7 +5,6 @@ import {Label} from "@/components/ui/label";
 import Image from 'next/image';
 import {useRouter, usePathname} from 'next/navigation'
 import {BackgroundBeams} from "@/components/ui/background-beams";
-import RedirectToHome from "@/components/redirectComponents/RedirectToHome";
 import FullPageLoader from "@/components/ui/FullPageLoader";
 
 export default function Double({children}) {
@@ -31,14 +30,13 @@ export default function Double({children}) {
             setDescription("Welcome to CareerSync, your passport to career advancement. Seamlessly connect with opportunities and take the next step towards a brighter, fulfilling future.");
         }
     }, [pathname])
-    const handleSwitcher = (checked) => {
-        checked ? router.push('/employer/signin') : router.push('/candidate/signin')
+    const handleSwitcher = async (checked) => {
+        checked ? await router.push('/employer/signin') : await router.push('/candidate/signin')
         setIsChecked(checked);
         setSwitcherText(checked ? "Switch to Candidate" : "Switch to Employer");
     }
 
     return (
-        <RedirectToHome>
             <div
                 className={`${pathname !== '/candidate/otp' && pathname !== '/employer/otp' ? 'h-full' : 'h-screen'} w-auto bg-slate-950 relative flex flex-col justify-between antialiased`}>
                 <div
@@ -67,8 +65,5 @@ export default function Double({children}) {
                 {copyRight}
                 <BackgroundBeams className='h-screen'/>
             </div>
-        </RedirectToHome>
-
-
     )
 }

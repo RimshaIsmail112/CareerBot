@@ -1,31 +1,33 @@
-// Candidate_Employer_Data.jsx
-
-
 'use client'
-import React, {createContext, useEffect, useState} from 'react';
+import React, {createContext, useState} from 'react';
 
 export const AppContext = createContext(null);
 function CandidateEmployerData({children}) {
-    const [candidateID, setCandidateID] = useState(null);
+    const [candidate, setCandidate] = useState({
+        id: "",
+        email: "",
+    });
+    const [employer, setEmployer] = useState({
+        id: "",
+        email: "",
+    });
     const [candidateData, setCandidateData] = useState({});
     const [employerData, setEmployerData] = useState({});
 
-    const getCandidateData = async () => {
-        const response = await fetch("/api/candidate");
-        const data = await response.json();
-        setCandidateData(data);
-    }
-
-    useEffect(() => {
-
-    }, []);
     return (
-        <AppContext.Provider value={{candidateData, setCandidateData, employerData, setEmployerData, candidateID,setCandidateID}}>
+        <AppContext.Provider value={{candidateData, setCandidateData, employer, setEmployer,candidate, setCandidate}}>
             {children}
         </AppContext.Provider>
     );
 
 }
-
 export default CandidateEmployerData;
+
+export function useAppContext() {
+    const context = React.useContext(AppContext);
+    if (!context) {
+        throw new Error('useAppContext must be used within an AppContext');
+    }
+    return context;
+}
 

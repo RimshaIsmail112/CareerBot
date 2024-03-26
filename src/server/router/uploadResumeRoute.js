@@ -39,11 +39,10 @@ router.post("/candidate/uploadResume", async (req, res) => {
     });
 
     await newResume.save();
-
-    res.json({ resumeUrl: result.secure_url });
+    return res.json({ resumeUrl: result.secure_url });
   } catch (error) {
     console.error("Error Uploading Resume:", error);
-    res.status(500).json({ error: "Resume Upload Failed" });
+    res.status(500).json({ message: "Resume Upload Failed" });
   }
 });
 

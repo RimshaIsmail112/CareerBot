@@ -18,12 +18,19 @@ import {useRouter} from "next/navigation";
 import {useForm} from "react-hook-form";
 import {Alert, AlertDescription, AlertTitle} from "@/components/ui/alert";
 import {TiWarning} from "react-icons/ti";
+import DynamicAlert from "@/components/ui/DynamicAlert";
+import {useAppContext} from "@/Context/Candidate_Employer_Data";
+import {ImSpinner2} from "react-icons/im";
 
 export default function EmployerSignUp() {
     const router = useRouter();
+    const {setEmployer} = useAppContext();
     const [showPassword, setShowPassword] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
     const [alertMessage, setAlertMessage] = useState("");
+    const [title, setTitle] = useState("");
+    const [isLoading, setIsLoading] = useState(null);
+
 
     const {
         register,
@@ -31,6 +38,7 @@ export default function EmployerSignUp() {
         formState: {errors},
     } = useForm()
     const onSubmit = (data) => {
+        setIsLoading("signup");
         fetch("http://localhost:3000/employer/signup", {
             method: "POST",
             headers: {
@@ -39,15 +47,19 @@ export default function EmployerSignUp() {
             body: JSON.stringify(data),
         })
             .then((res) => res.json())
-            .then((data) => {
+            .then(async (data) => {
                 if (data.error) {
                     setShowAlert(true);
                     setAlertMessage(data.error);
+                    setTitle("Error");
                     setTimeout(() => {
                         setShowAlert(false);
                     }, 4000);
+                    setIsLoading(null);
                 } else {
-                    router.push("/");
+                    setEmployer({id:data.id, email:data.email});
+                    await router.push("/employer/otp");
+                    setIsLoading(null);
                 }
             })
             .catch((error) => console.log(error));
@@ -59,15 +71,7 @@ export default function EmployerSignUp() {
     return (
         <>
             {showAlert && (
-                <Alert
-                    className={`absolute w-[90%] top-0 bg-slate-50 text-slate-950 transform translate-y-5 animate-in`}
-                >
-                    <TiWarning size={15}/>
-                    <AlertTitle className='font-bold'>Warning</AlertTitle>
-                    <AlertDescription>
-                        {alertMessage}
-                    </AlertDescription>
-                </Alert>
+               <DynamicAlert title={title} alertMessage={alertMessage} />
             )}
             <div
                 className="max-w-md w-full flex flex-col justify-center items-center mx-auto rounded-none md:rounded-2xl p-4">
@@ -75,7 +79,7 @@ export default function EmployerSignUp() {
                     Welcome to CareerSync
                 </h2>
                 <p className='text-sm text-slate-200 w-full italic'>
-                    "Today unlock seamless recruitment processes and find the perfect candidates."
+                    &quot;Today unlock seamless recruitment processes and find the perfect candidates.&quot;
                 </p>
                 <form className="my-8 w-full" onSubmit={handleSubmit(onSubmit)}>
                     <div className="flex justify-center flex-col sm:flex-row items-center gap-5  mb-4">
@@ -109,11 +113,21 @@ export default function EmployerSignUp() {
                                {...register("password")}/>
                     </LabelInputContainer>
                     <button
-                        className="bg-slate-50 text-[1rem] flex justify-center items-center gap-1 dark:bg-zinc-800 w-full text-slate-950 rounded-md h-10 font-medium transition-all duration-300 transform active:bg-slate-900 hover:bg-slate-950 hover:border-slate-50 hover:border-2 hover:text-slate-50"
+                        className="bg-slate-50 text-[1rem] flex justify-center items-center gap-1 dark:bg-zinc-800 w-full text-slate-950 rounded-md h-10 font-medium transition-all duration-300 transform disabled:bg-slate-700 disabled:text-slate-300 disabled:border-none active:bg-slate-900 hover:bg-slate-950 hover:border-slate-50 hover:border-2 hover:text-slate-50"
                         type="submit"
+                        disabled={isLoading === "signup"}
                     >
-                        Sign Up
-                        <PiSignInBold size={20}/>
+                        {isLoading === "signup" ? (
+                            <>
+                                <span>Please Wait</span>
+                                <ImSpinner2 size={20} className="animate-spin"/>
+                            </>
+                        ) : (
+                            <>
+                                <span>Sign Up</span>
+                                <PiSignInBold size={20}/>
+                            </>
+                        )}
                     </button>
                     <div className="flex flex-col sm:flex-row justify-center items-center mt-4 text-sm">
                         <span className="text-slate-400">Already have an account? </span>

@@ -13,6 +13,7 @@ cloudinary.config({
 router.use(fileUpload({ useTempFiles: true }));
 
 router.post("/candidate-profile", async (req, res) => {
+  console.log("Request body:", req.body);
   try {
     if (!req.files || !req.files.profilePicture) {
       return res.status(400).json({ error: "No profile picture uploaded" });
@@ -58,21 +59,21 @@ router.post("/candidate-profile", async (req, res) => {
     console.error("Saving error:", error);
     res
       .status(400)
-      .json({ message: "Error saving profile", error: error.message });
+      .json({ message: error.message });
   }
 });
 
-router.get("/candidate-profiles", async (req, res) => {
-  try {
-    const profiles = await CandidateProfile.find({});
-    res.status(200).json(profiles);
-  } catch (error) {
-    console.error("Fetching error:", error);
-    res
-      .status(500)
-      .json({ message: "Error fetching profiles", error: error.message });
-  }
-});
+// router.get("/candidate-profiles", async (req, res) => {
+//   try {
+//     const profiles = await CandidateProfile.find({});
+//     res.status(200).json(profiles);
+//   } catch (error) {
+//     console.error("Fetching error:", error);
+//     res
+//       .status(500)
+//       .json({ message: "Error fetching profiles", error: error.message });
+//   }
+// });
 
 router.get("/candidate-profile/:id", async (req, res) => {
   try {

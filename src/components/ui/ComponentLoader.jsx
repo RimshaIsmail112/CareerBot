@@ -1,6 +1,6 @@
 import React from 'react';
 
-function FullPageLoader() {
+function ComponentLoader() {
     return (
         <div className={`flex bg-slate-950 justify-center items-center w-auto h-screen`}>
             <div className="relative inline-flex">
@@ -12,4 +12,4 @@ function FullPageLoader() {
     );
 }
 
-export default FullPageLoader;
+export default ComponentLoader;

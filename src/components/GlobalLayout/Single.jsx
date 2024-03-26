@@ -5,8 +5,6 @@ import {Label} from "@/components/ui/label";
 import Image from 'next/image';
 import {useRouter, usePathname} from 'next/navigation'
 import {BackgroundBeams} from "@/components/ui/background-beams";
-import RedirectToHome from "@/components/redirectComponents/RedirectToHome";
-import FullPageLoader from "@/components/ui/FullPageLoader";
 
 export default function Single({children}) {
     const [heading, setHeading] = useState("")
@@ -16,14 +14,13 @@ export default function Single({children}) {
     const [loading, setLoading] = useState(true);
     const pathname = usePathname();
     const [isChecked, setIsChecked] = useState(pathname.includes("employer"));
-    const handleSwitcher = (checked) => {
-        checked ? router.push('/employer/signin') : router.push('/candidate/signin')
+    const handleSwitcher = async (checked) => {
+        checked ? await router.replace('/employer/signin') : await router.replace('/candidate/signin')
         setIsChecked(checked);
         setSwitcherText(checked ? "Switch to Candidate" : "Switch to Employer");
     }
 
     return (
-        <RedirectToHome>
             <div
                 className={`bg-slate-950 relative w-screen flex flex-col gap-14 sm:gap-11 md:gap-8 justify-between antialiased`}>
                 <div
@@ -49,7 +46,6 @@ export default function Single({children}) {
                 </div>
                 <BackgroundBeams className='h-auto'/>
             </div>
-        </RedirectToHome>
 
 
     )
