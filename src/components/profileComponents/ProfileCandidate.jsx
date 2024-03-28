@@ -178,6 +178,56 @@ function ProfileDetailsForm() {
         }));
     };
 
+    async function storeCompleteData() {
+        await fetch("http://localhost:3000/candidate-profile", {
+            method: "POST",
+            headers:{
+                accept: 'application/json',
+            },
+            body: formData,
+        }).then((response) => response.json())
+            .then((data) => {
+                if (data.error) {
+                    setShowAlert(true);
+                    setTitle("Error");
+                    setAlertMessage(data.error);
+                    setIsLoading(false);
+                    setTimeout(() => {
+                        setShowAlert(false);
+                    }, 7000);
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                } else {
+                    setShowAlert(true);
+                    setTitle("Success");
+                    setAlertMessage(data.message);
+                    setIsLoading(false);
+                    setTimeout(() => {
+                        setShowAlert(false);
+                    }, 4000);
+                    setFormData({
+                        fullName: "",
+                        email: "",
+                        preferredJobLocation: "",
+                        phone: "",
+                        skills: [],
+                        currentSkill: "",
+                        workExperiences: [],
+                        education: [],
+                        profilePicture: null,
+                    });
+                }
+            })
+            .catch((error) => {
+                setShowAlert(true);
+                setTitle("Error");
+                setAlertMessage(error.message);
+                setIsLoading(false);
+                setTimeout(() => {
+                    setShowAlert(false);
+                }, 7000);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+    }
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -199,55 +249,14 @@ function ProfileDetailsForm() {
             return null;
         }
         try {
-            // const dataToSend = new FormData();
-            // dataToSend.append("profilePicture", formData.profilePicture);
-            // dataToSend.append("fullName", formData.fullName);
-            // dataToSend.append("email", formData.email);
-            // dataToSend.append("preferredJobLocation", formData.preferredJobLocation);
-            // dataToSend.append("phone", formData.phone);
-            // dataToSend.append("skills", JSON.stringify(formData.skills));
-            // dataToSend.append("workExperiences", JSON.stringify(formData.workExperiences));
-            // dataToSend.append("education", JSON.stringify(formData.education));
-
-
-            console.log("Form Data Abubakar:", formData);
-            await fetch("http://localhost:3000/candidate-profile", {
+            await fetch("https://api.cloudinary.com/v1_1/dy5yzo1ji/upload", {
                 method: "POST",
-                headers:{
-                    accept: 'application/json',
-                },
-                body: formData,
-            }).then((response) => response.json())
-                .then((data) => {
-                    if (data.error) {
-                        setShowAlert(true);
-                        setTitle("Error");
-                        setAlertMessage(data.error);
-                        setIsLoading(false);
-                        setTimeout(() => {
-                            setShowAlert(false);
-                        }, 7000);
-                        window.scrollTo({ top: 0, behavior: 'smooth' });
-                    } else {
-                        setShowAlert(true);
-                        setTitle("Success");
-                        setAlertMessage(data.message);
-                        setIsLoading(false);
-                        setTimeout(() => {
-                            setShowAlert(false);
-                        }, 4000);
-                        setFormData({
-                            fullName: "",
-                            email: "",
-                            preferredJobLocation: "",
-                            phone: "",
-                            skills: [],
-                            currentSkill: "",
-                            workExperiences: [],
-                            education: [],
-                            profilePicture: null,
-                        });
-                    }
+                body: formData.profilePicture,
+            })
+                .then((response) => response.json())
+                .then(async (data) => {
+                    formData.profilePicture = data.secure_url;
+                    await storeCompleteData();
                 })
                 .catch((error) => {
                     setShowAlert(true);
@@ -257,7 +266,7 @@ function ProfileDetailsForm() {
                     setTimeout(() => {
                         setShowAlert(false);
                     }, 7000);
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    window.scrollTo({top: 0, behavior: 'smooth'});
                 });
         } catch (error) {
             setShowAlert(true);
@@ -270,7 +279,6 @@ function ProfileDetailsForm() {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     };
-
 
     return (
         <>

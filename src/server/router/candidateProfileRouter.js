@@ -1,29 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const cloudinary = require("cloudinary").v2;
 const CandidateProfile = require("../models/candidateProfile");
-const fileUpload = require("express-fileupload");
 
-cloudinary.config({
-  cloud_name: process.env.CLOUD_NAME,
-  api_key: process.env.API_KEY,
-  api_secret: process.env.API_SECRET,
-});
-
-router.use(fileUpload({ useTempFiles: true }));
 
 router.post("/candidate-profile", async (req, res) => {
-  console.log("Request body:", req.body);
   try {
-    if (!req.files || !req.files.profilePicture) {
-      return res.status(400).json({ error: "No profile picture uploaded" });
-    }
-
-    const profilePicture = req.files.profilePicture;
-    const result = await cloudinary.uploader.upload(
-      profilePicture.tempFilePath
-    );
-
     const {
       fullName,
       email,
@@ -32,6 +13,7 @@ router.post("/candidate-profile", async (req, res) => {
       skills,
       workExperiences,
       education,
+      profilePicture,
     } = req.body;
 
     const profileData = {
@@ -42,7 +24,7 @@ router.post("/candidate-profile", async (req, res) => {
       skills,
       workExperiences,
       education,
-      profilePictureUrl: result.secure_url,
+      profilePictureUrl: profilePicture,
     };
 
     Object.keys(profileData).forEach(
@@ -59,21 +41,10 @@ router.post("/candidate-profile", async (req, res) => {
     console.error("Saving error:", error);
     res
       .status(400)
-      .json({ message: error.message });
+      .json({ error: error.message });
   }
 });
 
-// router.get("/candidate-profiles", async (req, res) => {
-//   try {
-//     const profiles = await CandidateProfile.find({});
-//     res.status(200).json(profiles);
-//   } catch (error) {
-//     console.error("Fetching error:", error);
-//     res
-//       .status(500)
-//       .json({ message: "Error fetching profiles", error: error.message });
-//   }
-// });
 
 router.get("/candidate-profile/:id", async (req, res) => {
   try {
