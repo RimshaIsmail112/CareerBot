@@ -14,6 +14,7 @@ import DynamicAlert from "@/components/ui/DynamicAlert";
 
 function ResumeUploader() {
     const [selectedFile, setSelectedFile] = useState(null);
+    const [resumeUrl, setResumeUrl] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
@@ -97,65 +98,94 @@ function ResumeUploader() {
         })
 
     }
-    const handleFileSubmission = async (e) => {
-        e.preventDefault();
 
-        const formData = new FormData();
-        formData.append('userId', candidate.id);
-        formData.append('resume', selectedFile);
-
-        setIsLoading(true);
-        if (!selectedFile) {
-            setShowAlert(true)
-            setTitle("Error")
-            setAlertMessage('Please select a file first.');
-            setTimeout(() => {
-                setShowAlert(false);
-                return null;
-            }, 4000);
-        }
-        try {
-            await fetch('http://localhost:3000/candidate/uploadResume', {
-                method: 'POST',
-                body: formData,
-            }).then(response => response.json())
-                .then(async data => {
-                    if (data.error) {
-                        setShowAlert(true)
-                        setTitle("Error")
-                        setAlertMessage(data.error);
-                        setIsLoading(false);
-                        setTimeout(() => {
-                            setShowAlert(false);
-                        }, 4000);
-                    } else {
-                        setErrorMessage('');
-                        await ATSscanner();
-                        await router.push("/candidate/profile");
-                        setSelectedFile(null);
-                        setIsLoading(false);
-                    }
-                })
-                .catch(error => {
-                    setShowAlert(true)
-                    setTitle("Error")
-                    setAlertMessage(error.error);
+    async function storeCompleteData(candidateId, size, contentType, protectedUrl) {
+        await fetch("http://localhost:3000/candidate/uploadResume", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({userId: candidateId, size, contentType, protectedUrl}),
+        }).then((response) => response.json())
+            .then((data) => {
+                if (data.error) {
+                    setShowAlert(true);
+                    setTitle("Error");
+                    setAlertMessage(data.error);
+                    setIsLoading(false);
+                    setTimeout(() => {
+                        setShowAlert(false);
+                    }, 7000);
+                } else {
+                    setShowAlert(true);
+                    setTitle("Success");
+                    setAlertMessage(data.message);
                     setIsLoading(false);
                     setTimeout(() => {
                         setShowAlert(false);
                     }, 4000);
-                });
-        } catch (error) {
-            setShowAlert(true)
-            setTitle("Error")
-            setAlertMessage(error.error);
+                }
+            })
+            .catch((error) => {
+                setShowAlert(true);
+                setTitle("Error");
+                setAlertMessage(error.message);
+                setIsLoading(false);
+                setTimeout(() => {
+                    setShowAlert(false);
+                }, 7000);
+            });
+    }
+    const handleFileSubmission = async (e) => {
+        e.preventDefault();
+        setIsLoading(true);
+        if (!selectedFile) {
+            setShowAlert(true);
+            setAlertMessage("Please Select a File First!");
+            setTitle("Warning");
             setIsLoading(false);
             setTimeout(() => {
                 setShowAlert(false);
-            }, 4000);
+            }, 7000);
+            return null;
+        }
+        try {
+            let resume = new FormData();
+            resume.append("file", selectedFile);
+            resume.append("upload_preset", "careersync");
+            resume.append("cloud_name", "dy5yzo1ji");
+            await fetch("https://api.cloudinary.com/v1_1/dy5yzo1ji/upload", {
+                method: "POST",
+                body: resume
+            })
+                .then((response) => response.json())
+                .then(async (data) => {
+                    setErrorMessage('');
+                    await storeCompleteData(candidate.id, data.bytes, data.format, data.secure_url);
+                    await ATSscanner();
+                    await router.push("/candidate/profile");
+                    setSelectedFile(null);
+                    setIsLoading(false);
+                })
+                .catch((error) => {
+                    setShowAlert(true);
+                    setTitle("Error");
+                    setAlertMessage(error.message);
+                    setIsLoading(false);
+                    setTimeout(() => {
+                        setShowAlert(false);
+                    }, 7000);
+                });
+        } catch (error) {
+            setShowAlert(true);
+            setTitle("Error");
+            setAlertMessage(error.message);
+            setIsLoading(false);
+            setTimeout(() => {
+                setShowAlert(false);
+            }, 7000);
         }
     };
-
     return (<BackgroundGradient
         className="rounded-3xl flex justify-center items-center p-4 h-full w-[80vw] md:w-[40vw] lg:w-[30vw] bg-slate-950">
         {showAlert && <DynamicAlert title={title} alertMessage={alertMessage}/> }
