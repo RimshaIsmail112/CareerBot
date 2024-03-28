@@ -58,11 +58,24 @@ export default function EmployerSignUp() {
                     setIsLoading(null);
                 } else {
                     setEmployer({id:data.id, email:data.email});
+                    setShowAlert(true);
+                    setTitle("Success");
+                    setAlertMessage(data.message);
+                    setTimeout(() => {
+                        setShowAlert(false);
+                    }, 4000);
                     await router.push("/employer/otp");
                     setIsLoading(null);
                 }
             })
-            .catch((error) => console.log(error));
+            .catch((error) => {
+                setShowAlert(true);
+                setTitle("Error");
+                setAlertMessage(error.error);
+                setTimeout(() => {
+                    setShowAlert(false);
+                }, 4000);
+            });
 
     }
     const toggleShowPassword = () => {

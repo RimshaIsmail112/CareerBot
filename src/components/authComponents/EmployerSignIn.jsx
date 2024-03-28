@@ -15,6 +15,7 @@ import {Alert, AlertDescription, AlertTitle} from "@/components/ui/alert";
 import {TiWarning} from "react-icons/ti";
 import {AppContext, useAppContext} from "@/Context/Candidate_Employer_Data";
 import {ImSpinner2} from "react-icons/im";
+import DynamicAlert from "@/components/ui/DynamicAlert";
 
 export default function EmployerSignIn() {
     const router = useRouter();
@@ -22,6 +23,7 @@ export default function EmployerSignIn() {
     const [showPassword, setShowPassword] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
     const [alertMessage, setAlertMessage] = useState("");
+    const [title, setTitle] = useState("");
     const [isLoading, setIsLoading] = useState(null);
 
     const {
@@ -43,18 +45,32 @@ export default function EmployerSignIn() {
             .then(async(data) => {
                 if (data.error) {
                     setShowAlert(true);
-                    setAlertMessage(data.error);
+                    setTitle("Error");
+                    setAlertMessage(data.message);
                     setTimeout(() => {
                         setShowAlert(false);
                     }, 4000);
                     setIsLoading(null);
                 } else {
                     setEmployer({id:data.id, email:data.email});
+                    setShowAlert(true);
+                    setTitle("Success");
+                    setAlertMessage(data.message);
+                    setTimeout(() => {
+                        setShowAlert(false);
+                    }, 4000);
                     await router.push("/");
                     setIsLoading(null);
                 }
             })
-            .catch((error) => console.log(error));
+            .catch((error) => {
+                setShowAlert(true);
+                setTitle("Error");
+                setAlertMessage(error.error);
+                setTimeout(() => {
+                    setShowAlert(false);
+                }, 4000);
+            });
     }
 
     const toggleShowPassword = () => {
@@ -64,15 +80,7 @@ export default function EmployerSignIn() {
     return (
         <>
             {showAlert && (
-                <Alert
-                    className={`absolute w-[90%] top-0 bg-slate-50 text-slate-950 transform translate-y-5 animate-in`}
-                >
-                    <TiWarning size={15}/>
-                    <AlertTitle className='font-bold'>Warning</AlertTitle>
-                    <AlertDescription>
-                        {alertMessage}
-                    </AlertDescription>
-                </Alert>
+                <DynamicAlert title={title} alertMessage={alertMessage} />
             )}
             <div
                 className="max-w-md w-full flex flex-col justify-center items-center mx-auto rounded-none md:rounded-2xl p-4">
@@ -100,7 +108,7 @@ export default function EmployerSignIn() {
                                {...register("password")}/>
                     </LabelInputContainer>
                     <div className="flex justify-end items-center mb-4">
-                        <Link href="#" className="text-slate-300 text-sm hover:underline">Forgot Password?</Link>
+                        <Link href="/employer/forgot-password" className="text-slate-300 text-sm hover:underline">Forgot Password?</Link>
                     </div>
                     <button
                         className="bg-slate-50 text-[1rem] flex justify-center items-center gap-1 dark:bg-zinc-800 w-full text-slate-950 rounded-md h-10 font-medium transition-all duration-300 transform disabled:bg-slate-700 disabled:text-slate-300 disabled:border-none active:bg-slate-900 hover:bg-slate-950 hover:border-slate-50 hover:border-2 hover:text-slate-50"

@@ -770,7 +770,7 @@ router.post("/employer/requestPasswordReset", (req, res) => {
                 if (!data[0].verified) {
                     res.json({
                         status: "FAILED",
-                        message: "Email Hasn't Been Verified Yet. Check Your Inbox",
+                        error: "Email Hasn't Been Verified Yet. Check Your Inbox",
                     });
                 } else {
                     employerSendResetEmail(data[0], redirectUrl, res);
@@ -780,7 +780,7 @@ router.post("/employer/requestPasswordReset", (req, res) => {
         .catch((error) => {
             res.json({
                 status: "FAILED",
-                message: "No Account With The Supplied Email Exists!",
+                error: "No Account With The Supplied Email Exists!",
             });
         });
 });
@@ -939,21 +939,21 @@ const candidateSendResetEmail = ({_id, email}, redirectUrl, res) => {
                                 .catch((error) => {
                                     return res.json({
                                         status: "FAILED",
-                                        message: "Password Reset Email Failed",
+                                        error: "Password Reset Email Failed",
                                     });
                                 });
                         })
                         .catch((error) => {
                             return res.json({
                                 status: "FAILED",
-                                message: "Could Not Save Password Reset Data!",
+                                error: "Could Not Save Password Reset Data!",
                             });
                         });
                 })
                 .catch((error) => {
                     return res.json({
                         status: "FAILED",
-                        message: "An Error Occurred While Hashing The Password Reset Data!",
+                        error: "An Error Occurred While Hashing The Password Reset Data!",
                     });
                 });
         })
@@ -987,7 +987,7 @@ const employerSendResetEmail = ({_id, email}, redirectUrl, res) => {
       <p style="color: #34495e; font-size: 16px;">Please Click The Button Below To Reset Your Password. This Link Will Expire In One Minute.</p>
     </div>
     <div style="text-align: center; margin-top: 20px;">
-      <a href="${redirectUrl}/${_id}/${resetString}" style="background-color: #3498db; color: #ffffff; padding: 12px 24px; border-radius: 5px; text-decoration: none; font-size: 16px; text-transform: uppercase;">Reset Your Password</a>
+      <a href="${redirectUrl}?userId=${_id}&uuid=${resetString}" style="background-color: #3498db; color: #ffffff; padding: 12px 24px; border-radius: 5px; text-decoration: none; font-size: 16px; text-transform: uppercase;">Reset Your Password</a>
     </div>
     <div style="text-align: center; margin-top: 20px; font-size: 14px; color: #7f8c8d;">
       <p style="color: #7f8c8d;">Sent By CareerSync</p>

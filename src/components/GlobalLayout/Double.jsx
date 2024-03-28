@@ -10,11 +10,11 @@ import FullPageLoader from "@/components/ui/FullPageLoader";
 export default function Double({children}) {
     const [heading, setHeading] = useState("")
     const [description, setDescription] = useState("")
-    const [switcherText, setSwitcherText] = useState("Switch to Employer")
     const router = useRouter();
     const [loading, setLoading] = useState(true);
     const pathname = usePathname();
     const [isChecked, setIsChecked] = useState(pathname.includes("employer"));
+    const [switcherText, setSwitcherText] = useState(pathname.includes("employer") ? "Switch to Candidate" : "Switch to Employer");
     const child = <div
         className={`w-auto md:w-[50vw] ${pathname !== '/candidate/otp' && pathname !== '/employer/otp' ? 'mt-12' : 'mt-0'}  md:mt-0 md:mb-16 h-auto flex justify-center items-center`}>{children}</div>
     const copyRight = <div

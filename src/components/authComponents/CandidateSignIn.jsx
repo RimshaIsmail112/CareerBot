@@ -16,6 +16,7 @@ import {TiWarning} from "react-icons/ti";
 import {signIn, useSession} from "next-auth/react";
 import {AppContext, useAppContext} from "@/Context/Candidate_Employer_Data";
 import {ImSpinner2} from "react-icons/im";
+import DynamicAlert from "@/components/ui/DynamicAlert";
 
 
 export default function CandidateSignIn() {
@@ -24,6 +25,7 @@ export default function CandidateSignIn() {
     const [showPassword, setShowPassword] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
     const [alertMessage, setAlertMessage] = useState("");
+    const {title, setTitle} = useState("");
     const [isLoading, setIsLoading] = useState(null);
     const {
         register,
@@ -43,6 +45,7 @@ export default function CandidateSignIn() {
             .then( async (data) => {
                 if (data.error) {
                     setShowAlert(true);
+                    setTitle("Error");
                     setAlertMessage(data.error);
                     setTimeout(() => {
                         setShowAlert(false);
@@ -50,6 +53,12 @@ export default function CandidateSignIn() {
                     setIsLoading(null);
                 } else {
                     setCandidate({id:data.id, email:data.email});
+                    setShowAlert(true);
+                    setTitle("Success");
+                    setAlertMessage(data.message);
+                    setTimeout(() => {
+                        setShowAlert(false);
+                    }, 4000);
                     await router.push("/candidate/resume");
                     setIsLoading(null);
                 }
@@ -64,15 +73,7 @@ export default function CandidateSignIn() {
     return (
         <>
             {showAlert && (
-                <Alert
-                    className={`absolute w-[90%] top-0 bg-slate-50 text-slate-950 transform translate-y-5 animate-in`}
-                >
-                    <TiWarning size={15}/>
-                    <AlertTitle className='font-bold'>Warning</AlertTitle>
-                    <AlertDescription>
-                        {alertMessage}
-                    </AlertDescription>
-                </Alert>
+                <DynamicAlert title={title} alertMessage={alertMessage} />
             )}
             <div
                 className="max-w-md w-full flex flex-col justify-center items-center mx-auto rounded-none md:rounded-2xl p-4">

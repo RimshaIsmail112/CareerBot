@@ -131,15 +131,15 @@ function ResumeUploader() {
                     } else {
                         setErrorMessage('');
                         await ATSscanner();
+                        await router.push("/candidate/profile");
                         setSelectedFile(null);
                         setIsLoading(false);
-                        await router.push("/candidate/profile");
                     }
                 })
                 .catch(error => {
                     setShowAlert(true)
                     setTitle("Error")
-                    setAlertMessage(error.message);
+                    setAlertMessage(error.error);
                     setIsLoading(false);
                     setTimeout(() => {
                         setShowAlert(false);
@@ -148,7 +148,7 @@ function ResumeUploader() {
         } catch (error) {
             setShowAlert(true)
             setTitle("Error")
-            setAlertMessage(error.message);
+            setAlertMessage(error.error);
             setIsLoading(false);
             setTimeout(() => {
                 setShowAlert(false);

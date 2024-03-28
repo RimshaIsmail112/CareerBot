@@ -9,11 +9,12 @@ import {BackgroundBeams} from "@/components/ui/background-beams";
 export default function Single({children}) {
     const [heading, setHeading] = useState("")
     const [description, setDescription] = useState("")
-    const [switcherText, setSwitcherText] = useState("Switch to Employer")
     const router = useRouter();
     const [loading, setLoading] = useState(true);
     const pathname = usePathname();
     const [isChecked, setIsChecked] = useState(pathname.includes("employer"));
+    const [switcherText, setSwitcherText] = useState(pathname.includes("employer") ? "Switch to Candidate" : "Switch to Employer");
+
     const handleSwitcher = async (checked) => {
         checked ? await router.replace('/employer/signin') : await router.replace('/candidate/signin')
         setIsChecked(checked);

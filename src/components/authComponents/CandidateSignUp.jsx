@@ -16,6 +16,7 @@ import {useRouter} from "next/navigation";
 import {signIn} from "next-auth/react";
 import {ImSpinner2} from "react-icons/im";
 import {useAppContext} from "@/Context/Candidate_Employer_Data";
+import DynamicAlert from "@/components/ui/DynamicAlert";
 
 
 export default function CandidateSignUp() {
@@ -24,6 +25,7 @@ export default function CandidateSignUp() {
     const [showPassword, setShowPassword] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
     const [alertMessage, setAlertMessage] = useState("");
+    const [title, setTitle] = useState("");
     const [isLoading, setIsLoading] = useState(null);
 
     const {
@@ -46,17 +48,32 @@ export default function CandidateSignUp() {
                 if (data.error) {
                     setShowAlert(true);
                     setAlertMessage(data.error);
+                    setTitle("Error");
                     setTimeout(() => {
                         setShowAlert(false);
                     }, 4000);
                     setIsLoading(null);
                 } else {
                     setCandidate({id:data.id, email:data.email});
+                    setShowAlert(true);
+                    setTitle("Success");
+                    setAlertMessage(data.message);
+                    setTimeout(() => {
+                        setShowAlert(false);
+                    }, 4000);
                     await router.push("/candidate/otp");
                     setIsLoading(null);
                 }
             })
-            .catch((error) => console.log(error));
+            .catch((error) => {
+                setCandidate({id:data.id, email:data.email});
+                setShowAlert(true);
+                setTitle("Error");
+                setAlertMessage(error.error);
+                setTimeout(() => {
+                    setShowAlert(false);
+                }, 4000);
+            });
 
     }
     const toggleShowPassword = () => {
@@ -65,15 +82,7 @@ export default function CandidateSignUp() {
     return (
         <>
             {showAlert && (
-                <Alert
-                    className={`absolute w-[90%] top-0 bg-slate-50 text-slate-950 transform translate-y-5 animate-in`}
-                >
-                    <TiWarning size={15}/>
-                    <AlertTitle className='font-bold'>Warning</AlertTitle>
-                    <AlertDescription>
-                        {alertMessage}
-                    </AlertDescription>
-                </Alert>
+                <DynamicAlert title={title} alertMessage={alertMessage} />
             )}
             <div
                 className="max-w-md w-full flex flex-col justify-center items-center mx-auto rounded-none md:rounded-2xl p-4">
