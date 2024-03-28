@@ -39,7 +39,6 @@ import {Alert, AlertDescription, AlertTitle} from "@/components/ui/alert";
 import {TiWarning} from "react-icons/ti";
 import {AppContext, useAppContext} from "@/Context/Candidate_Employer_Data";
 import DynamicAlert from "@/components/ui/DynamicAlert";
-import {router} from "next/client";
 import {useRouter} from "next/navigation";
 import {ImSpinner2} from "react-icons/im";
 import {PiSignInBold} from "react-icons/pi";
