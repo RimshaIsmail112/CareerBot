@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const employerProfileSchema = new mongoose.Schema({
   companyName: { type: String, required: true },
   industry: String,
+  profession: String,
   address: String,
   contact: String,
   companyDescription: String,

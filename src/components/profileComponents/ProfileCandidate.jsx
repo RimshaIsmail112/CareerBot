@@ -69,6 +69,7 @@ function ProfileDetailsForm() {
         email: candidateData.email ?? '',
         preferredJobLocation: candidateData.preferredJobLocation ?? '',
         phone: candidateData.phone ?? [],
+       profession:'',
         skills: candidateData.skills ?? [],
         currentSkill: "",
         workExperiences: candidateData.workExperiences ?? [],
@@ -185,6 +186,7 @@ function ProfileDetailsForm() {
             !formData.email ||
             !formData.preferredJobLocation ||
             !formData.phone ||
+            !formData.profession ||
             !formData.skills ||
             !formData.workExperiences ||
             !formData.education ||
@@ -241,6 +243,7 @@ function ProfileDetailsForm() {
                             email: "",
                             preferredJobLocation: "",
                             phone: "",
+                            profession: "",
                             skills: [],
                             currentSkill: "",
                             workExperiences: [],
@@ -349,7 +352,21 @@ function ProfileDetailsForm() {
                             className="text-slate-50 bg-slate-900 placeholder:text-slate-400"
                         />
                     </LabelInputContainer>
-
+                    <LabelInputContainer className="mb-4">
+            <Label htmlFor="profession" className="text-slate-50">
+                Profession
+            </Label>
+            <Input
+                id="profession"
+                onChange={handleChange}
+                value={formData.profession}
+                name="profession"
+                placeholder="Full Stack Developer"
+                type="text"
+                className="text-slate-50 bg-slate-900 placeholder:text-slate-400"
+            />
+        </LabelInputContainer>
+  
                     <LabelInputContainer className="mb-4">
                         <Label htmlFor="preferredJobLocation" className="text-slate-50">
                             Preferred Job Location

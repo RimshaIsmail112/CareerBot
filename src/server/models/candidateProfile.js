@@ -11,6 +11,7 @@ const candidateProfileSchema = new mongoose.Schema({
   },
   email: String,
   phone: String,
+  email: String,
   preferredJobLocation: String,
   skills: [String],
   workExperiences: [

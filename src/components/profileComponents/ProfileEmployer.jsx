@@ -21,6 +21,7 @@ function EmployerDetailsForm() {
         industry: '',
         address: '',
         contact: '',
+        profession: '', 
         companyDescription: '',
         websiteURL: '',
         facebookURL: '',
@@ -55,7 +56,7 @@ function EmployerDetailsForm() {
     };
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (!formData.companyName || !formData.industry || !formData.address || !formData.contact || !formData.companyDescription || !formData.websiteURL || !formData.facebookURL || !formData.instagramURL || !formData.twitterURL) {
+        if (!formData.companyName || !formData.industry || !formData.address || !formData.contact || !formData.profession || !formData.companyDescription || !formData.websiteURL || !formData.facebookURL || !formData.instagramURL || !formData.twitterURL) {
             setShowAlert(true)
             setAlertMessage("All fields are required!")
             setTitle("Warning")
@@ -98,6 +99,7 @@ function EmployerDetailsForm() {
                             industry: '',
                             address: '',
                             contact: '',
+                            profession: '',
                             companyDescription: '',
                             websiteURL: '',
                             facebookURL: '',
@@ -184,7 +186,22 @@ function EmployerDetailsForm() {
                                placeholder="+923001234567"
                                type="text" className='text-slate-50 bg-slate-900 placeholder:text-slate-400'/>
                     </LabelInputContainer>
+                   {/* Profession Input */}
 
+                    <LabelInputContainer className="mb-4">
+
+                <Label htmlFor="profession" className='text-slate-50'>Designation / Profession</Label>
+                <Input
+                    id="profession"
+                    Icon={<MdOutlineAlternateEmail size={20}/>}
+                    type="text"
+                    name="profession"
+                    value={formData.profession}
+                    onChange={handleChange}
+                    placeholder="Busniess Development"
+                    className='text-slate-50 bg-slate-900 placeholder:text-slate-400'
+                />
+            </LabelInputContainer>
                     {/* Company Description Input */}
                     <LabelInputContainer className="mb-4">
                         <Label htmlFor="companyDescription" className='text-slate-50'>Company
