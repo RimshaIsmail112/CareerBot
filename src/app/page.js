@@ -4,9 +4,5 @@ import HomeDash from "@/components/dashboardComponents/HomeDash";
 
 export default function Home() {
 
-  return (
-      <RedirectToLogin>
-            <HomeDash/>
-      </RedirectToLogin>
-  );
+  return <HomeDash/>
 }

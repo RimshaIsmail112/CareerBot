@@ -13,6 +13,8 @@ import {IoIosCloseCircle} from "react-icons/io";
 import {ReloadIcon} from "@radix-ui/react-icons";
 import {AppContext, useAppContext} from "@/Context/Candidate_Employer_Data";
 import DynamicAlert from "@/components/ui/DynamicAlert";
+import {useRouter} from "next/navigation";
+import {ImSpinner2} from "react-icons/im";
 
 function Modal({onClose, onSave, type, children}) {
     const [entry, setEntry] = useState({
@@ -63,12 +65,14 @@ function ProfileDetailsForm() {
     const [showAlert, setShowAlert] = useState(false);
     const [alertMessage, setAlertMessage] = useState("");
     const [title, setTitle] = useState("");
+    const router = useRouter();
 
     const [formData, setFormData] = useState({
         fullName: candidateData.fullName ?? '',
         email: candidateData.email ?? '',
         preferredJobLocation: candidateData.preferredJobLocation ?? '',
         phone: candidateData.phone ?? [],
+        profession:'',
         skills: candidateData.skills ?? [],
         currentSkill: "",
         workExperiences: candidateData.workExperiences ?? [],
@@ -178,13 +182,13 @@ function ProfileDetailsForm() {
         }));
     };
 
-    async function storeCompleteData() {
+    async function storeCompleteData(formData) {
         await fetch("http://localhost:3000/candidate-profile", {
             method: "POST",
-            headers:{
-                accept: 'application/json',
+            headers: {
+                "Content-Type": "application/json",
             },
-            body: formData,
+            body: JSON.stringify(formData)
         }).then((response) => response.json())
             .then((data) => {
                 if (data.error) {
@@ -210,11 +214,13 @@ function ProfileDetailsForm() {
                         preferredJobLocation: "",
                         phone: "",
                         skills: [],
+                        profession: "",
                         currentSkill: "",
                         workExperiences: [],
                         education: [],
                         profilePicture: null,
                     });
+                    window.scrollTo({top: 0, behavior: 'smooth'});
                 }
             })
             .catch((error) => {
@@ -230,11 +236,12 @@ function ProfileDetailsForm() {
     }
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+        setIsLoading(true);
         if (!formData.fullName ||
             !formData.email ||
             !formData.preferredJobLocation ||
             !formData.phone ||
+            !formData.profession ||
             !formData.skills ||
             !formData.workExperiences ||
             !formData.education ||
@@ -246,17 +253,23 @@ function ProfileDetailsForm() {
             setTimeout(() => {
                 setShowAlert(false);
             }, 7000);
+            window.scrollTo({top: 0, behavior: 'smooth'});
             return null;
         }
         try {
+            let imageData = new FormData();
+            imageData.append("file", formData.profilePicture);
+            imageData.append("upload_preset", "careersync");
+            imageData.append("cloud_name", "dy5yzo1ji");
             await fetch("https://api.cloudinary.com/v1_1/dy5yzo1ji/upload", {
                 method: "POST",
-                body: formData.profilePicture,
+                body: imageData
             })
                 .then((response) => response.json())
                 .then(async (data) => {
                     formData.profilePicture = data.secure_url;
-                    await storeCompleteData();
+                    await storeCompleteData(formData);
+                    await router.push("/");
                 })
                 .catch((error) => {
                     setShowAlert(true);
@@ -357,7 +370,21 @@ function ProfileDetailsForm() {
                             className="text-slate-50 bg-slate-900 placeholder:text-slate-400"
                         />
                     </LabelInputContainer>
-
+                    <LabelInputContainer className="mb-4">
+            <Label htmlFor="profession" className="text-slate-50">
+                Profession
+            </Label>
+            <Input
+                id="profession"
+                onChange={handleChange}
+                value={formData.profession}
+                name="profession"
+                placeholder="Full Stack Developer"
+                type="text"
+                className="text-slate-50 bg-slate-900 placeholder:text-slate-400"
+            />
+        </LabelInputContainer>
+  
                     <LabelInputContainer className="mb-4">
                         <Label htmlFor="preferredJobLocation" className="text-slate-50">
                             Preferred Job Location
@@ -480,8 +507,8 @@ function ProfileDetailsForm() {
                         disabled={isLoading}
                     >
                         {isLoading ? (
-                            <div className="flex gap-1 justify-center items-center">
-                                <ReloadIcon className="mr-2 h-4 w-4 animate-spin"/>
+                            <div className="flex justify-center items-center">
+                                <ImSpinner2 size={20} className="animate-spin mr-2"/>
                                 Please wait
                             </div>
                         ) : (

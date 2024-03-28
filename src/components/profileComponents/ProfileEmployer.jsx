@@ -2,7 +2,7 @@
 import React, {useState} from 'react';
 
 import {MdInsertLink, MdOutlineAlternateEmail} from 'react-icons/md';
-import {ImFacebook2} from "react-icons/im";
+import {ImFacebook2, ImSpinner2} from "react-icons/im";
 import {FaXTwitter} from "react-icons/fa6";
 import {FaInstagramSquare} from "react-icons/fa";
 import {cn} from "@/lib/utils";
@@ -14,13 +14,16 @@ import {Textarea} from "@/components/ui/textarea";
 import {PiSignInBold} from "react-icons/pi";
 import {ReloadIcon} from "@radix-ui/react-icons";
 import DynamicAlert from "@/components/ui/DynamicAlert";
+import {useRouter} from "next/navigation";
 
 function EmployerDetailsForm() {
     const [formData, setFormData] = useState({
+        profilePicture: null,
         companyName: '',
         industry: '',
         address: '',
         contact: '',
+        profession: '',
         companyDescription: '',
         websiteURL: '',
         facebookURL: '',
@@ -31,6 +34,8 @@ function EmployerDetailsForm() {
     const [showAlert, setShowAlert] = useState(false);
     const [alertMessage, setAlertMessage] = useState("");
     const [title, setTitle] = useState("");
+    const router = useRouter();
+
 
     const handleChange = (e) => {
         const {name, value} = e.target;
@@ -53,9 +58,65 @@ function EmployerDetailsForm() {
             reader.readAsDataURL(file);
         }
     };
+
+    async function storeCompleteData(formData) {
+        await fetch("http://localhost:3000/employer-profile", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData)
+        }).then((response) => response.json())
+            .then((data) => {
+                if (data.error) {
+                    setShowAlert(true);
+                    setTitle("Error");
+                    setAlertMessage(data.error);
+                    setIsLoading(false);
+                    setTimeout(() => {
+                        setShowAlert(false);
+                    }, 7000);
+                    window.scrollTo({top: 0, behavior: 'smooth'});
+                } else {
+                    setShowAlert(true);
+                    setTitle("Success");
+                    setAlertMessage(data.message);
+                    setIsLoading(false);
+                    setTimeout(() => {
+                        setShowAlert(false);
+                    }, 4000);
+                    setFormData({
+                        companyName: '',
+                        industry: '',
+                        address: '',
+                        contact: '',
+                        profession: '',
+                        companyDescription: '',
+                        websiteURL: '',
+                        facebookURL: '',
+                        instagramURL: '',
+                        twitterURL: '',
+                        profilePicture: null
+                    });
+                    window.scrollTo({top: 0, behavior: 'smooth'});
+                }
+            })
+            .catch((error) => {
+                setShowAlert(true);
+                setTitle("Error");
+                setAlertMessage(error.message);
+                setIsLoading(false);
+                setTimeout(() => {
+                    setShowAlert(false);
+                }, 7000);
+                window.scrollTo({top: 0, behavior: 'smooth'});
+            });
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (!formData.companyName || !formData.industry || !formData.address || !formData.contact || !formData.companyDescription || !formData.websiteURL || !formData.facebookURL || !formData.instagramURL || !formData.twitterURL) {
+        setIsLoading(true);
+        if  (!formData.profilePicture || !formData.companyName || !formData.industry || !formData.address || !formData.contact || !formData.profession || !formData.companyDescription || !formData.websiteURL || !formData.facebookURL || !formData.instagramURL || !formData.twitterURL) {
             setShowAlert(true)
             setAlertMessage("All fields are required!")
             setTitle("Warning")
@@ -64,66 +125,43 @@ function EmployerDetailsForm() {
                 setShowAlert(false);
                 return null;
             }, 4000);
+            window.scrollTo({top: 0, behavior: 'smooth'});
             return null;
         }
-        const jsonData = JSON.stringify(formData);
         try {
-            await fetch('http://localhost:3000/employer-profile', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: jsonData
-            }).then(response => response.json())
-                .then(data => {
-                    if (data.error) {
-                        setShowAlert(true)
-                        setTitle("Error")
-                        setAlertMessage(data.error);
-                        setIsLoading(false);
-                        setTimeout(() => {
-                            setShowAlert(false);
-                        }, 4000);
-                    } else {
-                        setShowAlert(true)
-                        setTitle("Success")
-                        setAlertMessage(data.message);
-                        setIsLoading(false);
-                        setTimeout(() => {
-                            setShowAlert(false);
-                        }, 4000);
-                        setIsLoading(false);
-                        setFormData({
-                            companyName: '',
-                            industry: '',
-                            address: '',
-                            contact: '',
-                            companyDescription: '',
-                            websiteURL: '',
-                            facebookURL: '',
-                            instagramURL: '',
-                            twitterURL: '',
-                            profilePicture: null
-                        });
-                    }
-                }).catch(error => {
-                    setShowAlert(true)
-                    setTitle("Error")
+            let imageData = new FormData();
+            imageData.append("file", formData.profilePicture);
+            imageData.append("upload_preset", "careersync");
+            imageData.append("cloud_name", "dy5yzo1ji");
+            await fetch("https://api.cloudinary.com/v1_1/dy5yzo1ji/upload", {
+                method: "POST",
+                body: imageData
+            })
+                .then((response) => response.json())
+                .then(async (data) => {
+                    formData.profilePicture = data.secure_url;
+                    await storeCompleteData(formData);
+                    await router.push("/");
+                })
+                .catch((error) => {
+                    setShowAlert(true);
+                    setTitle("Error");
                     setAlertMessage(error.message);
                     setIsLoading(false);
                     setTimeout(() => {
                         setShowAlert(false);
-                    }, 4000);
+                    }, 7000);
+                    window.scrollTo({top: 0, behavior: 'smooth'});
                 });
-
         } catch (error) {
-            setShowAlert(true)
-            setTitle("Error")
+            setShowAlert(true);
+            setTitle("Error");
             setAlertMessage(error.message);
             setIsLoading(false);
             setTimeout(() => {
                 setShowAlert(false);
-            }, 4000);
+            }, 7000);
+            window.scrollTo({top: 0, behavior: 'smooth'});
         }
     };
 
@@ -184,7 +222,22 @@ function EmployerDetailsForm() {
                                placeholder="+923001234567"
                                type="text" className='text-slate-50 bg-slate-900 placeholder:text-slate-400'/>
                     </LabelInputContainer>
+                    {/* Profession Input */}
 
+                    <LabelInputContainer className="mb-4">
+
+                        <Label htmlFor="profession" className='text-slate-50'>Designation / Profession</Label>
+                        <Input
+                            id="profession"
+                            Icon={<MdOutlineAlternateEmail size={20}/>}
+                            type="text"
+                            name="profession"
+                            value={formData.profession}
+                            onChange={handleChange}
+                            placeholder="Busniess Development"
+                            className='text-slate-50 bg-slate-900 placeholder:text-slate-400'
+                        />
+                    </LabelInputContainer>
                     {/* Company Description Input */}
                     <LabelInputContainer className="mb-4">
                         <Label htmlFor="companyDescription" className='text-slate-50'>Company
@@ -263,8 +316,8 @@ function EmployerDetailsForm() {
                         className="bg-slate-50 text-[1rem] flex justify-center items-center gap-1 dark:bg-zinc-800 w-full text-slate-950 rounded-md h-10 font-medium transition-all duration-300 transform disabled:bg-slate-700 disabled:text-slate-300 disabled:border-none active:bg-slate-900 hover:bg-slate-950 hover:border-slate-50 hover:border-2 hover:text-slate-50"
                         onClick={handleSubmit} disabled={isLoading ? true : false}
                     >
-                        {isLoading ? <div className='flex gap-1 justify-center items-center'>
-                            <ReloadIcon className="mr-2 h-4 w-4 animate-spin"/>
+                        {isLoading ? <div className='flex justify-center items-center'>
+                            <ImSpinner2 size={20} className="animate-spin mr-2"/>
                             Please wait
                         </div> : <div className='flex gap-1 justify-center items-center'>
                             Submit

@@ -25,7 +25,7 @@ export default function CandidateSignIn() {
     const [showPassword, setShowPassword] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
     const [alertMessage, setAlertMessage] = useState("");
-    const {title, setTitle} = useState("");
+    const [title, setTitle] = useState("");
     const [isLoading, setIsLoading] = useState(null);
     const {
         register,
