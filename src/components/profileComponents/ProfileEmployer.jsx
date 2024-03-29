@@ -60,7 +60,7 @@ function EmployerDetailsForm() {
     };
 
     async function storeCompleteData(formData) {
-        await fetch("http://localhost:3000/employer-profile", {
+        await fetch("http://localhost:3001/employer-profile", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

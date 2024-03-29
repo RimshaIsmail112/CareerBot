@@ -34,7 +34,7 @@ export default function CandidateSignIn() {
     } = useForm()
     const onSubmit = (data) => {
         setIsLoading("signin");
-        fetch("http://localhost:3000/candidate/signin", {
+        fetch("http://localhost:3001/candidate/signin", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

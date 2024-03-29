@@ -100,7 +100,7 @@ function ResumeUploader() {
     }
 
     async function storeCompleteData(candidateId, size, contentType, protectedUrl) {
-        await fetch("http://localhost:3000/candidate/uploadResume", {
+        await fetch("http://localhost:3001/candidate/uploadResume", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

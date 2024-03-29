@@ -39,7 +39,7 @@ export default function EmployerSignUp() {
     } = useForm()
     const onSubmit = (data) => {
         setIsLoading("signup");
-        fetch("http://localhost:3000/employer/signup", {
+        fetch("http://localhost:3001/employer/signup", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

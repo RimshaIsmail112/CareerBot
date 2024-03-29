@@ -80,7 +80,7 @@ export default function InputOTPForm({otpFor}) {
     function onSubmit(data) {
         setIsLoading("verifyOTP");
         if (otpFor === 'Candidate') {
-            fetch("http://localhost:3000/candidate/verifyOTP", {
+            fetch("http://localhost:3001/candidate/verifyOTP", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -110,7 +110,7 @@ export default function InputOTPForm({otpFor}) {
 
                 });
         } else {
-            fetch("http://localhost:3000/employer/verifyOTP", {
+            fetch("http://localhost:3001/employer/verifyOTP", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -145,7 +145,7 @@ export default function InputOTPForm({otpFor}) {
         setShowError(false)
         setIsLoading("resendOTP")
         if (otpFor === 'Candidate') {
-            fetch("http://localhost:3000/candidate/resendOTPVerificationCode", {
+            fetch("http://localhost:3001/candidate/resendOTPVerificationCode", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -177,7 +177,7 @@ export default function InputOTPForm({otpFor}) {
                 })
                 .catch((error) => console.log(error));
         } else {
-            fetch("http://localhost:3000/employer/resendOTPVerificationCode", {
+            fetch("http://localhost:3001/employer/resendOTPVerificationCode", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

@@ -36,7 +36,7 @@ export default function CandidateSignUp() {
 
     const onSubmit = (data) => {
         setIsLoading("signup");
-        fetch("http://localhost:3000/candidate/signup", {
+        fetch("http://localhost:3001/candidate/signup", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

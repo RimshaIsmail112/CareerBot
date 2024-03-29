@@ -72,8 +72,8 @@ export default function ForgotPassword({resetFor}) {
     }
     function gettingEmail(userId) {
         if (path.includes('/candidate/reset-password') || path.includes('/employer/reset-password')) {
-            const candidateGetEndPoint = `http://localhost:3000/candidate/${userId}`;
-            const employerGetEndPoint = `http://localhost:3000/employer/${userId}`;
+            const candidateGetEndPoint = `http://localhost:3001/candidate/${userId}`;
+            const employerGetEndPoint = `http://localhost:3001/employer/${userId}`;
             fetch(resetFor === 'Candidate' ? candidateGetEndPoint : employerGetEndPoint)
                 .then((res) => res.json())
                 .then(async (data) => {
@@ -97,10 +97,10 @@ export default function ForgotPassword({resetFor}) {
     }, [userId])
     const onSubmit = (data) => {
         setIsLoading(true);
-        const candidateForgotEndPoint = "http://localhost:3000/candidate/requestPasswordReset";
-        const employerForgotEndPoint = "http://localhost:3000/employer/requestPasswordReset";
-        const candidateResetEndPoint = "http://localhost:3000/candidate/resetPassword";
-        const employerResetEndPoint = "http://localhost:3000/employer/resetPassword";
+        const candidateForgotEndPoint = "http://localhost:3001/candidate/requestPasswordReset";
+        const employerForgotEndPoint = "http://localhost:3001/employer/requestPasswordReset";
+        const candidateResetEndPoint = "http://localhost:3001/candidate/resetPassword";
+        const employerResetEndPoint = "http://localhost:3001/employer/resetPassword";
         const candidateRedirectURL = "http://localhost:3001/candidate/reset-password"
         const employerRedirectURL = "http://localhost:3001/employer/reset-password"
         path.includes('/candidate/reset-password') || path.includes('/employer/reset-password') ? fetch(resetFor === 'Candidate' ? candidateResetEndPoint : employerResetEndPoint, {
