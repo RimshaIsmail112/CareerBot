@@ -1,9 +1,9 @@
 const mongoose = require("mongoose");
 
 const candidateProfileSchema = new mongoose.Schema({
-  userId: {
+  candidateId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Candidate",
+    required: true,
   },
   fullName: {
     type: String,
@@ -33,6 +33,10 @@ const candidateProfileSchema = new mongoose.Schema({
     },
   ],
   profilePictureUrl: String,
+  bookmarked: {
+    type: Boolean,
+    default: false
+  }
 });
 
 module.exports = mongoose.model("CandidateProfile", candidateProfileSchema);

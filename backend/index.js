@@ -2,30 +2,34 @@
 const dotenv = require("dotenv");
 const express = require("express");
 const cors = require("cors");
-const bodyParser = require('body-parser');
+const bodyParser = require("body-parser");
 
 const app = express();
 
-app.use(bodyParser.json({limit: '50mb'}));
-app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
-app.use(bodyParser.text({type: '/'}));
+app.use(bodyParser.json({ limit: "50mb" }));
+app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
+app.use(bodyParser.text({ type: "/" }));
 
 dotenv.config({ path: "./config.env" });
 require("./database/connection");
 
 // Import routers
-const candidateProfileRouter = require('./router/candidateProfileRouter');
-const employerProfileRouter = require('./router/employerProfileRouter');
+const candidateProfileRouter = require("./router/candidateProfileRouter");
+const employerProfileRouter = require("./router/employerProfileRouter");
 
-const candidatePortfolioRouter = require('./router/candidatePortfolioRouter');
+const candidatePortfolioRouter = require("./router/candidatePortfolioRouter");
 app.use(express.json());
-app.use(cors({
+app.use(
+  cors({
     origin: "*",
     methods: "GET,POST,PUT,DELETE",
-    credentials: true
-}));
+    credentials: true,
+  })
+);
 
 // Use routers
+app.use(require("./router/bookmarkedCandidateRouter"));
+app.use(require("./router/candidateBookmarkRouter"));
 app.use(require("./router/uploadResumeRoute"));
 app.use(require("./router/authentication"));
 app.use(require("./router/home"));
