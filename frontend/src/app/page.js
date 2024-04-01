@@ -1,8 +1,8 @@
 import Image from "next/image";
 import RedirectToLogin from "@/components/redirectComponents/RedirectToLogin";
-import HomeDash from "@/components/dashboardComponents/HomeDash";
+import CanidateHeroSection from "@/components/dashboardComponents/CanidateHeroSection";
 
 export default function Home() {
 
-  return <HomeDash/>
+  return <CanidateHeroSection/>
 }

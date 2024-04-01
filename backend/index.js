@@ -4,6 +4,7 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 const bodyParser = require('body-parser');
+const serverless = require('serverless-http');
 
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
@@ -26,11 +27,13 @@ app.use(require("./router/uploadResumeRoute"))
 app.use(require("./router/authentication"))
 app.use(require("./router/home"))
 app.use(candidateProfileRouter);
-app.use(employerProfileRouter); 
-
+app.use(employerProfileRouter);
+app.use('/', require('./router/*'));
 
 app.listen(process.env.PORT, () => {
   console.log(`Server listening on port ${process.env.PORT}`);
 });
+
+module.exports.handler = serverless(app);
 
 

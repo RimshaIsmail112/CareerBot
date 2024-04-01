@@ -13,7 +13,7 @@ export const metadata = {
 
 export default function RootLayout({children}) {
     return (<html className="scroll-smooth" lang="en">
-    <body className={`${notoSans.className} bg-slate-950`}>
+    <body className={`${notoSans.className}`}>
         <CandidateEmployerData>
             <AuthProvider>
                 {children}
