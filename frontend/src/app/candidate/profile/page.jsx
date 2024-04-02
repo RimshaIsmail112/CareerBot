@@ -1,8 +1,8 @@
 // profile/candidate/page.jsx
 
 import React from 'react';
-import ProfileLayout from '@/components/profileComponents/ProfileLayout'; // Adjust this path as needed
-import ProfileDetails from '@/components/profileComponents/ProfileCandidate'; // Adjust this path as needed
+import ProfileLayout from '@/components/profileComponents/ProfileLayout'; 
+import ProfileDetails from '@/components/profileComponents/ProfileCandidate'; 
 
 export default function CandidateProfilePage() {
   return (
