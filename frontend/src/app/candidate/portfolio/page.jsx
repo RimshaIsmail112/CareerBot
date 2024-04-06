@@ -7,7 +7,7 @@ import CandidatePortfolio from '@/components/portfolioComponent/CandidatePortfol
 export default function CandidateProfilePage() {
   return (
     <PortfolioLayout>
-      < CandidatePortfolio/>
+      <CandidatePortfolio/>
     </PortfolioLayout>
   );
 }
