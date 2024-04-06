@@ -6,6 +6,8 @@ import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import Metric from "@/components/ui/Metric";
 import JobBadge from "@/components/ui/JobBadge";
+import { FaRegBookmark, FaBookmark  } from "react-icons/fa";
+
 
 import {
     employmentTypeConverter,
@@ -14,6 +16,7 @@ import {
     isValidImage,
 } from "@/lib/utils";
 import {getLogo, logoPlaceholders} from "@/lib/CompanyLogo";
+import {useState} from "react";
 
 export const JobCard = ({
                                   title,
@@ -42,13 +45,17 @@ export const JobCard = ({
     const location = `${city ? `${city}${state ? ", " : ""}` : ""}${state || ""}${
         city && state && country ? ", " : ""
     }${country || ""}`;
-
+    const [isBookmarked, setIsBookmarked] = useState(false);
+    function handleBookMark(){
+        setIsBookmarked(!isBookmarked);
+    }
     return (
         <div
             className="card-wrapper bg-slate-50 cursor-pointer rounded-xl shadow-black shadow-lg hover:shadow-xl transition duration-200 p-6 flex flex-col gap-3">
             <div className="self-end">
-                <div className="flex">
+                <div className="flex justify-center items-center gap-2">
                     <JobBadge data={{location, country}} isLocation/>
+                    {isBookmarked ? <FaBookmark onClick={handleBookMark} size={20}/> : <FaRegBookmark onClick={handleBookMark} size={20}/>}
                 </div>
             </div>
             <div className="flex flex-row gap-4">
