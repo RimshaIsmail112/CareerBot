@@ -96,7 +96,7 @@ export default function JobsSection({searchedData}) {
                     Jobs
                 </h2>
                         {!recommendedJobs ? <ImSpinner2 size={30} className="animate-spin w-full text-slate-50"/> : recommendedJobs.map((jobItem, index) => (
-                                <div className="p-1">
+                                <div className="p-1" key={jobItem.job_id}>
                                     <JobCard
                                         key={jobItem.job_id}
                                         saved={false}
