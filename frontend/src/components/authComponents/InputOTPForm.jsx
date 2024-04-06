@@ -42,6 +42,8 @@ import DynamicAlert from "@/components/ui/DynamicAlert";
 import {useRouter} from "next/navigation";
 import {ImSpinner2} from "react-icons/im";
 import {PiSignInBold} from "react-icons/pi";
+import process from "next/dist/build/webpack/loaders/resolve-url-loader/lib/postcss";
+import {HOST} from "@/lib/utils";
 
 export default function InputOTPForm({otpFor}) {
     const {candidate, employer} = useAppContext();
@@ -80,7 +82,7 @@ export default function InputOTPForm({otpFor}) {
     function onSubmit(data) {
         setIsLoading("verifyOTP");
         if (otpFor === 'Candidate') {
-            fetch("http://localhost:3001/candidate/verifyOTP", {
+            fetch(`${HOST}/candidate/verifyOTP`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -110,7 +112,7 @@ export default function InputOTPForm({otpFor}) {
 
                 });
         } else {
-            fetch("http://localhost:3001/employer/verifyOTP", {
+            fetch(`${HOST}/employer/verifyOTP`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -145,7 +147,7 @@ export default function InputOTPForm({otpFor}) {
         setShowError(false)
         setIsLoading("resendOTP")
         if (otpFor === 'Candidate') {
-            fetch("http://localhost:3001/candidate/resendOTPVerificationCode", {
+            fetch(`${HOST}/candidate/resendOTPVerificationCode`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -177,7 +179,7 @@ export default function InputOTPForm({otpFor}) {
                 })
                 .catch((error) => console.log(error));
         } else {
-            fetch("http://localhost:3001/employer/resendOTPVerificationCode", {
+            fetch(`${HOST}/employer/resendOTPVerificationCode`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

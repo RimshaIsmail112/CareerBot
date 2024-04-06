@@ -4,7 +4,7 @@ import React, {useState} from "react";
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
 import {CgProfile} from "react-icons/cg";
 import {Label} from "@/components/ui/label";
-import {cn} from "@/lib/utils";
+import {cn, HOST} from "@/lib/utils";
 import {Input} from "@/components/ui/input";
 import {MdDelete, MdOutlineAlternateEmail} from "react-icons/md";
 import {Textarea} from "@/components/ui/textarea";
@@ -183,7 +183,7 @@ function ProfileDetailsForm() {
     };
 
     async function storeCompleteData(formData) {
-        await fetch("http://localhost:3001/candidate-profile", {
+        await fetch(`${HOST}/candidate-profile`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -208,18 +208,6 @@ function ProfileDetailsForm() {
                     setTimeout(() => {
                         setShowAlert(false);
                     }, 4000);
-                    setFormData({
-                        fullName: "",
-                        email: "",
-                        preferredJobLocation: "",
-                        phone: "",
-                        skills: [],
-                        profession: "",
-                        currentSkill: "",
-                        workExperiences: [],
-                        education: [],
-                        profilePicture: null,
-                    });
                     window.scrollTo({top: 0, behavior: 'smooth'});
                 }
             })
@@ -269,7 +257,7 @@ function ProfileDetailsForm() {
                 .then(async (data) => {
                     formData.profilePicture = data.secure_url;
                     await storeCompleteData(formData);
-                    await router.push("/");
+                    await router.push("/candidate/dashboard");
                 })
                 .catch((error) => {
                     setShowAlert(true);

@@ -1,3 +1,4 @@
+'use client'
 import React from 'react';
 import ComplexNavbar from "@/components/ui/Navbar";
 import { CgProfile } from "react-icons/cg";
@@ -41,11 +42,15 @@ function Page(props) {
             icon: <FaBookmark size={18}/>,
         },
     ];
+    const [searchedData, setSearchedData] = React.useState(null);
+    const handleSearch = (data) => {
+        setSearchedData(data);
+    }
     return (
         <>
             <ComplexNavbar profileMenuItems={profileMenuItems} navListItems={navListItems}/>
-            <CandidateHeroSection/>
-            <JobsSection/>
+            <CandidateHeroSection handleSearch={handleSearch}/>
+            <JobsSection searchedData={searchedData}/>
             <Footer/>
         </>
     );

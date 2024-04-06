@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react';
 import ComplexNavbar from "@/components/ui/Navbar";
 import {
@@ -10,6 +12,8 @@ import {
 import {CgProfile} from "react-icons/cg";
 import {FiHelpCircle} from "react-icons/fi";
 import {FaBookmark, FaBriefcase, FaSignOutAlt, FaUserTie} from "react-icons/fa";
+import CandidateHeroSection from "@/components/dashboardComponents/CanidateHeroSection";
+import {Footer} from "@/components/ui/Footer";
 
 function Page(props) {
     const profileMenuItems = [
@@ -28,24 +32,33 @@ function Page(props) {
     ];
     const navListItems = [
         {
-            label: "Find Jobs",
+            label: "Find Candidates",
             href: "/candidate/jobs",
             icon: <FaUserTie size={18}/>
 
         },
         {
-            label: "My Portfolio",
+            label: "Interview History",
             href: "/portfolio",
             icon: <FaBriefcase size={18}/>,
         },
         {
-            label: "Saved Jobs",
+            label: "Saved Candidates",
             href: "/saved-jobs",
             icon: <FaBookmark size={18}/>,
         },
     ];
+    const [searchedData, setSearchedData] = React.useState(null);
+    const handleSearch = (data) => {
+        setSearchedData(data);
+    }
     return (
-        <ComplexNavbar navListItems={navListItems} profileMenuItems={profileMenuItems}/>
+        <>
+            <ComplexNavbar navListItems={navListItems} profileMenuItems={profileMenuItems}/>
+            <CandidateHeroSection handleSearch={handleSearch}/>
+            <Footer/>
+        </>
+
     );
 }
 

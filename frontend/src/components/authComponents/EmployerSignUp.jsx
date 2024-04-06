@@ -2,7 +2,7 @@
 import React, {useState} from "react";
 import {Input} from "@/components/ui/input";
 import {Label} from "@/components/ui/label";
-import {cn} from "@/lib/utils";
+import {cn, HOST} from "@/lib/utils";
 import {
     IconBrandGithub,
     IconBrandGoogle,
@@ -39,7 +39,7 @@ export default function EmployerSignUp() {
     } = useForm()
     const onSubmit = (data) => {
         setIsLoading("signup");
-        fetch("http://localhost:3001/employer/signup", {
+        fetch(`${HOST}/employer/signup`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

@@ -39,7 +39,7 @@ import {IoMdEye, IoMdEyeOff} from "react-icons/io";
 import {PiSignInBold} from "react-icons/pi";
 import {Alert, AlertDescription, AlertTitle} from "@/components/ui/alert";
 import {TiWarning} from "react-icons/ti";
-import {cn} from "@/lib/utils";
+import {cn, HOST} from "@/lib/utils";
 import {usePathname, useSearchParams, useParams} from "next/navigation";
 import {AppContext, useAppContext} from "@/Context/Candidate_Employer_Data";
 import DynamicAlert from "@/components/ui/DynamicAlert";
@@ -72,8 +72,8 @@ export default function ForgotPassword({resetFor}) {
     }
     function gettingEmail(userId) {
         if (path.includes('/candidate/reset-password') || path.includes('/employer/reset-password')) {
-            const candidateGetEndPoint = `http://localhost:3001/candidate/${userId}`;
-            const employerGetEndPoint = `http://localhost:3001/employer/${userId}`;
+            const candidateGetEndPoint = `${HOST}/candidate/${userId}`;
+            const employerGetEndPoint = `${HOST}/employer/${userId}`;
             fetch(resetFor === 'Candidate' ? candidateGetEndPoint : employerGetEndPoint)
                 .then((res) => res.json())
                 .then(async (data) => {
@@ -97,12 +97,12 @@ export default function ForgotPassword({resetFor}) {
     }, [userId])
     const onSubmit = (data) => {
         setIsLoading(true);
-        const candidateForgotEndPoint = "http://localhost:3001/candidate/requestPasswordReset";
-        const employerForgotEndPoint = "http://localhost:3001/employer/requestPasswordReset";
-        const candidateResetEndPoint = "http://localhost:3001/candidate/resetPassword";
-        const employerResetEndPoint = "http://localhost:3001/employer/resetPassword";
-        const candidateRedirectURL = "http://localhost:3001/candidate/reset-password"
-        const employerRedirectURL = "http://localhost:3001/employer/reset-password"
+        const candidateForgotEndPoint = `${HOST}/candidate/requestPasswordReset`;
+        const employerForgotEndPoint = `${HOST}/employer/requestPasswordReset`;
+        const candidateResetEndPoint = `${HOST}/candidate/resetPassword`;
+        const employerResetEndPoint = `${HOST}/employer/resetPassword`;
+        const candidateRedirectURL = `${HOST}/candidate/reset-password`
+        const employerRedirectURL = `${HOST}/employer/reset-password`
         path.includes('/candidate/reset-password') || path.includes('/employer/reset-password') ? fetch(resetFor === 'Candidate' ? candidateResetEndPoint : employerResetEndPoint, {
             method: "POST",
             headers: {

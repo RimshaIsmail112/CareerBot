@@ -10,6 +10,7 @@ import {useRouter} from "next/navigation";
 import {ImSpinner2} from "react-icons/im";
 import {CgSpinner} from "react-icons/cg";
 import DynamicAlert from "@/components/ui/DynamicAlert";
+import {HOST} from "@/lib/utils";
 
 
 function ResumeUploader() {
@@ -100,7 +101,7 @@ function ResumeUploader() {
     }
 
     async function storeCompleteData(candidateId, size, contentType, protectedUrl) {
-        await fetch("http://localhost:3001/candidate/uploadResume", {
+        await fetch(`${HOST}/candidate/uploadResume`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

@@ -2,7 +2,7 @@
 import React, {useState} from "react";
 import {Input} from "@/components/ui/input";
 import {Label} from "@/components/ui/label";
-import {cn} from "@/lib/utils";
+import {cn, HOST} from "@/lib/utils";
 import {MdLock, MdOutlineAlternateEmail} from "react-icons/md";
 import {BsGithub} from "react-icons/bs";
 import {FcGoogle} from "react-icons/fc";
@@ -36,7 +36,7 @@ export default function CandidateSignUp() {
 
     const onSubmit = (data) => {
         setIsLoading("signup");
-        fetch("http://localhost:3001/candidate/signup", {
+        fetch(`${HOST}/candidate/signup`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -150,7 +150,7 @@ export default function CandidateSignUp() {
                             className="bg-slate-50 text-[1rem] flex justify-center items-center gap-1 dark:bg-zinc-800 w-full text-slate-950 rounded-md h-10 font-medium transition-all duration-300 transform disabled:bg-slate-700 disabled:text-slate-300 disabled:border-none active:bg-slate-900 hover:bg-slate-950 hover:border-slate-50 hover:border-2 hover:text-slate-50"
                             onClick={async () => {
                                 setIsLoading("github")
-                                await signIn('github', {callbackUrl: 'http://localhost:3001/'})
+                                await signIn('github', {callbackUrl: `${HOST}/dashboard`})
                                 setIsLoading(null)
                             }}
                             disabled={isLoading === "github"}
@@ -172,7 +172,7 @@ export default function CandidateSignUp() {
                             className="bg-slate-50 text-[1rem] flex justify-center items-center gap-1 dark:bg-zinc-800 w-full text-slate-950 rounded-md h-10 font-medium transition-all duration-300 transform disabled:bg-slate-700 disabled:text-slate-300 disabled:border-none active:bg-slate-900 hover:bg-slate-950 hover:border-slate-50 hover:border-2 hover:text-slate-50"
                             onClick={async () => {
                                 setIsLoading("google")
-                                await signIn('google', {callbackUrl: 'http://localhost:3001/'})
+                                await signIn('google', {callbackUrl: `${HOST}/dashboard`})
                                 setIsLoading(null)
                             }}
                             disabled={isLoading === "google"}

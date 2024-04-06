@@ -2,7 +2,7 @@
 import React, {useState} from "react";
 import {Input} from "@/components/ui/input";
 import {Label} from "@/components/ui/label";
-import {cn} from "@/lib/utils";
+import {cn, HOST} from "@/lib/utils";
 import {MdOutlineAlternateEmail, MdLock} from "react-icons/md";
 import {IoMdEye, IoMdEyeOff} from "react-icons/io";
 import {PiSignInBold} from "react-icons/pi";
@@ -17,6 +17,7 @@ import {signIn, useSession} from "next-auth/react";
 import {AppContext, useAppContext} from "@/Context/Candidate_Employer_Data";
 import {ImSpinner2} from "react-icons/im";
 import DynamicAlert from "@/components/ui/DynamicAlert";
+import process from "next/dist/build/webpack/loaders/resolve-url-loader/lib/postcss";
 
 
 export default function CandidateSignIn() {
@@ -34,7 +35,7 @@ export default function CandidateSignIn() {
     } = useForm()
     const onSubmit = (data) => {
         setIsLoading("signin");
-        fetch("http://localhost:3001/candidate/signin", {
+        fetch(`${HOST}/candidate/signin`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -130,7 +131,7 @@ export default function CandidateSignIn() {
                             className="bg-slate-50 text-[1rem] flex justify-center items-center gap-1 dark:bg-zinc-800 w-full text-slate-950 rounded-md h-10 font-medium transition-all duration-300 transform disabled:bg-slate-700 disabled:text-slate-300 disabled:border-none active:bg-slate-900 hover:bg-slate-950 hover:border-slate-50 hover:border-2 hover:text-slate-50"
                             onClick={async () => {
                                 setIsLoading("github")
-                                await signIn('github', {callbackUrl: 'http://localhost:3001/'})
+                                await signIn('github', {callbackUrl: `${HOST}/dashboard`})
                                 setIsLoading(null)
                             }}
                             disabled={isLoading === "github"}
@@ -152,14 +153,14 @@ export default function CandidateSignIn() {
                             className="bg-slate-50 text-[1rem] flex justify-center items-center gap-1 dark:bg-zinc-800 w-full text-slate-950 rounded-md h-10 font-medium transition-all duration-300 transform disabled:bg-slate-700 disabled:text-slate-300 disabled:border-none active:bg-slate-900 hover:bg-slate-950 hover:border-slate-50 hover:border-2 hover:text-slate-50"
                             onClick={async () => {
                                 setIsLoading("google")
-                                await signIn('google', {callbackUrl: 'http://localhost:3001/'})
+                                await signIn('google', {callbackUrl: `${HOST}/dashboard`})
                                 setIsLoading(null)
                             }}
                             disabled={isLoading === "google"}
                         >
                             {isLoading === "google" ? (
                                 <>
-                                    <span>Please Wait</span>
+                                    <span>Please Wait</span>s
                                     <ImSpinner2 size={20} className="animate-spin"/>
                                 </>
                             ) : (

@@ -2,7 +2,7 @@
 import React, {useState} from "react";
 import {Input} from "@/components/ui/input";
 import {Label} from "@/components/ui/label";
-import {cn} from "@/lib/utils";
+import {cn, HOST} from "@/lib/utils";
 import {MdOutlineAlternateEmail, MdLock} from "react-icons/md";
 import {IoMdEye, IoMdEyeOff} from "react-icons/io";
 import {PiSignInBold} from "react-icons/pi";
@@ -16,6 +16,7 @@ import {TiWarning} from "react-icons/ti";
 import {AppContext, useAppContext} from "@/Context/Candidate_Employer_Data";
 import {ImSpinner2} from "react-icons/im";
 import DynamicAlert from "@/components/ui/DynamicAlert";
+import process from "next/dist/build/webpack/loaders/resolve-url-loader/lib/postcss";
 
 export default function EmployerSignIn() {
     const router = useRouter();
@@ -34,7 +35,7 @@ export default function EmployerSignIn() {
 
     const onSubmit = (data) => {
         setIsLoading("signin");
-        fetch("http://localhost:3001/employer/signin", {
+        fetch(`${HOST}/employer/signin`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

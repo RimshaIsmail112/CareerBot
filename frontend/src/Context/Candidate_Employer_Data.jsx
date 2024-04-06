@@ -2,6 +2,7 @@
 import React, {createContext, useState} from 'react';
 
 export const AppContext = createContext(null);
+
 function CandidateEmployerData({children}) {
     const [candidate, setCandidate] = useState({
         id: "",
@@ -13,14 +14,17 @@ function CandidateEmployerData({children}) {
     });
     const [candidateData, setCandidateData] = useState({});
     const [employerData, setEmployerData] = useState({});
+    const [drawerOpen, setDrawerOpen] = useState(false);
 
     return (
-        <AppContext.Provider value={{candidateData, setCandidateData, employer, setEmployer,candidate, setCandidate}}>
+        <AppContext.Provider value={{candidateData, setCandidateData, employer, setEmployer, candidate, setCandidate,
+        drawerOpen, setDrawerOpen}}>
             {children}
         </AppContext.Provider>
     );
 
 }
+
 export default CandidateEmployerData;
 
 export function useAppContext() {

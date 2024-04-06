@@ -5,7 +5,7 @@ import {MdInsertLink, MdOutlineAlternateEmail} from 'react-icons/md';
 import {ImFacebook2, ImSpinner2} from "react-icons/im";
 import {FaXTwitter} from "react-icons/fa6";
 import {FaInstagramSquare} from "react-icons/fa";
-import {cn} from "@/lib/utils";
+import {cn, HOST} from "@/lib/utils";
 import {Label} from "@/components/ui/label";
 import {Input} from "@/components/ui/input";
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
@@ -15,6 +15,7 @@ import {PiSignInBold} from "react-icons/pi";
 import {ReloadIcon} from "@radix-ui/react-icons";
 import DynamicAlert from "@/components/ui/DynamicAlert";
 import {useRouter} from "next/navigation";
+import process from "next/dist/build/webpack/loaders/resolve-url-loader/lib/postcss";
 
 function EmployerDetailsForm() {
     const [formData, setFormData] = useState({
@@ -60,7 +61,7 @@ function EmployerDetailsForm() {
     };
 
     async function storeCompleteData(formData) {
-        await fetch("http://localhost:3001/employer-profile", {
+        await fetch(`${HOST}/employer-profile`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
