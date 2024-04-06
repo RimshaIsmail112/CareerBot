@@ -1,5 +1,5 @@
 'use client'
-import React from "react";
+import React, {useEffect} from "react";
 import {
     Navbar,
     MobileNav,
@@ -20,6 +20,7 @@ import Image from "next/image";
 import Link from "next/link";
 import {MobileDrawer} from "@/components/ui/MobileDrawer";
 import {useAppContext} from "@/Context/Candidate_Employer_Data";
+import {usePathname} from "next/navigation";
 
 
 function ProfileMenu({profileMenuItems}) {
@@ -77,6 +78,8 @@ function ProfileMenu({profileMenuItems}) {
 
 
 function NavList({navListItems}) {
+    const path = usePathname();
+
     return (
         <ul className="mt-2 mb-4 flex flex-col justify-center gap-2 lg:mb-0 lg:mt-0 lg:flex-row items-center">
             {navListItems && navListItems.map(({label, icon, href}, key) => (
@@ -86,7 +89,7 @@ function NavList({navListItems}) {
                     className="font-medium text-slate-950"
                 >
                     <MenuItem
-                        className="flex items-center gap-2 hover:bg-slate-950 hover:bg-opacity-100 hover:text-slate-50 lg:rounded-full">
+                        className={`flex items-center gap-2 ${path.includes(href) ? 'bg-slate-950 text-slate-50 bg-opacity-100' : ''} hover:bg-slate-950 hover:bg-opacity-100 hover:text-slate-50 lg:rounded-full`}>
                         {icon}
                         <span> {label}</span>
                     </MenuItem>

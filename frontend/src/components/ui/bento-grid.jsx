@@ -3,10 +3,10 @@ import Image from "next/image";
 import Link from "next/link";
 
 
-import { Badge } from "@/components/ui/badge";
+import {Badge} from "@/components/ui/badge";
 import Metric from "@/components/ui/Metric";
 import JobBadge from "@/components/ui/JobBadge";
-import { FaRegBookmark, FaBookmark  } from "react-icons/fa";
+import {FaRegBookmark, FaBookmark} from "react-icons/fa";
 
 
 import {
@@ -19,43 +19,47 @@ import {getLogo, logoPlaceholders} from "@/lib/CompanyLogo";
 import {useState} from "react";
 
 export const JobCard = ({
-                                  title,
-                                  description,
-                                  city,
-                                  state,
-                                  country,
-                                  requiredSkills,
-                                  applyLink,
-                                  employerLogo,
-                                  employerName,
-                                  employmentType,
-                                  isRemote,
-                                  isDirect,
-                                  publisher,
-                                  qualification,
-                                  responsiblity,
-                                  salary,
-                                  postedAt,
-                                  className,
+                            title,
+                            saved,
+                            description,
+                            city,
+                            state,
+                            country,
+                            requiredSkills,
+                            applyLink,
+                            employerLogo,
+                            employerName,
+                            employmentType,
+                            isRemote,
+                            isDirect,
+                            publisher,
+                            qualification,
+                            responsiblity,
+                            salary,
+                            postedAt,
+                            className,
 
-                              }) => {
+                        }) => {
 
     const imageUrl = employerLogo ? employerLogo : logoPlaceholders[Math.floor(Math.random() * logoPlaceholders.length)];
 
     const location = `${city ? `${city}${state ? ", " : ""}` : ""}${state || ""}${
         city && state && country ? ", " : ""
     }${country || ""}`;
-    const [isBookmarked, setIsBookmarked] = useState(false);
-    function handleBookMark(){
+    const [isBookmarked, setIsBookmarked] = useState(saved);
+
+    function handleBookMark() {
         setIsBookmarked(!isBookmarked);
     }
+
     return (
         <div
             className="card-wrapper bg-slate-50 cursor-pointer rounded-xl shadow-black shadow-lg hover:shadow-xl transition duration-200 p-6 flex flex-col gap-3">
             <div className="self-end">
                 <div className="flex justify-center items-center gap-2">
                     <JobBadge data={{location, country}} isLocation/>
-                    {isBookmarked ? <FaBookmark onClick={handleBookMark} size={20}/> : <FaRegBookmark onClick={handleBookMark} size={20}/>}
+                    {isBookmarked ? <FaBookmark onClick={handleBookMark} size={20}/> :
+                        <FaRegBookmark onClick={handleBookMark} size={20}/>}
                 </div>
             </div>
             <div className="flex flex-row gap-4">

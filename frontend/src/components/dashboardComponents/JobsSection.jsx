@@ -95,18 +95,11 @@ export default function JobsSection({searchedData}) {
                 <h2 className={cn('text-3xl font-bold text-slate-50 dark:text-neutral-100', 'mt-10 mb-4')}>Recommended
                     Jobs
                 </h2>
-                <Carousel
-                    opts={{
-                        align: "start",
-                    }}
-                    className="w-full"
-                >
-                    <CarouselContent className={''}>
                         {!recommendedJobs ? <ImSpinner2 size={30} className="animate-spin w-full text-slate-50"/> : recommendedJobs.map((jobItem, index) => (
-                            <CarouselItem key={jobItem.job_id} className="lg:basis-1/2">
                                 <div className="p-1">
                                     <JobCard
                                         key={jobItem.job_id}
+                                        saved={false}
                                         title={jobItem.job_title}
                                         description={jobItem.job_description}
                                         city={jobItem.job_city}
@@ -131,12 +124,7 @@ export default function JobsSection({searchedData}) {
                                         postedAt={jobItem.job_posted_at_datetime_utc}
                                     />
                                 </div>
-                            </CarouselItem>
                         ))}
-                    </CarouselContent>
-                    <CarouselPrevious className={'-left-5 lg:left-0 bg-slate-950 hover:bg-slate-900 text-slate-50 hover:text-slate-50'}/>
-                    <CarouselNext className={'-right-5 lg:right-0 bg-slate-950 hover:bg-slate-900 text-slate-50 hover:text-slate-50'}/>
-                </Carousel>
             </div>
 
             <div className={'flex flex-col gap-3 justify-center items-center'}>
@@ -153,6 +141,7 @@ export default function JobsSection({searchedData}) {
                             <JobCard
                                 key={jobItem.job_id}
                                 title={jobItem.job_title}
+                                saved={false}
                                 description={jobItem.job_description}
                                 city={jobItem.job_city}
                                 state={jobItem.job_state}
