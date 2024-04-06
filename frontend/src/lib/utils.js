@@ -129,7 +129,7 @@ export function cn(...inputs) {
   return twMerge(clsx(inputs));
 }
 
-export const HOST="http://localhost:3001"
+export const HOST="http://localhost:3000"
 export const getTimestamp = (createdAt) => {
   const now = new Date();
   const timeDifference = now.getTime() - createdAt.getTime();
