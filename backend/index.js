@@ -35,17 +35,13 @@ app.use(require("./router/authentication"))
 app.use(require("./router/home"))
 app.use(candidateProfileRouter);
 app.use(employerProfileRouter);
-app.use('/', require('./router/*'));
+// app.use('/', require('./router/*'));
 
 
 // Use routers
 app.use(require("./router/bookmarkedCandidateRouter"));
 app.use(require("./router/candidateBookmarkRouter"));
 app.use(require("./router/uploadResumeRoute"));
-app.use(require("./router/authentication"));
-app.use(require("./router/home"));
-app.use(candidateProfileRouter);
-app.use(employerProfileRouter);
 app.use(candidatePortfolioRouter);
 
 app.listen(process.env.PORT, () => {
