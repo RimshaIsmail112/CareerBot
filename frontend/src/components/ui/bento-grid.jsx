@@ -16,7 +16,7 @@ import {
     isValidImage,
 } from "@/lib/utils";
 import {getLogo, logoPlaceholders} from "@/lib/CompanyLogo";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 export const JobCard = ({
                             title,
@@ -64,12 +64,13 @@ export const JobCard = ({
             </div>
             <div className="flex flex-row gap-4">
                 <div className="hidden sm:block">
-                    <JobBadge data={{logo: imageUrl}}/>
+                    <JobBadge className={'w-20 h-20'} data={{logo: imageUrl}}/>
                 </div>
                 <div>
                     <div className="flex flex-col-reverse items-start justify-between gap-5 sm:flex-row">
                         <div className="flex-1">
                             <JobBadge
+                                className={'w-20 h-20'}
                                 data={{logo: imageUrl}}
                                 badgeStyles="mb-6 sm:hidden"
                             />
@@ -127,6 +128,89 @@ export const JobCard = ({
                         imgUrl="/currency-dollar-circle.svg"
                         alt="dollar circle"
                         value={getFormattedSalary(salary) || "TBD"}
+                        textStyles="small-medium text-light-500"
+                        className="w-full md:w-auto"
+                    />
+                </div>
+            </div>
+        </div>
+    );
+};
+
+
+export const CandidateCard = ({
+                                  id,
+                                  fullName,
+                                  saved,
+                                  email,
+                                  city,
+                                  state,
+                                  country,
+                                  phone,
+                                  skills,
+                                  profession,
+                                  workExperiences,
+                                  education,
+                                  imageUrl,
+
+                                  className,
+
+                              }) => {
+
+    const location = `${city ? `${city}${state ? ", " : ""}` : ""}${state || ""}${
+        city && state && country ? ", " : ""
+    }${country || ""}`;
+    const [isBookmarked, setIsBookmarked] = useState(saved);
+
+    function handleBookMark() {
+        setIsBookmarked(!isBookmarked);
+    }
+    return (
+        <div
+            className="card-wrapper bg-slate-50 cursor-pointer rounded-xl shadow-black shadow-lg hover:shadow-xl transition duration-200 p-6 flex flex-col gap-3">
+            <div>
+                <div className="flex justify-between items-center gap-2">
+                    <JobBadge data={{location, country}} isLocation/>
+                    {isBookmarked ? <FaBookmark onClick={handleBookMark} size={20}/> :
+                        <FaRegBookmark onClick={handleBookMark} size={20}/>}
+                </div>
+            </div>
+            <div
+                className="flex flex-col justify-center items-center gap-4">
+                <div className="block">
+                    <JobBadge className={'w-40 h-40 md:w-36 md:h-36 rounded-full'} data={{logo: imageUrl}} isCandidate/>
+                </div>
+                <div>
+                    <div
+                        className="flex flex-col-reverse items-center justify-center gap-5 sm:flex-row">
+                        <div className="flex-1">
+                            <div className="flex flex-col">
+                                <h3 className="text-slate-950 text-center font-bold text-md">
+                                    {fullName}
+                                </h3>
+                                <div className={'flex justify-center items-center gap-3'}>
+                                    <h4 className="paragraph-medium text-center italic  text-slate-950">
+                                        {profession}
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className="flex-between mt-6 w-full flex-wrap gap-3">
+                <div className="flex flex-col md:flex-row items-center gap-3 max-sm:flex-wrap justify-center">
+                    <Metric
+                        imgUrl="/resume.svg"
+                        alt="briefcase"
+                        value={'Resume'}
+                        textStyles="small-medium text-light-500"
+                        className="w-full md:w-auto"
+                    />
+                    <Metric
+                        imgUrl="/portfolio.svg"
+                        alt="people"
+                        value={"Portfolio"}
                         textStyles="small-medium text-light-500"
                         className="w-full md:w-auto"
                     />

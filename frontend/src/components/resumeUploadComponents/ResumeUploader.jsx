@@ -101,42 +101,47 @@ function ResumeUploader() {
     }
 
     async function storeCompleteData(candidateId, size, contentType, protectedUrl) {
-        await fetch(`${HOST}/candidate/uploadResume`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({userId: candidateId, size, contentType, protectedUrl}),
-        }).then((response) => response.json())
-            .then((data) => {
-                if (data.error) {
-                    setShowAlert(true);
-                    setTitle("Error");
-                    setAlertMessage(data.error);
-                    setIsLoading(false);
-                    setTimeout(() => {
-                        setShowAlert(false);
-                    }, 7000);
-                } else {
-                    setShowAlert(true);
-                    setTitle("Success");
-                    setAlertMessage(data.message);
-                    setIsLoading(false);
-                    setTimeout(() => {
-                        setShowAlert(false);
-                    }, 4000);
-                }
-            })
-            .catch((error) => {
+        try {
+            const response = await fetch(`${HOST}/candidate/uploadResume`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ candidateId, size, contentType, protectedUrl }),
+            });
+            const data = await response.json();
+
+            if (data.error) {
                 setShowAlert(true);
                 setTitle("Error");
-                setAlertMessage(error.message);
+                setAlertMessage(data.error);
                 setIsLoading(false);
                 setTimeout(() => {
                     setShowAlert(false);
                 }, 7000);
-            });
+                return "error";
+            } else {
+                setShowAlert(true);
+                setTitle("Success");
+                setAlertMessage(data.message);
+                setIsLoading(false);
+                setTimeout(() => {
+                    setShowAlert(false);
+                }, 4000);
+                return "success";
+            }
+        } catch (error) {
+            setShowAlert(true);
+            setTitle("Error");
+            setAlertMessage(error.message);
+            setIsLoading(false);
+            setTimeout(() => {
+                setShowAlert(false);
+            }, 7000);
+            return "error";
+        }
     }
+
     const handleFileSubmission = async (e) => {
         e.preventDefault();
         setIsLoading(true);
@@ -162,10 +167,12 @@ function ResumeUploader() {
                 .then((response) => response.json())
                 .then(async (data) => {
                     setErrorMessage('');
-                    await storeCompleteData(candidate.id, data.bytes, data.format, data.secure_url);
-                    await ATSscanner();
-                    await router.push("/candidate/profile");
-                    setSelectedFile(null);
+                    const message = await storeCompleteData(candidate.id, data.bytes, data.format, data.secure_url);
+                    if (message === "success") {
+                        await ATSscanner();
+                        await router.push("/candidate/profile");
+                        setSelectedFile(null);
+                    }
                     setIsLoading(false);
                 })
                 .catch((error) => {

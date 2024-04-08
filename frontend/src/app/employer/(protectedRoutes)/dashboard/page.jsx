@@ -17,20 +17,14 @@ import {Footer} from "@/components/ui/Footer";
 import {usePathname} from "next/navigation";
 import RecommendedCandidatesSection from "@/components/dashboardComponents/RecommendedCandidatesSection";
 
-function Layout({children}) {
-    const path = usePathname();
-
-    const [searchedData, setSearchedData] = React.useState(null);
-    const handleSearch = (data) => {
-        setSearchedData(data);
-    }
+function Page() {
     return (
         <>
-        <CandidateHeroSection handleSearch={handleSearch}/>
-        {path.includes('/employer/search-candidates') ? {children} : <RecommendedCandidatesSection/>}
+            <CandidateHeroSection/>
+            <RecommendedCandidatesSection/>
         </>
 
     );
 }
 
-export default Layout;
+export default Page;

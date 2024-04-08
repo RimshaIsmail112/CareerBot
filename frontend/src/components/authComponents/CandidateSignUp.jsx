@@ -36,6 +36,7 @@ export default function CandidateSignUp() {
 
     const onSubmit = (data) => {
         setIsLoading("signup");
+        console.log(`${HOST}/candidate/signup`);
         fetch(`${HOST}/candidate/signup`, {
             method: "POST",
             headers: {
@@ -45,6 +46,7 @@ export default function CandidateSignUp() {
         })
             .then((res) => res.json())
             .then(async (data) => {
+                console.log(data)
                 if (data.error) {
                     setShowAlert(true);
                     setAlertMessage(data.error);
@@ -66,7 +68,6 @@ export default function CandidateSignUp() {
                 }
             })
             .catch((error) => {
-                setCandidate({id:data.id, email:data.email});
                 setShowAlert(true);
                 setTitle("Error");
                 setAlertMessage(error.error);

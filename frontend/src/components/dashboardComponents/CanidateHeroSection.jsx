@@ -5,44 +5,52 @@ import {AiOutlineSearch} from 'react-icons/ai'
 import {FaLocationDot} from "react-icons/fa6";
 import {searchJobs} from "@/lib/JobSearch";
 import {ImSpinner2} from "react-icons/im";
-import {usePathname} from "next/navigation";
+import {usePathname, useRouter} from "next/navigation";
 import {WavyBackground} from "@/components/ui/wavy-background";
 
 
-const CandidateHeroSection = ({handleSearch}) => {
+const CandidateHeroSection = () => {
     const [search, setSearch] = useState('')
     const [location, setLocation] = useState('')
     const [isLoading, setIsLoading] = useState(false)
     const path = usePathname();
+    const router = useRouter();
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
         console.log(search, location)
         if (search === '' && location === '') return
         setIsLoading(true)
-        searchJobs([search], location, 1, 5).then(async data => {
-            await handleSearch(data.reverse())
+        if (path.includes('candidate/dashboard')) {
+            await router.push(`/candidate/dashboard/search-jobs?search=${search}&location=${location}`)
             setIsLoading(false)
-        })
+        } else {
+
+            await router.push(`/employer/dashboard/search-candidates?search=${search}&location=${location}`)
+            setIsLoading(false)
+        }
     }
     return (
-        <div className='pb-20 pt-14 px-10 md:px-12 relative'>
+        <div className='pb-12 pt-14 px-10 md:px-12 relative'>
             <WavyBackground backgroundFill={'#020617'} className="max-w-4xl mx-auto pb-35">
-                {path.includes('candidate') ?
+                {path.includes('candidate/dashboard') ?
                     <>
-                        <h1 className='md:text-5xl leading-7 text-3xl text-center text-slate-50 font-bold mb-7'>Get
+                        <h1 className={`md:text-5xl leading-7 ${path.includes('search-jobs') ? 'hidden' : ''} text-3xl text-center text-slate-50 font-bold mb-7`}>Get
                             The <span
-                                className='text-[#504ED7]'>Right Job</span> <br className='hidden md:block'/> You Deserve!
+                                className='text-[#504ED7]'>Right Job</span> <br className='hidden md:block'/> You
+                            Deserve!
                         </h1>
-                        <p className='text-slate-50 text-sm text-center'>1,850,750 jobs listed here! Your dream job is
+                        <p className={`${path.includes('search-jobs') ? 'hidden' : ''} text-slate-50 text-sm text-center`}>1,850,750
+                            jobs listed here! Your dream job is
                             waiting</p>
                     </> :
                     <>
-                        <h1 className='md:text-5xl leading-7 text-3xl text-center text-slate-50 font-bold mb-7'>Find
+                        <h1 className={`md:text-5xl leading-7 ${path.includes('search-jobs') ? 'hidden' : ''} text-3xl text-center text-slate-50 font-bold mb-7`}>Find
                             Your <span
                                 className='text-[#504ED7]'>Perfect Candidate</span> <br
                                 className='hidden md:block'/> Today!</h1>
-                        <p className='text-slate-50 text-sm text-center'>1,850,750 Profiles Available! Your ideal hire
+                        <p className={`text-slate-50 text-sm text-center ${path.includes('search-jobs') ? 'hidden' : ''}`}>1,850,750
+                            Profiles Available! Your ideal hire
                             is just a click away</p>
                     </>
                 }

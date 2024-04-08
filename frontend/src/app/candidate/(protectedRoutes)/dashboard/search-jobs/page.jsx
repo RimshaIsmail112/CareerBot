@@ -8,6 +8,7 @@ import {cn, getCountryCode} from "@/lib/utils";
 import {ImSpinner2} from "react-icons/im";
 import {Button, IconButton} from "@material-tailwind/react";
 import {ArrowLeftIcon, ArrowRightIcon} from "@radix-ui/react-icons";
+import {searchJobs} from "@/lib/JobSearch";
 
 function Page() {
     const params = useSearchParams();
@@ -39,12 +40,17 @@ function Page() {
     const endIndex = startIndex + itemsPerPage;
     const currentData = searchedJobs && searchedJobs.slice(startIndex, endIndex);
 
-    useEffect(() => {
-        if (jobs.data) {
-            setSearchedJobs(jobs.data);
-        }
-    }, [jobs.data]);
 
+    useEffect(() => {
+        if(params.size !== 0) {
+            async function getJobsResult(search,location){
+                const realTimeJobsData = await searchJobs(search, location)
+                setSearchedJobs(realTimeJobsData);
+            }
+            getJobsResult(params.get('search'), params.get('location'));
+
+        }
+    }, [params.size]);
 
     return (<>
             <CandidateHeroSection/>
@@ -61,7 +67,7 @@ function Page() {
                         <div className="flex w-full flex-col gap-3">
                             {!currentData ? (<ImSpinner2 size={30}
                                                          className="animate-spin w-full text-slate-50"/>) : <div
-                                className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 justify-center gap-5 items-center">
+                                className="grid grid-cols-1 xl:grid-cols-2 justify-center items-center">
                                 {(currentData.map(async (jobItem, index) => {
                                     return (<div className="p-2 md:p-5 w-full md:basis-1/3" key={jobItem.job_id}>
                                         <JobCard

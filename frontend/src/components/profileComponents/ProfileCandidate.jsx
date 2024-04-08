@@ -183,44 +183,48 @@ function ProfileDetailsForm() {
     };
 
     async function storeCompleteData(formData) {
-        await fetch(`${HOST}/candidate-profile`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(formData)
-        }).then((response) => response.json())
-            .then((data) => {
-                if (data.error) {
-                    setShowAlert(true);
-                    setTitle("Error");
-                    setAlertMessage(data.error);
-                    setIsLoading(false);
-                    setTimeout(() => {
-                        setShowAlert(false);
-                    }, 7000);
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                } else {
-                    setShowAlert(true);
-                    setTitle("Success");
-                    setAlertMessage(data.message);
-                    setIsLoading(false);
-                    setTimeout(() => {
-                        setShowAlert(false);
-                    }, 4000);
-                    window.scrollTo({top: 0, behavior: 'smooth'});
-                }
-            })
-            .catch((error) => {
+        try {
+            const response = await fetch(`${HOST}/candidate-profile`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(formData)
+            });
+            const data = await response.json();
+            if (data.error) {
                 setShowAlert(true);
                 setTitle("Error");
-                setAlertMessage(error.message);
+                setAlertMessage(data.error);
                 setIsLoading(false);
                 setTimeout(() => {
                     setShowAlert(false);
                 }, 7000);
                 window.scrollTo({ top: 0, behavior: 'smooth' });
-            });
+                return "error";
+            } else {
+                setShowAlert(true);
+                setTitle("Success");
+                setAlertMessage(data.message);
+                setIsLoading(false);
+                setTimeout(() => {
+                    setShowAlert(false);
+                }, 4000);
+                window.scrollTo({top: 0, behavior: 'smooth'});
+                return "success";
+            }
+        }
+        catch (error){
+            setShowAlert(true);
+            setTitle("Error");
+            setAlertMessage(error.message);
+            setIsLoading(false);
+            setTimeout(() => {
+                setShowAlert(false);
+            }, 7000);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            return "error";
+        }
     }
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -256,8 +260,8 @@ function ProfileDetailsForm() {
                 .then((response) => response.json())
                 .then(async (data) => {
                     formData.profilePicture = data.secure_url;
-                    await storeCompleteData(formData);
-                    await router.push("/candidate/dashboard");
+                    const message = await storeCompleteData(formData);
+                    message === "success" && router.push("/candidate/dashboard");
                 })
                 .catch((error) => {
                     setShowAlert(true);

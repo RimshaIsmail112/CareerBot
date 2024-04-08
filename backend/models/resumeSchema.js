@@ -5,7 +5,7 @@ const resumeSchema = mongoose.Schema({
     type: Number,
     required: true,
   },
-  userId: {
+  candidateId: {
     type: String,
     required: true,
   },

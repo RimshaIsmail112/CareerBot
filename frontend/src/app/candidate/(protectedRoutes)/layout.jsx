@@ -5,7 +5,7 @@ import { CgProfile } from "react-icons/cg";
 import { FiHelpCircle } from "react-icons/fi";
 import { FaSignOutAlt, FaUserTie, FaBriefcase, FaBookmark } from "react-icons/fa";
 import CandidateHeroSection from "@/components/dashboardComponents/CanidateHeroSection";
-import JobsSection from "@/components/dashboardComponents/JobsSection";
+import RecommendedJobs from "@/components/dashboardComponents/RecommendedJobs";
 import {Footer} from "@/components/ui/Footer";
 
 
@@ -27,7 +27,7 @@ function Layout({children}) {
     const navListItems = [
         {
             label: "Find Jobs",
-            href: "/candidate/jobs",
+            href: "/candidate/dashboard/search-jobs",
             icon: <FaUserTie size={18}/>
 
         },

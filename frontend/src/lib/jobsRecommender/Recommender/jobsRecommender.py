@@ -50,3 +50,27 @@ def recommend_jobs(jobs_data, resume_data):
     recommended_jobs = [jobs_data[idx] for idx in sorted_indices]
     print(len(recommended_jobs))
     return recommended_jobs
+
+
+def recommend_candidates(candidate_data, job_description):
+    # Preprocess job description
+    preprocessed_job_description = preprocess_text(job_description)
+
+    # Preprocess candidate data
+    candidate_summaries = []
+    for candidate in candidate_data:
+        candidate_skills = preprocess_text(candidate['skills'])
+        candidate_experience = [preprocess_text(exp['description']) for exp in candidate['workExperiences']]
+        candidate_education = [preprocess_text(edu['description']) for edu in candidate['education']]
+        candidate_summary = ' '.join(candidate_skills + candidate_experience + candidate_education)
+        candidate_summaries.append(candidate_summary)
+
+    # Apply TF-IDF vectorization and cosine similarity calculation
+    tfidf_vectorizer = TfidfVectorizer(ngram_range=(1, 2), min_df=2, max_df=0.8, sublinear_tf=True)
+    tfidf_matrix_candidates = tfidf_vectorizer.fit_transform(candidate_summaries)
+    job_text = preprocessed_job_description
+    tfidf_matrix_job = tfidf_vectorizer.transform([job_text])
+    similarities = cosine_similarity(tfidf_matrix_job, tfidf_matrix_candidates)[0]
+    sorted_indices = np.argsort(similarities)[::-1]
+    recommended_candidates = [candidate_data[idx] for idx in sorted_indices]
+    return recommended_candidates

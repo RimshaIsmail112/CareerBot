@@ -5,12 +5,12 @@ const router = express.Router();
 router.post("/candidate/uploadResume", async (req, res) => {
   try {
     const {
-      userId,
+      candidateId,
       size,
       contentType,
       protectedUrl,
-    } = req.body.userId;
-    if (!userId) {
+    } = req.body;
+    if (!candidateId) {
       return res.status(400).json({ error: "userId is required" });
     }
     if (!protectedUrl) {
@@ -18,14 +18,15 @@ router.post("/candidate/uploadResume", async (req, res) => {
     }
     const resume = {
         size,
-        userId,
+        candidateId,
         contentType,
         protectedUrl,
     }
     Object.keys(resume).forEach(key => resume[key] === undefined && delete resume[key]);
 
     const newResume = new Resume(resume);
-
+console.log(newResume);
+console.log(newResume);
     await newResume.save();
     return res.json({ message: "Resume Uploaded Successfully"});
   } catch (error) {

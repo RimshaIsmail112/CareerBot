@@ -1,10 +1,11 @@
 import {jobs} from "@/lib/dummyData";
 
-export const searchJobs = async (querySearch, location ,page, numPages) => {
-    const formattedSkills = querySearch.map(skill => encodeURIComponent(skill)).join('%20OR%20');
+export const searchJobs = async (querySearch, location, giveRecommended) => {
+    let formattedSkills = "";
+    if(giveRecommended) formattedSkills = querySearch.map(skill => encodeURIComponent(skill)).join('%20OR%20');
     const formattedLocation = encodeURIComponent(location);
 
-    const url = `https://jsearch.p.rapidapi.com/search?query=${formattedSkills}%20in%20${formattedLocation}&page=${page}&num_pages=${numPages}`;
+    const url = `https://jsearch.p.rapidapi.com/search?query=${giveRecommended ? formattedSkills : querySearch}%20in%20${formattedLocation}&page=10&num_pages=10`;
     const options = {
         method: 'GET',
         headers: {

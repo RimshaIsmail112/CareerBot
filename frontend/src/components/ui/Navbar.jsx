@@ -21,6 +21,9 @@ import Link from "next/link";
 import {MobileDrawer} from "@/components/ui/MobileDrawer";
 import {useAppContext} from "@/Context/Candidate_Employer_Data";
 import {usePathname} from "next/navigation";
+import { Badge } from "@material-tailwind/react";
+import { FaBell } from "react-icons/fa";
+
 
 
 function ProfileMenu({profileMenuItems}) {
@@ -31,6 +34,7 @@ function ProfileMenu({profileMenuItems}) {
     return (
         <Menu open={isMenuOpen} handler={setIsMenuOpen} placement="bottom-end">
             <MenuHandler>
+
                 <Button
                     variant="text"
                     color="blue-gray"
@@ -126,7 +130,12 @@ export default function ComplexNavbar({navListItems, profileMenuItems}) {
                     >
                         <Bars2Icon className="h-6 w-6"/>
                     </IconButton>
-                    <ProfileMenu profileMenuItems={profileMenuItems}/>
+                    <div className={'flex justify-center gap-6 items-center'}>
+                        <Badge content="5">
+                            <FaBell size={25} className={'text-slate-950'}/>
+                        </Badge>
+                        <ProfileMenu profileMenuItems={profileMenuItems}/>
+                    </div>
                 </div>
             </Navbar>
         </div>

@@ -33,7 +33,7 @@ function Layout({children}) {
     const navListItems = [
         {
             label: "Find Candidates",
-            href: "/candidate/jobs",
+            href: "/employer/dashboard/search-jobs",
             icon: <FaUserTie size={18}/>
 
         },

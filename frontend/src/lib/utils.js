@@ -129,7 +129,24 @@ export function cn(...inputs) {
   return twMerge(clsx(inputs));
 }
 
-export const HOST="http://localhost:3000"
+export const HOST="http://localhost:3001"
+export const getCountryCode = async (country) => {
+  let countryCode = "";
+  await fetch(`https://restcountries.com/v3.1/name/${country}?fullText=true`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+      .then((response) => response.json())
+      .then((data) => {
+        countryCode = data[0].cca2.toString();
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+    return countryCode;
+}
 export const getTimestamp = (createdAt) => {
   const now = new Date();
   const timeDifference = now.getTime() - createdAt.getTime();
