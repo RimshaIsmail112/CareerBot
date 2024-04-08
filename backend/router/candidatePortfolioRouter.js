@@ -59,5 +59,44 @@ router.get('/candidate/projects/:candidateId', async (req, res) => {
         res.status(500).send({ error: error.message });
     }
 });
+router.delete('/candidate/deleteProject/:candidateId/:projectId', async (req, res) => {
+    const { candidateId, projectId } = req.params;
+
+    // Validate candidateId
+    if (!mongoose.Types.ObjectId.isValid(candidateId)) {
+        return res.status(400).send({ error: 'Invalid candidate ID' });
+    }
+
+    // Validate projectId
+    if (!mongoose.Types.ObjectId.isValid(projectId)) {
+        return res.status(400).send({ error: 'Invalid project ID' });
+    }
+
+    try {
+        // Retrieve the candidate's portfolio
+        const portfolio = await CandidatePortfolio.findOne({ candidateId: candidateId });
+        if (!portfolio) {
+            return res.status(404).send({ error: 'Candidate portfolio not found' });
+        }
+
+        // Find the project to be deleted in the portfolio
+        const projectIndex = portfolio.projects.findIndex(project => project._id.equals(projectId));
+        if (projectIndex === -1) {
+            return res.status(404).send({ error: 'Project not found in portfolio' });
+        }
+
+        // Remove the project from the portfolio
+        portfolio.projects.splice(projectIndex, 1);
+
+        // Save the updated portfolio document
+        await portfolio.save();
+
+        // Respond with success message
+        res.status(200).json({ message: 'Project deleted successfully', data: portfolio });
+    } catch (error) {
+        console.error("Error processing delete project request:", error);
+        res.status(500).send({ error: error.message });
+    }
+});
 
 module.exports = router;

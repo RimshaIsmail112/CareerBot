@@ -5,11 +5,11 @@ import {BackgroundGradient} from "@/components/ui/background-gradient";
 
 function PortfolioLayout({children}) {
     return (
-        <Single>
-            <BackgroundGradient className="rounded-3xl flex justify-center items-center p-4 h-full w-[80vw] md:w-[40vw] bg-slate-950">
+        
+            <BackgroundGradient className="rounded-3xl flex justify-center items-center p-4 h-full w-[90vw] md:w-[50vw] bg-slate-950">
                 {children}
             </BackgroundGradient>
-        </Single>
+        
     );
 }
 
