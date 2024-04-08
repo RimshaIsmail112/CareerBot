@@ -14,8 +14,11 @@ import {FiHelpCircle} from "react-icons/fi";
 import {FaBookmark, FaBriefcase, FaSignOutAlt, FaUserTie} from "react-icons/fa";
 import CandidateHeroSection from "@/components/dashboardComponents/CanidateHeroSection";
 import {Footer} from "@/components/ui/Footer";
+import {usePathname} from "next/navigation";
+import RecommendedCandidatesSection from "@/components/dashboardComponents/RecommendedCandidatesSection";
 
-function Page(props) {
+function Layout({children}) {
+    const path = usePathname();
 
     const [searchedData, setSearchedData] = React.useState(null);
     const handleSearch = (data) => {
@@ -23,10 +26,11 @@ function Page(props) {
     }
     return (
         <>
-            <CandidateHeroSection handleSearch={handleSearch}/>
+        <CandidateHeroSection handleSearch={handleSearch}/>
+        {path.includes('/employer/search-candidates') ? {children} : <RecommendedCandidatesSection/>}
         </>
 
     );
 }
 
-export default Page;
+export default Layout;
