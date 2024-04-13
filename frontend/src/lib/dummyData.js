@@ -8366,3 +8366,767 @@ export const candidatesData = [{
         "profilePictureUrl": "https://res.cloudinary.com/dy5yzo1ji/image/upload/v1711968349/facrog64e2o2kmpbpwbg.jpg",
         "__v": {"$numberInt": "0"}
     }]
+
+export const resumeData = [
+    {
+        "data": {
+            "certifications": [
+                "Web Development Course"
+            ],
+            "dateOfBirth": null,
+            "education": [
+                {
+                    "id": 60265930,
+                    "organization": "COMSATS Unversity",
+                    "accreditation": {
+                        "education": "B.S. in Software Engineering",
+                        "educationLevel": null,
+                        "inputStr": "B.S. in Software Engineering",
+                        "matchStr": ""
+                    },
+                    "grade": {
+                        "raw": "3.5",
+                        "value": "3.5",
+                        "metric": null
+                    },
+                    "location": {
+                        "formatted": "Lahore, Punjab, Pakistan",
+                        "streetNumber": null,
+                        "street": null,
+                        "apartmentNumber": null,
+                        "city": "Lahore",
+                        "postalCode": null,
+                        "state": "Punjab",
+                        "stateCode": "Punjab",
+                        "country": "Pakistan",
+                        "rawInput": "Lahore,",
+                        "countryCode": "PK",
+                        "latitude": 31.5203696,
+                        "longitude": 74.35874729999999,
+                        "poBox": null
+                    },
+                    "dates": {
+                        "startDate": "2020-02-01",
+                        "completionDate": "2024-04-08",
+                        "isCurrent": true,
+                        "rawText": "02/2020 - Present"
+                    }
+                }
+            ],
+            "emails": [
+                "dev.abubakarsiddique@gmail.com"
+            ],
+            "location": {
+                "formatted": "Lahore, Punjab, Pakistan",
+                "streetNumber": null,
+                "street": null,
+                "apartmentNumber": null,
+                "city": "Lahore",
+                "postalCode": null,
+                "state": "Punjab",
+                "stateCode": "Punjab",
+                "country": "Pakistan",
+                "rawInput": "Lahore, Pakistan",
+                "countryCode": "PK",
+                "latitude": 31.5203696,
+                "longitude": 74.35874729999999,
+                "poBox": null
+            },
+            "name": {
+                "raw": "M.ABUBAKAR SIDDIQUE",
+                "last": "Siddique",
+                "first": "M.Abubakar",
+                "title": "",
+                "middle": ""
+            },
+            "objective": "",
+            "phoneNumbers": [
+                "+923494101609"
+            ],
+            "phoneNumberDetails": [
+                {
+                    "rawText": "+923494101609",
+                    "formattedNumber": "+92 349 4101609",
+                    "countryCode": "PK",
+                    "internationalCountryCode": 92,
+                    "nationalNumber": "0349 4101609"
+                }
+            ],
+            "publications": [],
+            "referees": [
+                {
+                    "name": "Mr. Mohsin Mehdi",
+                    "text": "Mr. Mohsin Mehdi Lecturer, COMSATS mohsin.mehdi@cuilahore.edu.pk",
+                    "email": "mohsin.mehdi@cuilahore.edu.pk",
+                    "number": null,
+                    "position": "Lecturer,"
+                }
+            ],
+            "sections": [
+                {
+                    "bbox": [
+                        36.896328,
+                        32.00238,
+                        437.76843,
+                        99.997314
+                    ],
+                    "text": "M.ABUBAKAR SIDDIQUE Full Stack Developer 92 349 4101 609 Lahore, Pakistan dev.abubakarsiddique@gmail.com www.linkedin.com/in/abdeveloper https://ab-sidd.vercel.app",
+                    "pageIndex": 0,
+                    "sectionType": "PersonalDetails"
+                },
+                {
+                    "bbox": [
+                        36.341373,
+                        116.806946,
+                        310.8852,
+                        198.87564
+                    ],
+                    "text": "SUMMARY Experienced Full Stack Developer with over 3 years of expertise in web and mobile technologies, including Next.js, Node.js, MongoDB, and React Native. Proven track record of successfully delivering high-quality projects in a fast paced environment. Adept at collaborating with cross-functional teams to create efficient and scalable solutions. Led the development of web and mobile applications, demonstrating proficiency in both front-end and back end technologies.",
+                    "pageIndex": 0,
+                    "sectionType": "Summary"
+                },
+                {
+                    "bbox": [
+                        36.421196,
+                        224.504,
+                        317.95718,
+                        267.17493
+                    ],
+                    "text": "EDUCATION B.S. in Software Engineering GPA COMSATS Unversity 02/2020 - Present Lahore, Pk 3.5 / 4.0",
+                    "pageIndex": 0,
+                    "sectionType": "Education"
+                },
+                {
+                    "bbox": [
+                        36.50102,
+                        289.7643,
+                        322.14838,
+                        352.9439
+                    ],
+                    "text": "EXPERIENCE Frontend Developer Softpers 03/2023 - 10/2023 Lahore, Pk Softpers is a leading software house, known for its rapid-paced development and innovative solutions in the realm of demanding projects.",
+                    "pageIndex": 0,
+                    "sectionType": "WorkExperience"
+                },
+                {
+                    "bbox": [
+                        36.193764,
+                        376.54623,
+                        291.1073,
+                        552.5926
+                    ],
+                    "text": "PROJECTS CareerSync, AI Based Job Portal https://github.com/Abubakar4101/careersync-app Meet CareerSync: It's a smart job portal created with React/Nextjs and Node.js. And for database management MongoDB is used. Dynamic Weather App https://github.com/Abubakar4101/Dynamic-Weather-App Presenting a Dynamic Weather App crafted with VanillaJS, seamlessly integrated with the OpenWeather API. A Dynamic Printing Platform https://exquisite-froyo-fc60fd.netlify.app/ This is my 3D printing platform, developed using React, Material UI and ThreeJs.",
+                    "pageIndex": 0,
+                    "sectionType": "Projects"
+                },
+                {
+                    "bbox": [
+                        348.02866,
+                        116.573425,
+                        543.59326,
+                        338.53772
+                    ],
+                    "text": "SKILLS Client-Side HTML CSS TailwindCSS React Next ES6/ES7 Redux MUI/Shadcn TypeScript RESTful API React Native Server-side NodeJS Express.js MongoDB GraphQL Prisma Firebase Development & Operations Jest GIT AWS S3 Agile Methodology",
+                    "pageIndex": 0,
+                    "sectionType": "Skills/Interests/Languages"
+                },
+                {
+                    "bbox": [
+                        347.83353,
+                        370.61118,
+                        460.24185,
+                        411.578
+                    ],
+                    "text": "CERTIFICATION Web Development Course Career Institude, 2020",
+                    "pageIndex": 0,
+                    "sectionType": "Training/Certifications"
+                },
+                {
+                    "bbox": [
+                        347.9843,
+                        433.9621,
+                        419.24817,
+                        504.36523
+                    ],
+                    "text": "STRENGTHS Communication Problem Solving Team Leadership",
+                    "pageIndex": 0,
+                    "sectionType": "Skills/Interests/Languages"
+                },
+                {
+                    "bbox": [
+                        348.28937,
+                        528.58923,
+                        471.10645,
+                        585.9334
+                    ],
+                    "text": "REFERENCES Mr. Mohsin Mehdi Lecturer, COMSATS mohsin.mehdi@cuilahore.edu.pk",
+                    "pageIndex": 0,
+                    "sectionType": "Referees"
+                }
+            ],
+            "skills": [
+                {
+                    "id": 654373019,
+                    "emsiId": "KS122556LMQ829GZCCRV",
+                    "name": "Communications",
+                    "lastUsed": null,
+                    "numberOfMonths": null,
+                    "type": "soft_skill",
+                    "sources": [
+                        {
+                            "section": "Skills/Interests/Languages",
+                            "position": null,
+                            "workExperienceId": null
+                        }
+                    ]
+                },
+                {
+                    "id": 654373021,
+                    "emsiId": "KS124JB619VXG6RQ810C",
+                    "name": "Leadership",
+                    "lastUsed": null,
+                    "numberOfMonths": null,
+                    "type": "soft_skill",
+                    "sources": [
+                        {
+                            "section": "Skills/Interests/Languages",
+                            "position": null,
+                            "workExperienceId": null
+                        }
+                    ]
+                },
+                {
+                    "id": 654373022,
+                    "emsiId": "KS127296VDYS7ZFWVC46",
+                    "name": "Node.js",
+                    "lastUsed": null,
+                    "numberOfMonths": null,
+                    "type": "hard_skill",
+                    "sources": [
+                        {
+                            "section": "Projects",
+                            "position": null,
+                            "workExperienceId": null
+                        },
+                        {
+                            "section": "Summary",
+                            "position": null,
+                            "workExperienceId": null
+                        }
+                    ]
+                },
+                {
+                    "id": 654373024,
+                    "emsiId": "KS120FG6YP8PQYYNQY9B",
+                    "name": "Amazon Web Services",
+                    "lastUsed": null,
+                    "numberOfMonths": null,
+                    "type": "hard_skill",
+                    "sources": [
+                        {
+                            "section": "Skills/Interests/Languages",
+                            "position": null,
+                            "workExperienceId": null
+                        }
+                    ]
+                },
+                {
+                    "id": 654373025,
+                    "emsiId": "KS1218W78FGVPVP2KXPX",
+                    "name": "Management",
+                    "lastUsed": null,
+                    "numberOfMonths": null,
+                    "type": "soft_skill",
+                    "sources": [
+                        {
+                            "section": "Projects",
+                            "position": null,
+                            "workExperienceId": null
+                        }
+                    ]
+                },
+                {
+                    "id": 654373026,
+                    "emsiId": "KS121F45VPV8C9W3QFYH",
+                    "name": "Cascading Style Sheets (CSS)",
+                    "lastUsed": null,
+                    "numberOfMonths": null,
+                    "type": "hard_skill",
+                    "sources": [
+                        {
+                            "section": "Skills/Interests/Languages",
+                            "position": null,
+                            "workExperienceId": null
+                        }
+                    ]
+                },
+                {
+                    "id": 654373029,
+                    "emsiId": "KS126PF6PJY1N0ZX5R0P",
+                    "name": "MongoDB",
+                    "lastUsed": null,
+                    "numberOfMonths": null,
+                    "type": "hard_skill",
+                    "sources": [
+                        {
+                            "section": "Projects",
+                            "position": null,
+                            "workExperienceId": null
+                        },
+                        {
+                            "section": "Skills/Interests/Languages",
+                            "position": null,
+                            "workExperienceId": null
+                        },
+                        {
+                            "section": "Summary",
+                            "position": null,
+                            "workExperienceId": null
+                        },
+                        {
+                            "section": "Projects",
+                            "position": null,
+                            "workExperienceId": null
+                        },
+                        {
+                            "section": "Skills/Interests/Languages",
+                            "position": null,
+                            "workExperienceId": null
+                        },
+                        {
+                            "section": "Summary",
+                            "position": null,
+                            "workExperienceId": null
+                        }
+                    ]
+                },
+                {
+                    "id": 654373031,
+                    "emsiId": "KS1200578T5QCYT0Z98G",
+                    "name": "HyperText Markup Language (HTML)",
+                    "lastUsed": null,
+                    "numberOfMonths": null,
+                    "type": "hard_skill",
+                    "sources": [
+                        {
+                            "section": "Skills/Interests/Languages",
+                            "position": null,
+                            "workExperienceId": null
+                        }
+                    ]
+                },
+                {
+                    "id": 654373032,
+                    "emsiId": "KS125F678LV2KB3Z5XW0",
+                    "name": "Problem Solving",
+                    "lastUsed": null,
+                    "numberOfMonths": null,
+                    "type": "soft_skill",
+                    "sources": [
+                        {
+                            "section": "Skills/Interests/Languages",
+                            "position": null,
+                            "workExperienceId": null
+                        }
+                    ]
+                },
+                {
+                    "id": 654373033,
+                    "emsiId": "KS1208P6ZMZ4N872Y7X5",
+                    "name": "Application Programming Interface (API)",
+                    "lastUsed": "2023-10-01",
+                    "numberOfMonths": 7,
+                    "type": "hard_skill",
+                    "sources": [
+                        {
+                            "section": "WorkExperience",
+                            "position": 0,
+                            "workExperienceId": 118332118
+                        },
+                        {
+                            "section": "Projects",
+                            "position": null,
+                            "workExperienceId": null
+                        },
+                        {
+                            "section": "Skills/Interests/Languages",
+                            "position": null,
+                            "workExperienceId": null
+                        }
+                    ]
+                },
+                {
+                    "id": 654373035,
+                    "emsiId": "KSPSGF5MXB6568UIQ4BK",
+                    "name": "React Native",
+                    "lastUsed": null,
+                    "numberOfMonths": null,
+                    "type": "hard_skill",
+                    "sources": [
+                        {
+                            "section": "Skills/Interests/Languages",
+                            "position": null,
+                            "workExperienceId": null
+                        },
+                        {
+                            "section": "Summary",
+                            "position": null,
+                            "workExperienceId": null
+                        }
+                    ]
+                },
+                {
+                    "id": 654373036,
+                    "emsiId": "ES9C0ADA3C9397DD6AED",
+                    "name": "Agile Software Development",
+                    "lastUsed": null,
+                    "numberOfMonths": null,
+                    "type": "hard_skill",
+                    "sources": [
+                        {
+                            "section": "Skills/Interests/Languages",
+                            "position": null,
+                            "workExperienceId": null
+                        }
+                    ]
+                },
+                {
+                    "id": 654373039,
+                    "emsiId": "KS120FQ6DY31LFDWPJR3",
+                    "name": "Amazon S3",
+                    "lastUsed": null,
+                    "numberOfMonths": null,
+                    "type": "hard_skill",
+                    "sources": [
+                        {
+                            "section": "Skills/Interests/Languages",
+                            "position": null,
+                            "workExperienceId": null
+                        }
+                    ]
+                },
+                {
+                    "id": 654373041,
+                    "emsiId": "KS127D361PF0FTXDZ7C4",
+                    "name": "Operations",
+                    "lastUsed": null,
+                    "numberOfMonths": null,
+                    "type": "soft_skill",
+                    "sources": [
+                        {
+                            "section": "Skills/Interests/Languages",
+                            "position": null,
+                            "workExperienceId": null
+                        }
+                    ]
+                },
+                {
+                    "id": 654373042,
+                    "emsiId": "KS1H7C2ZC7LXQQ6UN22I",
+                    "name": "Firebase",
+                    "lastUsed": null,
+                    "numberOfMonths": null,
+                    "type": "hard_skill",
+                    "sources": [
+                        {
+                            "section": "Skills/Interests/Languages",
+                            "position": null,
+                            "workExperienceId": null
+                        }
+                    ]
+                },
+                {
+                    "id": 654373020,
+                    "emsiId": "KS122Z36QK3N5097B5JH",
+                    "name": "Web Development",
+                    "lastUsed": null,
+                    "numberOfMonths": null,
+                    "type": "hard_skill",
+                    "sources": [
+                        {
+                            "section": "Training/Certifications",
+                            "position": null,
+                            "workExperienceId": null
+                        }
+                    ]
+                },
+                {
+                    "id": 654373023,
+                    "emsiId": "KS120B874P2P6BK1MQ0T",
+                    "name": "Agile Methodology",
+                    "lastUsed": null,
+                    "numberOfMonths": null,
+                    "type": "hard_skill",
+                    "sources": [
+                        {
+                            "section": "Skills/Interests/Languages",
+                            "position": null,
+                            "workExperienceId": null
+                        }
+                    ]
+                },
+                {
+                    "id": 654373027,
+                    "emsiId": "KS441LF7187KS0CV4B6Y",
+                    "name": "TypeScript",
+                    "lastUsed": null,
+                    "numberOfMonths": null,
+                    "type": "hard_skill",
+                    "sources": [
+                        {
+                            "section": "Skills/Interests/Languages",
+                            "position": null,
+                            "workExperienceId": null
+                        }
+                    ]
+                },
+                {
+                    "id": 654373028,
+                    "emsiId": "ESAD92AA2437BEF8C136",
+                    "name": "Express.js",
+                    "lastUsed": null,
+                    "numberOfMonths": null,
+                    "type": "hard_skill",
+                    "sources": [
+                        {
+                            "section": "Skills/Interests/Languages",
+                            "position": null,
+                            "workExperienceId": null
+                        }
+                    ]
+                },
+                {
+                    "id": 654373030,
+                    "emsiId": "KSOPDDN3W5WZ7TE785BL",
+                    "name": "GraphQL",
+                    "lastUsed": null,
+                    "numberOfMonths": null,
+                    "type": "hard_skill",
+                    "sources": [
+                        {
+                            "section": "Skills/Interests/Languages",
+                            "position": null,
+                            "workExperienceId": null
+                        }
+                    ]
+                },
+                {
+                    "id": 654373034,
+                    "emsiId": "KS4401V5WX78L6JX0NW7",
+                    "name": "RESTful API",
+                    "lastUsed": null,
+                    "numberOfMonths": null,
+                    "type": "hard_skill",
+                    "sources": [
+                        {
+                            "section": "Skills/Interests/Languages",
+                            "position": null,
+                            "workExperienceId": null
+                        }
+                    ]
+                },
+                {
+                    "id": 654373037,
+                    "emsiId": "ES7CA4F00390885DBAAB",
+                    "name": "Next.js",
+                    "lastUsed": null,
+                    "numberOfMonths": null,
+                    "type": "hard_skill",
+                    "sources": [
+                        {
+                            "section": "Summary",
+                            "position": null,
+                            "workExperienceId": null
+                        }
+                    ]
+                },
+                {
+                    "id": 654373038,
+                    "emsiId": "KS4418462TTGKL3CWJHT",
+                    "name": "Team Leadership",
+                    "lastUsed": null,
+                    "numberOfMonths": null,
+                    "type": "soft_skill",
+                    "sources": [
+                        {
+                            "section": "Skills/Interests/Languages",
+                            "position": null,
+                            "workExperienceId": null
+                        }
+                    ]
+                },
+                {
+                    "id": 654373040,
+                    "emsiId": "KS440H66BML35BBRFCTK",
+                    "name": "Server-Side",
+                    "lastUsed": null,
+                    "numberOfMonths": null,
+                    "type": "hard_skill",
+                    "sources": [
+                        {
+                            "section": "Skills/Interests/Languages",
+                            "position": null,
+                            "workExperienceId": null
+                        }
+                    ]
+                },
+                {
+                    "id": 654373043,
+                    "emsiId": "KS1201566L1SYP3D4LS3",
+                    "name": "3D Printing",
+                    "lastUsed": null,
+                    "numberOfMonths": null,
+                    "type": "hard_skill",
+                    "sources": [
+                        {
+                            "section": "Projects",
+                            "position": null,
+                            "workExperienceId": null
+                        }
+                    ]
+                }
+            ],
+            "languages": [
+                "English"
+            ],
+            "summary": "Experienced Full Stack Developer with over 3 years of expertise in web and mobile technologies, including Next.js, Node.js, MongoDB, and React Native. Proven track record of successfully delivering high-quality projects in a fast paced environment. Adept at collaborating with cross-functional teams to create efficient and scalable solutions. Led the development of web and mobile applications, demonstrating proficiency in both front-end and back end technologies.",
+            "websites": [
+                "https://www.linkedin.com/in/abdeveloper/",
+                "https://ab-sidd.vercel.app"
+            ],
+            "linkedin": "https://www.linkedin.com/in/abdeveloper/",
+            "totalYearsExperience": 1,
+            "profession": "Developer Frontend",
+            "workExperience": [
+                {
+                    "id": 118332118,
+                    "jobTitle": "Frontend Developer",
+                    "organization": "Softpers",
+                    "location": {
+                        "formatted": "Lahore, Punjab, Pakistan",
+                        "streetNumber": null,
+                        "street": null,
+                        "apartmentNumber": null,
+                        "city": "Lahore",
+                        "postalCode": null,
+                        "state": "Punjab",
+                        "stateCode": "Punjab",
+                        "country": "Pakistan",
+                        "rawInput": "Lahore, Pk",
+                        "countryCode": "PK",
+                        "latitude": 31.5203696,
+                        "longitude": 74.35874729999999,
+                        "poBox": null
+                    },
+                    "dates": {
+                        "startDate": "2023-03-01",
+                        "endDate": "2023-10-01",
+                        "monthsInPosition": 7,
+                        "isCurrent": false,
+                        "rawText": "03/2023 - 10/2023"
+                    },
+                    "jobDescription": "Softpers is a leading software house, known for its rapid-paced development and innovative solutions in the realm of demanding projects. ",
+                    "occupation": {
+                        "jobTitle": "Frontend Developer",
+                        "jobTitleNormalized": "Developer",
+                        "classification": {
+                            "socCode": 2134,
+                            "title": "Programmers and software development professionals ",
+                            "minorGroup": "Information Technology Professionals",
+                            "subMajorGroup": "SCIENCE, RESEARCH, ENGINEERING AND TECHNOLOGY PROFESSIONALS",
+                            "majorGroup": "PROFESSIONAL OCCUPATIONS",
+                            "minorGroupCode": 213,
+                            "subMajorGroupCode": 21,
+                            "majorGroupCode": 2
+                        },
+                        "managementLevel": "Low",
+                        "emsiId": "ET2459D4D4859CC553"
+                    }
+                }
+            ],
+            "headShot": null,
+            "isResumeProbability": 99,
+            "rawText": "M.ABUBAKAR SIDDIQUE Full Stack Developer 92 349 4101 609 Lahore, Pakistan dev.abubakarsiddique@gmail.com www.linkedin.com/in/abdeveloper https://ab-sidd.vercel.app\nSUMMARY Experienced Full Stack Developer with over 3 years of expertise in web and mobile technologies, including Next.js, Node.js, MongoDB, and React Native. Proven track record of successfully delivering high-quality projects in a fast paced environment. Adept at collaborating with cross-functional teams to create efficient and scalable solutions. Led the development of web and mobile applications, demonstrating proficiency in both front-end and back end technologies.\nEDUCATION B.S. in Software Engineering GPA COMSATS Unversity 02/2020 - Present Lahore, Pk 3.5 / 4.0\nEXPERIENCE Frontend Developer Softpers 03/2023 - 10/2023 Lahore, Pk Softpers is a leading software house, known for its rapid-paced development and innovative solutions in the realm of demanding projects.\nPROJECTS CareerSync, AI Based Job Portal https://github.com/Abubakar4101/careersync-app Meet CareerSync: It's a smart job portal created with React/Nextjs and Node.js. And for database management MongoDB is used. Dynamic Weather App https://github.com/Abubakar4101/Dynamic-Weather-App Presenting a Dynamic Weather App crafted with VanillaJS, seamlessly integrated with the OpenWeather API. A Dynamic Printing Platform https://exquisite-froyo-fc60fd.netlify.app/ This is my 3D printing platform, developed using React, Material UI and ThreeJs.\nSKILLS Client-Side HTML CSS TailwindCSS React Next ES6/ES7 Redux MUI/Shadcn TypeScript RESTful API React Native Server-side NodeJS Express.js MongoDB GraphQL Prisma Firebase Development & Operations Jest GIT AWS S3 Agile Methodology\nCERTIFICATION Web Development Course Career Institude, 2020\nSTRENGTHS Communication Problem Solving Team Leadership\nREFERENCES Mr. Mohsin Mehdi Lecturer, COMSATS mohsin.mehdi@cuilahore.edu.pk",
+            "redactedText": "********** ******** Full Stack Developer ** *** **** *** ******* ******** ****************************** ******************************* **************************\nSUMMARY Experienced Full Stack Developer with over 3 years of expertise in web and mobile technologies, including Next.js, Node.js, MongoDB, and React Native. Proven track record of successfully delivering high-quality projects in a fast paced environment. Adept at collaborating with cross-functional teams to create efficient and scalable solutions. Led the development of web and mobile applications, demonstrating proficiency in both front-end and back end technologies.\nEDUCATION B.S. in Software Engineering GPA COMSATS Unversity ******* * Present Lahore, Pk 3.5 / 4.0\nEXPERIENCE Frontend Developer Softpers 03/2023 - 10/2023 Lahore, Pk Softpers is a leading software house, known for its rapid-paced development and innovative solutions in the realm of demanding projects.\nPROJECTS CareerSync, AI Based Job Portal ********************************************** Meet CareerSync: It's a smart job portal created with React/Nextjs and ******** And for database management MongoDB is used. Dynamic Weather App *************************************************** Presenting a Dynamic Weather App crafted with VanillaJS, seamlessly integrated with the OpenWeather API. A Dynamic Printing Platform ******************************************* This is my 3D printing platform, developed using React, Material UI and ThreeJs.\nSKILLS Client-Side HTML CSS TailwindCSS React Next ES6/ES7 Redux MUI/Shadcn TypeScript RESTful API React Native Server-side NodeJS Express.js MongoDB GraphQL Prisma Firebase Development & Operations Jest GIT AWS S3 Agile Methodology\nCERTIFICATION Web Development Course Career Institude, 2020\nSTRENGTHS Communication Problem Solving Team Leadership\n********** *** ****** ***** ********* ******* *****************************"
+        },
+        "meta": {
+            "identifier": "LjUKejwh",
+            "customIdentifier": null,
+            "ready": true,
+            "failed": false,
+            "readyDt": "2024-04-08T05:25:13.358736Z",
+            "fileName": "Resume-Abubakar.pdf",
+            "expiryTime": null,
+            "language": "en",
+            "pdf": "https://affinda-api-data-prod-ap1.s3.amazonaws.com/media/documents/Resume-Abubakar_jpTMkOc.pdf?versionId=fOH7bxYObEXYm2box2kJzO7i0zCpnltB&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAU4IX6YWNOMDBANOZ%2F20240408%2Fap-southeast-2%2Fs3%2Faws4_request&X-Amz-Date=20240408T082203Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEMD%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaDmFwLXNvdXRoZWFzdC0yIkcwRQIgWuxg2JvhpfCgJBYjpqsyBjoscdgFkb4TM8zVkYhtXA4CIQDwrLylwQz6P6tPOMTQKyTqFxQIu4J2M9TGxtQfJ6K6hCqSBQjp%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAMaDDMzNTU5NDU3MTE2MiIMN0%2FZ%2BEugkV5T5TyQKuYE31FdDs2ESm7bsp2AcK8b8iMxmjcf9q03sr1qoJFqQXBH6cD8TTpO0bMatGKq1NoHtJaL4bzSY8TzCAk%2BNxsWhW%2F1gi2yv%2FnukydscwI0eHRkctA08VsfSMySFJfp7tuh2%2BAMOHsK1uuqKib9dbKcj5BAKL1%2Fo1PUQJ2hB3aFvPa172T334yFWOmqbL3jLhyS7bZvs2lMUpj2KVvluY9NlFD%2FG5ekmQrbUaaKz8lTzvzVBW0P0sUqUFyNHkbceKpiADXrc9waLEss%2FvYwR3GGiiLfvbgjts%2BQNlP%2Fm%2BRYwVwwJZR9DyKnY16IvGCoPVRHHoRZmzMtvkDRdCAuW8DbTnXTrOpDjR%2FSXfm%2BdevGxo7I3Idnab9lQsMY8si3RYtUl00ERbBtuiLoK%2FTBZU%2F8vwr4Xxad7YAx57IjAaqsDwWoAAMgjgEV8XCcFSQpvB0U%2FWejHOJxNbCn%2BWnU9LGahryFFkEHDFA5JAV%2BQL6swYUlgxO%2Bg4n46dbQEYyzilC1XvfB8YVCTpPB%2FDPoqPhEKisdL2%2Fetu4WIEYRuNxkLCL1YcPoI0zMDIzR4uihGCt%2BCAZrCk8gkCAv8D%2BgpGTTv7XldiibD%2Bkr0o%2Buj5XAVV0enxEif%2Ff3uzD0JMQ4qhCFMqKVzJ4qR22Kt16MJUtuI7UZXCU1rB8taQGpJz74wAXg4DpxvDqO023jOQNwIm9AKRGTeuq4MTyFaspruhVAU%2B1130QSZBwyCxD7c5tjso7mf%2BS9FXBrmrn%2Bb%2BFLGPPg6dfxNSdSqGHrfKZBUs47ZBaW5gcRlmGOVvOpFmvTjS536qhc7lswtr%2FOsAY6mgHTG7QtB%2B9N3MODkzVe4ptuQC5N9Vrpt9YyobliRSfV1z288Os1Fcld7G8G7zBxJb6YIghlOKLEypSc756P4dpGGUF%2F5XgtWSmiC%2BBCUS0yLpwW1OenZe4yRBfMEkcq3XT%2Bd0pqvTqcozTNd1MttO4s%2Fb9BVxK5BPeOfPyxt9THLuxveo7BZD8mxXsV5%2FbgmARmKmqAFXsI8mzP&X-Amz-Signature=d32a94199ec257359d2fe290cfda380e8c25275a6c2c37baddc73e4921f9ae9e",
+            "parentDocument": null,
+            "childDocuments": [],
+            "pages": [
+                {
+                    "id": 68671459,
+                    "pageIndex": 0,
+                    "image": "https://affinda-api-data-prod-ap1.s3.amazonaws.com/media/pages/68671459_1V34aKv.png?versionId=Mz8NbrHfMKldVec9C.QQet8gSt.Tbcj.&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAU4IX6YWNOMDBANOZ%2F20240408%2Fap-southeast-2%2Fs3%2Faws4_request&X-Amz-Date=20240408T082203Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEMD%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaDmFwLXNvdXRoZWFzdC0yIkcwRQIgWuxg2JvhpfCgJBYjpqsyBjoscdgFkb4TM8zVkYhtXA4CIQDwrLylwQz6P6tPOMTQKyTqFxQIu4J2M9TGxtQfJ6K6hCqSBQjp%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAMaDDMzNTU5NDU3MTE2MiIMN0%2FZ%2BEugkV5T5TyQKuYE31FdDs2ESm7bsp2AcK8b8iMxmjcf9q03sr1qoJFqQXBH6cD8TTpO0bMatGKq1NoHtJaL4bzSY8TzCAk%2BNxsWhW%2F1gi2yv%2FnukydscwI0eHRkctA08VsfSMySFJfp7tuh2%2BAMOHsK1uuqKib9dbKcj5BAKL1%2Fo1PUQJ2hB3aFvPa172T334yFWOmqbL3jLhyS7bZvs2lMUpj2KVvluY9NlFD%2FG5ekmQrbUaaKz8lTzvzVBW0P0sUqUFyNHkbceKpiADXrc9waLEss%2FvYwR3GGiiLfvbgjts%2BQNlP%2Fm%2BRYwVwwJZR9DyKnY16IvGCoPVRHHoRZmzMtvkDRdCAuW8DbTnXTrOpDjR%2FSXfm%2BdevGxo7I3Idnab9lQsMY8si3RYtUl00ERbBtuiLoK%2FTBZU%2F8vwr4Xxad7YAx57IjAaqsDwWoAAMgjgEV8XCcFSQpvB0U%2FWejHOJxNbCn%2BWnU9LGahryFFkEHDFA5JAV%2BQL6swYUlgxO%2Bg4n46dbQEYyzilC1XvfB8YVCTpPB%2FDPoqPhEKisdL2%2Fetu4WIEYRuNxkLCL1YcPoI0zMDIzR4uihGCt%2BCAZrCk8gkCAv8D%2BgpGTTv7XldiibD%2Bkr0o%2Buj5XAVV0enxEif%2Ff3uzD0JMQ4qhCFMqKVzJ4qR22Kt16MJUtuI7UZXCU1rB8taQGpJz74wAXg4DpxvDqO023jOQNwIm9AKRGTeuq4MTyFaspruhVAU%2B1130QSZBwyCxD7c5tjso7mf%2BS9FXBrmrn%2Bb%2BFLGPPg6dfxNSdSqGHrfKZBUs47ZBaW5gcRlmGOVvOpFmvTjS536qhc7lswtr%2FOsAY6mgHTG7QtB%2B9N3MODkzVe4ptuQC5N9Vrpt9YyobliRSfV1z288Os1Fcld7G8G7zBxJb6YIghlOKLEypSc756P4dpGGUF%2F5XgtWSmiC%2BBCUS0yLpwW1OenZe4yRBfMEkcq3XT%2Bd0pqvTqcozTNd1MttO4s%2Fb9BVxK5BPeOfPyxt9THLuxveo7BZD8mxXsV5%2FbgmARmKmqAFXsI8mzP&X-Amz-Signature=d8c26e68623cbad840574b85d6b477f4ecbb06361768224b4ca5b077d166a4bc",
+                    "height": 633.75,
+                    "width": 570.0,
+                    "rotation": 0,
+                    "imageTranslated": null
+                }
+            ],
+            "ocrConfidence": null,
+            "reviewUrl": "https://app.affinda.com/review/LjUKejwh?signature=eyJ1c2VyX2lkIjoxMzIwNH0:1rtkGR:H_lRzF1EJrb_JUb8AMEkIiixNZXYLeVnkex_ZzlULMc:1rtkGR:V43p3dykJ_Gg4OaFKfvHp3b4Cex9hqKvpnne0rhIIRI",
+            "createdDt": "2024-04-08T05:25:11.636081Z",
+            "errorDetail": null,
+            "file": "https://affinda-api-data-prod-ap1.s3.amazonaws.com/media/documents/Resume-Abubakar_jpTMkOc.pdf?versionId=fOH7bxYObEXYm2box2kJzO7i0zCpnltB&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAU4IX6YWNOMDBANOZ%2F20240408%2Fap-southeast-2%2Fs3%2Faws4_request&X-Amz-Date=20240408T082203Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEMD%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaDmFwLXNvdXRoZWFzdC0yIkcwRQIgWuxg2JvhpfCgJBYjpqsyBjoscdgFkb4TM8zVkYhtXA4CIQDwrLylwQz6P6tPOMTQKyTqFxQIu4J2M9TGxtQfJ6K6hCqSBQjp%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAMaDDMzNTU5NDU3MTE2MiIMN0%2FZ%2BEugkV5T5TyQKuYE31FdDs2ESm7bsp2AcK8b8iMxmjcf9q03sr1qoJFqQXBH6cD8TTpO0bMatGKq1NoHtJaL4bzSY8TzCAk%2BNxsWhW%2F1gi2yv%2FnukydscwI0eHRkctA08VsfSMySFJfp7tuh2%2BAMOHsK1uuqKib9dbKcj5BAKL1%2Fo1PUQJ2hB3aFvPa172T334yFWOmqbL3jLhyS7bZvs2lMUpj2KVvluY9NlFD%2FG5ekmQrbUaaKz8lTzvzVBW0P0sUqUFyNHkbceKpiADXrc9waLEss%2FvYwR3GGiiLfvbgjts%2BQNlP%2Fm%2BRYwVwwJZR9DyKnY16IvGCoPVRHHoRZmzMtvkDRdCAuW8DbTnXTrOpDjR%2FSXfm%2BdevGxo7I3Idnab9lQsMY8si3RYtUl00ERbBtuiLoK%2FTBZU%2F8vwr4Xxad7YAx57IjAaqsDwWoAAMgjgEV8XCcFSQpvB0U%2FWejHOJxNbCn%2BWnU9LGahryFFkEHDFA5JAV%2BQL6swYUlgxO%2Bg4n46dbQEYyzilC1XvfB8YVCTpPB%2FDPoqPhEKisdL2%2Fetu4WIEYRuNxkLCL1YcPoI0zMDIzR4uihGCt%2BCAZrCk8gkCAv8D%2BgpGTTv7XldiibD%2Bkr0o%2Buj5XAVV0enxEif%2Ff3uzD0JMQ4qhCFMqKVzJ4qR22Kt16MJUtuI7UZXCU1rB8taQGpJz74wAXg4DpxvDqO023jOQNwIm9AKRGTeuq4MTyFaspruhVAU%2B1130QSZBwyCxD7c5tjso7mf%2BS9FXBrmrn%2Bb%2BFLGPPg6dfxNSdSqGHrfKZBUs47ZBaW5gcRlmGOVvOpFmvTjS536qhc7lswtr%2FOsAY6mgHTG7QtB%2B9N3MODkzVe4ptuQC5N9Vrpt9YyobliRSfV1z288Os1Fcld7G8G7zBxJb6YIghlOKLEypSc756P4dpGGUF%2F5XgtWSmiC%2BBCUS0yLpwW1OenZe4yRBfMEkcq3XT%2Bd0pqvTqcozTNd1MttO4s%2Fb9BVxK5BPeOfPyxt9THLuxveo7BZD8mxXsV5%2FbgmARmKmqAFXsI8mzP&X-Amz-Signature=d32a94199ec257359d2fe290cfda380e8c25275a6c2c37baddc73e4921f9ae9e",
+            "collection": {
+                "identifier": "OZIXjyHP",
+                "name": "Resumes",
+                "extractor": {
+                    "id": 6,
+                    "identifier": "resume",
+                    "name": "Resume",
+                    "baseExtractor": null,
+                    "validatable": true
+                },
+                "validationRules": []
+            },
+            "workspace": {
+                "identifier": "FmsCdiUN",
+                "name": "CareerSync"
+            },
+            "tags": [],
+            "isOcrd": false,
+            "isConfirmed": true,
+            "confirmedDt": "2024-04-08T08:21:45.326601Z",
+            "confirmedBy": {
+                "id": 13204,
+                "name": "M.Abubakar Siddique",
+                "username": "fa20-bse-084",
+                "email": "fa20-bse-084@cuilahore.edu.pk",
+                "avatar": null,
+                "master": null
+            },
+            "isRejected": false,
+            "rejectedDt": null,
+            "rejectedBy": null,
+            "isArchived": false,
+            "archivedDt": null,
+            "errorCode": null,
+            "sourceEmail": null,
+            "sourceEmailAddress": null,
+            "createdBy": {
+                "id": 13204,
+                "name": "M.Abubakar Siddique",
+                "username": "fa20-bse-084",
+                "email": "fa20-bse-084@cuilahore.edu.pk",
+                "avatar": null,
+                "master": null
+            },
+            "regionBias": null
+        },
+        "error": {
+            "errorCode": null,
+            "errorDetail": null
+        },
+        "warnings": [],
+        "extractor": "resume"
+    }
+]

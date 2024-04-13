@@ -9,9 +9,11 @@ import {ImSpinner2} from "react-icons/im";
 import {Button, IconButton} from "@material-tailwind/react";
 import {ArrowLeftIcon, ArrowRightIcon} from "@radix-ui/react-icons";
 import {searchJobs} from "@/lib/JobSearch";
+import {useAppContext} from "@/Context/Candidate_Employer_Data";
 
 function Page() {
     const params = useSearchParams();
+    const {jobsData ,setJobsData} = useAppContext();
     const [searchedJobs, setSearchedJobs] = React.useState(null);
     const [active, setActive] = React.useState(1);
     const [itemsPerPage] = React.useState(6);
@@ -42,14 +44,21 @@ function Page() {
 
 
     useEffect(() => {
-        if(params.size !== 0) {
-            async function getJobsResult(search,location){
-                const realTimeJobsData = await searchJobs(search, location)
-                setSearchedJobs(realTimeJobsData);
-            }
-            getJobsResult(params.get('search'), params.get('location'));
-
+        if(jobsData){
+            setSearchedJobs(jobsData);
         }
+        else{
+            if(params.size !== 0) {
+                async function getJobsResult(search,location){
+                    const giveRecommended = false
+                    const realTimeJobsData = await searchJobs(search, location, giveRecommended)
+                    setSearchedJobs(realTimeJobsData);
+                    setJobsData(realTimeJobsData)
+                }
+                getJobsResult(params.get('search'), params.get('location'));
+            }
+        }
+
     }, [params.size]);
 
     return (<>

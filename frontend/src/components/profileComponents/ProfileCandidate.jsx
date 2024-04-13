@@ -60,7 +60,7 @@ function Modal({onClose, onSave, type, children}) {
 }
 
 function ProfileDetailsForm() {
-    const {candidateData} = useAppContext();
+    const {candidateData, candidate} = useAppContext();
     const [isLoading, setIsLoading] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
     const [alertMessage, setAlertMessage] = useState("");
@@ -68,6 +68,7 @@ function ProfileDetailsForm() {
     const router = useRouter();
 
     const [formData, setFormData] = useState({
+        candidateId: candidate.id,
         fullName: candidateData.fullName ?? '',
         email: candidateData.email ?? '',
         preferredJobLocation: candidateData.preferredJobLocation ?? '',

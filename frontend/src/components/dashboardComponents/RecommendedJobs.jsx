@@ -7,11 +7,14 @@ import {ArrowRightIcon, ArrowLeftIcon} from "@heroicons/react/24/outline";
 
 import {JobsFilter} from "@/components/dashboardComponents/JobsFilter";
 import {ImSpinner2} from "react-icons/im";
-import {searchJobs} from "@/lib/JobSearch";
-import {candidatesData, jobs} from "@/lib/dummyData";
+import {getMostRecommendedJobs, searchJobs} from "@/lib/JobSearch";
+import {candidatesData, jobs, resumeData} from "@/lib/dummyData";
+import {useAppContext} from "@/Context/Candidate_Employer_Data";
+import Link from "next/link";
 
 export default function RecommendedJobs() {
     const [recommendedJobs, setRecommendedJobs] = React.useState(null);
+    const {jobsData ,setJobsData} = useAppContext();
     const [active, setActive] = React.useState(1);
     const [itemsPerPage] = React.useState(6);
     const [currentPage, setCurrentPage] = React.useState(1);
@@ -42,11 +45,25 @@ export default function RecommendedJobs() {
 
 
     useEffect(() => {
-            async function getJobsResult(search,location){
-                const realTimeJobsData = await searchJobs(search, location)
-                setRecommendedJobs(realTimeJobsData);
+        if(!jobsData){
+            console.log("No jobs data")
+            async function getJobsResult(search, location) {
+                const giveRecommended = true;
+                const realTimeJobsData = await searchJobs(search, location, giveRecommended)
+                const mostRecommendedJobs = await getMostRecommendedJobs(realTimeJobsData, resumeData) //Replace with actual resume data
+                setRecommendedJobs(mostRecommendedJobs);
+                setJobsData(mostRecommendedJobs);
             }
-            getJobsResult("MERN", "Lahore");
+
+            const candidateSkills = ["React", "Node", "MongoDB", "Express"] // Replace with actual candidate skills
+            const location = "Lahore" // Replace with actual candidate location
+            getJobsResult(candidateSkills, location);
+        }
+        else{
+            console.log("Jobs data")
+            setRecommendedJobs(jobsData);
+        }
+
 
     }, []);
 
@@ -79,7 +96,7 @@ export default function RecommendedJobs() {
                                              className="animate-spin w-full text-slate-50"/>) : <div
                     className="grid grid-cols-1 xl:grid-cols-2 justify-center items-center">
                     {(currentData.map(async (jobItem, index) => {
-                        return (<div className="p-2 md:p-5 w-full md:basis-1/3" key={jobItem.job_id}>
+                        return (<Link className="p-2 md:p-5 w-full md:basis-1/3" key={jobItem.job_id} href={`/candidate/job/${jobItem.job_id}`}>
                             <JobCard
                                 id={jobItem.job_id}
                                 title={jobItem.job_title}
@@ -106,7 +123,7 @@ export default function RecommendedJobs() {
                                 }}
                                 postedAt={jobItem.job_posted_at_datetime_utc}
                             />
-                        </div>);
+                        </Link>);
                     }))}
                 </div>}
             </div>

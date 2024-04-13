@@ -14,11 +14,12 @@ function CandidateEmployerData({children}) {
     });
     const [candidateData, setCandidateData] = useState({});
     const [employerData, setEmployerData] = useState({});
+    const [jobsData, setJobsData] = useState(null);
     const [drawerOpen, setDrawerOpen] = useState(false);
 
     return (
         <AppContext.Provider value={{candidateData, setCandidateData, employer, setEmployer, candidate, setCandidate,
-        drawerOpen, setDrawerOpen}}>
+        drawerOpen, setDrawerOpen, jobsData, setJobsData}}>
             {children}
         </AppContext.Provider>
     );

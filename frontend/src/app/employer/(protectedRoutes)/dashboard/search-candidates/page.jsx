@@ -8,6 +8,7 @@ import {cn, getCountryCode} from "@/lib/utils";
 import {ImSpinner2} from "react-icons/im";
 import {Button, IconButton} from "@material-tailwind/react";
 import {ArrowLeftIcon, ArrowRightIcon} from "@radix-ui/react-icons";
+import {allCandidates, getMostRecommendedCandidates, getSearchedCandidates} from "@/lib/JobSearch";
 
 function Page() {
     const params = useSearchParams();
@@ -38,13 +39,17 @@ function Page() {
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
     const currentData = searchedCandidates && searchedCandidates.slice(startIndex, endIndex);
-console.log("Abubakar", params)
 
     useEffect(() => {
-        if (candidatesData) {
-            setSearchedCandidates(candidatesData);
+        if(params.size !== 0){
+            async function getCandidateResult(search, location){
+                const realTimeCandidateData = await allCandidates()
+                const mostRecommendedCandidates = await getSearchedCandidates(realTimeCandidateData, search. location) //Replace with actual search and location
+                setSearchedCandidates(mostRecommendedCandidates);
+            }
+            getCandidateResult(params.get('search'), params.get('location'));
         }
-    }, [candidatesData]);
+    }, [params.size]);
 
 
     return (<>

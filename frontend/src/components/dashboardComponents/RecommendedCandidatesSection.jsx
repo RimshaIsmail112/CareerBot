@@ -7,8 +7,8 @@ import {ArrowRightIcon, ArrowLeftIcon} from "@heroicons/react/24/outline";
 
 import {JobsFilter} from "@/components/dashboardComponents/JobsFilter";
 import {ImSpinner2} from "react-icons/im";
-import {searchJobs} from "@/lib/JobSearch";
-import {candidatesData, jobs} from "@/lib/dummyData";
+import {allCandidates, getMostRecommendedCandidates, getMostRecommendedJobs, searchJobs} from "@/lib/JobSearch";
+import {candidatesData, jobs, resumeData} from "@/lib/dummyData";
 
 export default function JobsSection() {
     const [recommendedCandidates, setRecommendedCandidates] = React.useState(null);
@@ -40,11 +40,15 @@ export default function JobsSection() {
     const endIndex = startIndex + itemsPerPage;
     const currentData = recommendedCandidates && recommendedCandidates.slice(startIndex, endIndex);
 
-
     useEffect(() => {
-        // const candidatesData = await getCandidatesData();
-        setRecommendedCandidates(candidatesData);
+        async function getCandidateResult(){
+            const realTimeCandidateData = await allCandidates()
+            const mostRecommendedCandidates = await getMostRecommendedCandidates(realTimeCandidateData, "I want react/nextjs developer") //Replace with actual job description
+            setRecommendedCandidates(mostRecommendedCandidates);
+        }
+        getCandidateResult();
     }, []);
+
 
     // const handleFilterChange = (filterOptions) => {
     //     console.log(filterOptions);

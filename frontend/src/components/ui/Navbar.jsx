@@ -112,13 +112,13 @@ export default function ComplexNavbar({navListItems, profileMenuItems}) {
     }
 
     return (
-        <div className={'w-screen-xl p-5'}>
+        <div className={'w-screen-xl p-5 flex justify-center items-center'}>
             <Navbar className="border-none p-2 px-8 bg-opacity-100 rounded-full shadow-2xl shadow-black bg-slate-50">
                 <div className="relative flex items-center justify-between text-slate-950">
                     <Link href={"/"}>
                         <Image src={'/Logo.svg'} height={50} width={50} alt="CareerSync"/>
                     </Link>
-                    <div className="hidden lg:flex lg:justify-center lg:items-center">
+                    <div className="hidden lg:ml-12 lg:flex lg:justify-center lg:items-center">
                         <NavList navListItems={navListItems}/>
                     </div>
                     <IconButton
@@ -130,10 +130,12 @@ export default function ComplexNavbar({navListItems, profileMenuItems}) {
                     >
                         <Bars2Icon className="h-6 w-6"/>
                     </IconButton>
-                    <div className={'flex justify-center gap-6 items-center'}>
-                        <Badge content="5">
-                            <FaBell size={25} className={'text-slate-950'}/>
-                        </Badge>
+                    <div className={'flex justify-center items-center'}>
+                        <div className={'flex justify-center items-center mr-4'}>
+                            <Badge content="5">
+                                <FaBell size={25} className={'text-slate-950'}/>
+                            </Badge>
+                        </div>
                         <ProfileMenu profileMenuItems={profileMenuItems}/>
                     </div>
                 </div>

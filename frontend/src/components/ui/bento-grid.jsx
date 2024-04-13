@@ -41,7 +41,6 @@ export const JobCard = ({
 
                         }) => {
 
-    const imageUrl = employerLogo ? employerLogo : logoPlaceholders[Math.floor(Math.random() * logoPlaceholders.length)];
 
     const location = `${city ? `${city}${state ? ", " : ""}` : ""}${state || ""}${
         city && state && country ? ", " : ""
@@ -64,16 +63,31 @@ export const JobCard = ({
             </div>
             <div className="flex flex-row gap-4">
                 <div className="hidden sm:block">
-                    <JobBadge className={'w-20 h-20'} data={{logo: imageUrl}}/>
+                    {employerLogo ? (
+                        <JobBadge className={'w-20 h-20'} data={{logo: employerLogo}}/>
+
+                    ) : (
+                        <div className="w-20 h-20 bg-slate-950 flex items-center justify-center">
+                                    <span
+                                        className="text-slate-50 text-2xl">{employerName.slice(0, 2).toUpperCase()}</span>
+                        </div>
+                    )}
                 </div>
                 <div>
                     <div className="flex flex-col-reverse items-start justify-between gap-5 sm:flex-row">
                         <div className="flex-1">
-                            <JobBadge
-                                className={'w-20 h-20'}
-                                data={{logo: imageUrl}}
-                                badgeStyles="mb-6 sm:hidden"
-                            />
+                            {employerLogo ? (
+                                <JobBadge
+                                    className={'w-20 h-20'}
+                                    data={{logo: employerLogo}}
+                                    badgeStyles="mb-6 sm:hidden"
+                                />
+                            ) : (
+                                <div className="mb-6 sm:hidden w-20 h-20 bg-slate-950 flex items-center justify-center">
+                                    <span
+                                        className="text-slate-50 text-2xl">{employerName.slice(0, 2).toUpperCase()}</span>
+                                </div>
+                            )}
                             <div className="flex flex-col">
                                 <h3 className="text-slate-950 font-bold text-md">
                                     {title.slice(0, 40)}{title.length > 40 ? "..." : ""}
