@@ -8,25 +8,34 @@ router.post("/employer/bookmarks/add", async (req, res) => {
   try {
     const { employerId, candidateId, resumeId } = req.body;
 
-    const existingBookmark = await BookmarkedCandidate.findOne({
-      employerId,
-      candidateId,
-    });
-    if (existingBookmark) {
-      return res.status(400).json({ error: "Bookmark already exists" });
+    let bookmarkedCandidate = await BookmarkedCandidate.findOne({ employerId });
+
+    if (!bookmarkedCandidate) {
+      bookmarkedCandidate = new BookmarkedCandidate({
+        employerId,
+        bookmarks: [],
+      });
     }
 
-    const bookmark = new BookmarkedCandidate({
-      employerId,
-      candidateId,
-      resumeId,
-    });
-    await bookmark.save();
-
-    await CandidateProfile.findOneAndUpdate(
-      { candidateId },
-      { bookmarked: true }
+    const existingBookmarkIndex = bookmarkedCandidate.bookmarks.findIndex(
+        (bookmark) => bookmark.candidateId.toString() === candidateId
     );
+
+    if (existingBookmarkIndex !== -1) {
+      bookmarkedCandidate.bookmarks[existingBookmarkIndex] = {
+        candidateId,
+        resumeId,
+        isBookmarked: true,
+      };
+    } else {
+      bookmarkedCandidate.bookmarks.push({
+        candidateId,
+        resumeId,
+        isBookmarked: true,
+      });
+    }
+
+    await bookmarkedCandidate.save();
 
     res.status(201).json({ message: "Bookmark added successfully" });
   } catch (err) {
@@ -39,19 +48,27 @@ router.post("/employer/bookmarks/remove", async (req, res) => {
   try {
     const { employerId, candidateId } = req.body;
 
-    const existingBookmark = await BookmarkedCandidate.findOne({
-      employerId,
-      candidateId,
-    });
-    if (!existingBookmark) {
+    let bookmarkedCandidate = await BookmarkedCandidate.findOne({ employerId });
+
+    if (!bookmarkedCandidate) {
       return res.status(404).json({ error: "Bookmark not found" });
     }
 
-    await BookmarkedCandidate.deleteOne({ employerId, candidateId });
+    const existingBookmarkIndex = bookmarkedCandidate.bookmarks.findIndex(
+        (bookmark) => bookmark.candidateId.toString() === candidateId
+    );
+
+    if (existingBookmarkIndex === -1) {
+      return res.status(404).json({ error: "Bookmark not found" });
+    }
+
+    bookmarkedCandidate.bookmarks.splice(existingBookmarkIndex, 1);
+
+    await bookmarkedCandidate.save();
 
     await CandidateProfile.findOneAndUpdate(
-      { candidateId },
-      { bookmarked: false }
+        { candidateId },
+        { bookmarked: false }
     );
 
     res.json({ message: "Bookmark removed successfully" });

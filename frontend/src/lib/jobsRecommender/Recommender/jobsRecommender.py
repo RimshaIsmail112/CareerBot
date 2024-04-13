@@ -80,7 +80,7 @@ def recommend_candidates(candidate_data, job_description):
         candidate_text = ' '.join([candidate_skills, candidate_profession] + candidate_experience + candidate_education)
 
         # Calculate a score for the candidate based on similarity to the search query and location
-        score = calculate_similarity_score(candidate_text, preprocessed_keyword)
+        score = calculate_similarity_score_for_recommendation(candidate_text, preprocessed_keyword)
         candidate_scores.append((candidate, score))
 
     # Sort candidates based on their scores

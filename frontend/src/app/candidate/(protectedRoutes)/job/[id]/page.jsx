@@ -6,8 +6,6 @@ import Link from 'next/link';
 import Chatbot from '@/components/chatbotComponent/Chatbot';
 import Metric from "@/components/ui/Metric";
 import {employmentTypeConverter, getFormattedSalary} from "@/lib/utils";
-import JobBadge from "@/components/ui/JobBadge";
-import {FaBookmark, FaRegBookmark} from "react-icons/fa";
 
 function Page({ params }) {
     const [job, setJob] = useState(null);
@@ -22,9 +20,6 @@ function Page({ params }) {
         fetchJobs();
     }, []);
 
-    const location = job.city || job.state || job.country ? `${job.city ? `${job.city}${job.state ? ", " : ""}` : ""}${job.state || ""}${
-        job.city && job.state && job.country ? ", " : ""
-    }${job.country || ""}` : null;
 
     return (
         <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-8 lg:px-12">
@@ -80,10 +75,6 @@ function Page({ params }) {
                                             className="w-full md:w-auto"
                                         />}
                                 </div>
-                            </div>
-                            <div className="py-4">
-                                <h3 className="text-lg font-bold">Location</h3>
-                                <JobBadge data={{location, country: job?.country}} isLocation/>
                             </div>
 
                             {job.job_description && (

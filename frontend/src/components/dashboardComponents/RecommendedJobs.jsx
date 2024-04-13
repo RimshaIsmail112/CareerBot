@@ -50,9 +50,9 @@ export default function RecommendedJobs() {
             async function getJobsResult(search, location) {
                 const giveRecommended = true;
                 const realTimeJobsData = await searchJobs(search, location, giveRecommended)
-                const mostRecommendedJobs = await getMostRecommendedJobs(realTimeJobsData, resumeData) //Replace with actual resume data
-                setRecommendedJobs(mostRecommendedJobs);
-                setJobsData(mostRecommendedJobs);
+                //const mostRecommendedJobs = await getMostRecommendedJobs(realTimeJobsData, resumeData) //Replace with actual resume data
+                setRecommendedJobs(realTimeJobsData);
+                setJobsData(realTimeJobsData);
             }
 
             const candidateSkills = ["React", "Node", "MongoDB", "Express"] // Replace with actual candidate skills

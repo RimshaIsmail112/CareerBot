@@ -9,9 +9,12 @@ import {JobsFilter} from "@/components/dashboardComponents/JobsFilter";
 import {ImSpinner2} from "react-icons/im";
 import {allCandidates, getMostRecommendedCandidates, getMostRecommendedJobs, searchJobs} from "@/lib/JobSearch";
 import {candidatesData, jobs, resumeData} from "@/lib/dummyData";
+import {useAppContext} from "@/Context/Candidate_Employer_Data";
+import Link from "next/link";
 
 export default function JobsSection() {
     const [recommendedCandidates, setRecommendedCandidates] = React.useState(null);
+    const {setCandidateCardData} = useAppContext();
     const [active, setActive] = React.useState(1);
     const [itemsPerPage] = React.useState(6);
     const [currentPage, setCurrentPage] = React.useState(1);
@@ -43,8 +46,10 @@ export default function JobsSection() {
     useEffect(() => {
         async function getCandidateResult(){
             const realTimeCandidateData = await allCandidates()
-            const mostRecommendedCandidates = await getMostRecommendedCandidates(realTimeCandidateData, "I want react/nextjs developer") //Replace with actual job description
-            setRecommendedCandidates(mostRecommendedCandidates);
+            //const mostRecommendedCandidates = await getMostRecommendedCandidates(realTimeCandidateData, "I want react/nextjs developer") //Replace with actual job description
+            setRecommendedCandidates(realTimeCandidateData);
+            setCandidateCardData(realTimeCandidateData);
+            console.log("Recommended Candidates", realTimeCandidateData)
         }
         getCandidateResult();
     }, []);
@@ -81,7 +86,7 @@ export default function JobsSection() {
                         {(currentData.map(async (candidateItem, index) => {
                             const [city, state, country] = candidateItem.preferredJobLocation.split(',').map(item => item.trim());
                             const countryCode = await getCountryCode(country)
-                            return (<div className="p-2 md:p-5 w-full md:basis-1/3" key={candidateItem._id}>
+                            return (<Link className="p-2 md:p-5 w-full md:basis-1/3" key={candidateItem._id} href={`/employer/candidate/${candidateItem._id}`}>
                                 <CandidateCard
                                     id={candidateItem._id}
                                     saved={false}
@@ -97,7 +102,7 @@ export default function JobsSection() {
                                     education={candidateItem.education}
                                     imageUrl={candidateItem.profilePictureUrl}
                                 />
-                            </div>);
+                            </Link>);
                         }))}
                     </div>}
             </div>
