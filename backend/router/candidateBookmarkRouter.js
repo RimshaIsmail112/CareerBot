@@ -121,4 +121,20 @@ router.post("/candidate/bookmarks/remove", async (req, res) => {
   }
 });
 
+router.get("/candidate/bookmarks/:candidateId", async (req, res) => {
+  try {
+    const candidateId = req.params.candidateId;
+    const bookmarkedJobs = await BookmarkedJob.findOne({ candidateId });
+
+    if (!bookmarkedJobs) {
+      return res.status(404).json({ error: "No bookmarked jobs found for the candidate" });
+    }
+
+    res.status(200).json(bookmarkedJobs.bookmarkedJobs);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 module.exports = router;
