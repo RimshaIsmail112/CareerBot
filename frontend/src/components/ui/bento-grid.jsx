@@ -19,6 +19,7 @@ import {getLogo, logoPlaceholders} from "@/lib/CompanyLogo";
 import {useEffect, useState} from "react";
 
 export const JobCard = ({
+                            id,
                             title,
                             saved,
                             description,
@@ -179,6 +180,7 @@ export const CandidateCard = ({
     function handleBookMark() {
         setIsBookmarked(!isBookmarked);
     }
+
     return (
         <div
             className="card-wrapper bg-slate-50 cursor-pointer rounded-xl shadow-black shadow-lg hover:shadow-xl transition duration-200 p-6 flex flex-col gap-3">
