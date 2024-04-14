@@ -48,15 +48,15 @@ router.post("/candidate/bookmarks/add", async (req, res) => {
     }
 
     const existingBookmarkIndex = bookmarkedJob.bookmarkedJobs.findIndex(
-        (bookmark) => bookmark.job_id === jobId
+      (bookmark) => bookmark.job_id === jobId
     );
 
     const applyOptions =
-        apply_options?.map((option) => ({
-          publisher: option.publisher,
-          apply_link: option.apply_link,
-          is_direct: option.is_direct,
-        })) ?? [];
+      apply_options?.map((option) => ({
+        publisher: option.publisher,
+        apply_link: option.apply_link,
+        is_direct: option.is_direct,
+      })) ?? [];
 
     const newBookmark = {
       job_id: jobId,
@@ -105,9 +105,9 @@ router.post("/candidate/bookmarks/remove", async (req, res) => {
     const { candidateId, jobId } = req.body;
 
     const existingBookmark = await BookmarkedJob.findOneAndUpdate(
-        { candidateId },
-        { $pull: { bookmarkedJobs: { job_id: jobId } } },
-        { new: true }
+      { candidateId },
+      { $pull: { bookmarkedJobs: { job_id: jobId } } },
+      { new: true }
     );
 
     if (!existingBookmark) {
@@ -127,7 +127,9 @@ router.get("/candidate/bookmarks/:candidateId", async (req, res) => {
     const bookmarkedJobs = await BookmarkedJob.findOne({ candidateId });
 
     if (!bookmarkedJobs) {
-      return res.status(404).json({ error: "No bookmarked jobs found for the candidate" });
+      return res
+        .status(404)
+        .json({ error: "No bookmarked jobs found for the candidate" });
     }
 
     res.status(200).json(bookmarkedJobs.bookmarkedJobs);
