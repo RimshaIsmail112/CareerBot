@@ -86,7 +86,7 @@ export default function JobsSection() {
                         {(currentData.map(async (candidateItem, index) => {
                             const [city, state, country] = candidateItem.preferredJobLocation.split(',').map(item => item.trim());
                             const countryCode = await getCountryCode(country)
-                            return (<Link className="p-2 md:p-5 w-full md:basis-1/3" key={candidateItem._id} href={`/employer/candidate/${candidateItem._id}`}>
+                            return (<div className="p-2 md:p-5 w-full md:basis-1/3" key={candidateItem._id}>
                                 <CandidateCard
                                     id={candidateItem._id}
                                     saved={false}
@@ -102,7 +102,7 @@ export default function JobsSection() {
                                     education={candidateItem.education}
                                     imageUrl={candidateItem.profilePictureUrl}
                                 />
-                            </Link>);
+                            </div>);
                         }))}
                     </div>}
             </div>

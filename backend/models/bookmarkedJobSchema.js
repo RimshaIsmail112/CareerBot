@@ -9,15 +9,15 @@ const bookmarkedJobSchema = new mongoose.Schema({
     {
       job_id: {
         type: String,
-        required: true,
+        required: false,
       },
       employer_name: {
         type: String,
-        required: true,
+        required: false,
       },
       employer_logo: {
         type: String,
-        required: true,
+        required: false,
       },
       employer_website: {
         type: String,
@@ -29,23 +29,23 @@ const bookmarkedJobSchema = new mongoose.Schema({
       },
       job_publisher: {
         type: String,
-        required: true,
+        required: false,
       },
       job_employment_type: {
         type: String,
-        required: true,
+        required: false,
       },
       job_title: {
         type: String,
-        required: true,
+        required: false,
       },
       job_apply_link: {
         type: String,
-        required: true,
+        required: false,
       },
       job_apply_is_direct: {
         type: Boolean,
-        required: true,
+        required: false,
       },
       apply_options: {
         type: [
@@ -59,11 +59,11 @@ const bookmarkedJobSchema = new mongoose.Schema({
       },
       job_description: {
         type: String,
-        required: true,
+        required: false,
       },
       job_is_remote: {
         type: Boolean,
-        required: true,
+        required: false,
       },
       job_posted_at_timestamp: {
         type: Number,
@@ -75,15 +75,15 @@ const bookmarkedJobSchema = new mongoose.Schema({
       },
       job_city: {
         type: String,
-        required: true,
+        required: false,
       },
       job_state: {
         type: String,
-        required: true,
+        required: false,
       },
       job_country: {
         type: String,
-        required: true,
+        required: false,
       },
       job_latitude: {
         type: Number,
@@ -139,9 +139,14 @@ const bookmarkedJobSchema = new mongoose.Schema({
         type: String,
         required: false,
       },
+      job_salary_period: {
+        type: String,
+        required: false,
+      },
       job_highlights: {
         type: {
           Qualifications: [String],
+          Responsibilities: [String],
         },
         required: false,
       },

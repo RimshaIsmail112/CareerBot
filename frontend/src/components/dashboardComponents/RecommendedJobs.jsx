@@ -96,16 +96,16 @@ export default function RecommendedJobs() {
                                              className="animate-spin w-full text-slate-50"/>) : <div
                     className="grid grid-cols-1 xl:grid-cols-2 justify-center items-center">
                     {(currentData.map(async (jobItem, index) => {
-                        return (<Link className="p-2 md:p-5 w-full md:basis-1/3" key={jobItem.job_id} href={`/candidate/job/${jobItem.job_id}`}>
+                        return (<div className="p-2 md:p-5 w-full md:basis-1/3" key={jobItem.job_id} >
                             <JobCard
-                                id={jobItem.job_id}
+                                jobId={jobItem.job_id}
                                 title={jobItem.job_title}
                                 saved={false}
                                 description={jobItem.job_description}
                                 city={jobItem.job_city}
                                 state={jobItem.job_state}
                                 country={jobItem.job_country}
-                                requiredSkills={jobItem.job_required_skills?.slice(0, 5) || []}
+                                requiredSkills={jobItem.job_required_skills || []}
                                 applyLink={jobItem.job_apply_link}
                                 employerLogo={jobItem.employer_logo}
                                 employerName={jobItem.employer_name}
@@ -123,7 +123,7 @@ export default function RecommendedJobs() {
                                 }}
                                 postedAt={jobItem.job_posted_at_datetime_utc}
                             />
-                        </Link>);
+                        </div>);
                     }))}
                 </div>}
             </div>

@@ -33,7 +33,7 @@ function Layout({children}) {
         },
         {
             label: "My Portfolio",
-            href: "/portfolio",
+            href: "/candidate/portfolio",
             icon: <FaBriefcase size={18}/>,
         },
         {

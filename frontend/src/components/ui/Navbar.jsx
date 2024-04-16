@@ -106,6 +106,7 @@ function NavList({navListItems}) {
 export default function ComplexNavbar({navListItems, profileMenuItems}) {
 
     const {setDrawerOpen} = useAppContext();
+    const path = usePathname();
 
     function toggleIsNavOpen() {
         setDrawerOpen(true)
@@ -115,7 +116,7 @@ export default function ComplexNavbar({navListItems, profileMenuItems}) {
         <div className={'w-screen-xl p-5 flex justify-center items-center'}>
             <Navbar className="border-none p-2 px-8 bg-opacity-100 rounded-full shadow-2xl shadow-black bg-slate-50">
                 <div className="relative flex items-center justify-between text-slate-950">
-                    <Link href={"/"}>
+                    <Link href={path.includes('/employer')? '/employer/dashboard': '/candidate/dashboard'}>
                         <Image src={'/Logo.svg'} height={50} width={50} alt="CareerSync"/>
                     </Link>
                     <div className="hidden lg:ml-12 lg:flex lg:justify-center lg:items-center">
