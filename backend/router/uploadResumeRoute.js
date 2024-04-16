@@ -38,7 +38,6 @@ console.log(newResume);
 router.get("/candidate/getResume/:candidateId", async (req, res) => {
   try {
     const candidateId = req.params.candidateId;
-
     const resume = await Resume.findOne({ candidateId });
 
     if (!resume) {

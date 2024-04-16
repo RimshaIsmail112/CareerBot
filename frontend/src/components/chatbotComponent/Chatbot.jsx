@@ -4,12 +4,13 @@ import { motion } from 'framer-motion';
 import { IoChatbubblesSharp, IoSend, IoCloseCircle } from 'react-icons/io5';
 import Image from 'next/image';
 import { ask } from '@/lib/GeminiAPI';
+import {ImSpinner2} from "react-icons/im";
 
 
 const Chatbot = ({ question }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [message, setMessage] = useState('');
-    const [conversation, setConversation] = useState([]);
+    const [conversation, setConversation] = useState(null);
     const chatBottomRef = useRef(null);
 
     useEffect(() => {
@@ -66,7 +67,8 @@ const Chatbot = ({ question }) => {
                 onClick={toggleChatbot}
                 className="bg-slate-800 shadow-xl hover:bg-slate-600 text-slate-50 font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline"
             >
-                <IoChatbubblesSharp className="h-8 w-8" />
+                {conversation ? <IoChatbubblesSharp className="h-8 w-8"/> : <ImSpinner2 size={30}
+                className="animate-spin w-full text-slate-50"/>}
             </button>
             {isOpen && (
                 <motion.div

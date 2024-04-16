@@ -126,6 +126,7 @@ function Page({ params }) {
                             "and other jobs things and help" +
                             " me for preparing the interview by give giving expected" +
                             " and frequently asked questions (technicals + basic) with answers." +
+                            "Format should be bullet points of Questions and Answers" +
                             "" + job.job_description + " " + job.job_highlights?.Qualifications
                             + " " + job.job_highlights?.Responsibilities}/>
                     </>
