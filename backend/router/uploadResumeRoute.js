@@ -35,4 +35,20 @@ console.log(newResume);
   }
 });
 
+router.get("/candidate/getResume/:candidateId", async (req, res) => {
+  try {
+    const candidateId = req.params.candidateId;
+
+    const resume = await Resume.findOne({ candidateId });
+
+    if (!resume) {
+      return res.status(404).json({ error: "Resume not found for the candidate ID provided" });
+    }
+
+    return res.json({ resumeUrl: resume.protectedUrl });
+  } catch (error) {
+    console.error("Error retrieving resume:", error);
+    res.status(500).json({ error: "Failed to retrieve resume" });
+  }
+});
 module.exports = router;

@@ -41,7 +41,7 @@ router.post('/candidate/setProjects/:candidateId/', async (req, res) => {
     }
 });
 
-router.get('/candidate/projects/:candidateId', async (req, res) => {
+router.get('/candidate/getProjects/:candidateId', async (req, res) => {
     const { candidateId } = req.params;
 
     if (!mongoose.Types.ObjectId.isValid(candidateId)) {
