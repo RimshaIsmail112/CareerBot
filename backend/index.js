@@ -44,6 +44,9 @@ app.use(require("./router/candidateBookmarkRouter"));
 app.use(require("./router/uploadResumeRoute"));
 app.use(candidatePortfolioRouter);
 
+app.use(require("./router/zoomRouter"));
+app.use(require("./router/emailRouter"));
+
 app.listen(process.env.PORT, () => {
   console.log(`Server listening on port ${process.env.PORT}`);
 });
