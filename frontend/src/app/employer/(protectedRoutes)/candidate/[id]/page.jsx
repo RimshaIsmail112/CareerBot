@@ -53,6 +53,13 @@ function Page({params}) {
         }
     }, []);
 
+    async function handleMeetings() {
+        const response = await fetch(`${HOST}/api/zoom/meeting`, {
+            method: 'GET'
+        });
+        const data = await response.json();
+        console.log(data.authUrl);
+    }
     return (
         <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-8 lg:px-12">
             <div className="w-full space-y-8 bg-slate-50 p-8 rounded-lg shadow-lg">
@@ -218,6 +225,12 @@ function Page({params}) {
                                             </div>
                                         </div>
                                     )}
+                                    <div
+                                        onClick={handleMeetings}
+                                        className="block w-full mt-4 bg-blue-500 hover:bg-blue-600 text-slate-50 font-semibold py-2 px-4 rounded-lg text-center"
+                                    >
+                                        Schedule Interview
+                                    </div>
                                 </>
                             }
                         </div>
