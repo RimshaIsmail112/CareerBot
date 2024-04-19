@@ -1,5 +1,6 @@
 const express = require('express');
 const nodemailer = require('nodemailer');
+// const
 
 const router = express.Router();
 
@@ -31,9 +32,11 @@ router.post('/send-email', async (req, res) => {
     employerEmail,
     date,
     day,
+      time,
     topic,
-    meetingUrl,
+    meetingURL,
   } = req.body;
+  console.log(candidateEmail, employerEmail, date, day, time, topic, meetingURL);
 
   try {
     await sendEmail(candidateEmail, 'CareerSync: Your Scheduled Interview Meeting', `
@@ -96,8 +99,9 @@ router.post('/send-email', async (req, res) => {
             <p><strong>Interview Details:</strong></p>
             <p>Date: ${date}</p>
             <p>Day: ${day}</p>
+            <p>Time: ${time}</p>
             <p>Topic: ${topic}</p>
-            <p>Meeting URL: <a href="${meetingUrl}" target="_blank">${meetingUrl}</a></p>
+            <p>Meeting URL: <a href="${meetingURL}" target="_blank">${meetingURL}</a></p>
             <p>Please ensure you are prepared for the interview and log in a few minutes before the scheduled start time. We look forward to discussing your qualifications and learning more about you.</p>
             <p>If you have any questions or need further information, please feel free to contact us.</p>
             <p>Warm regards,<br>The CareerSync Team</p>
@@ -172,8 +176,9 @@ router.post('/send-email', async (req, res) => {
             <p><strong>Interview Details:</strong></p>
             <p>Date: ${date}</p>
             <p>Day: ${day}</p>
+            <p>Time: ${time}</p>
             <p>Topic: ${topic}</p>
-            <p>Meeting URL: <a href="${meetingUrl}" target="_blank">${meetingUrl}</a></p>
+            <p>Meeting URL: <a href="${meetingURL}" target="_blank">${meetingURL}</a></p>
             <p>Please be available and prepared for the interview. We appreciate your time and effort in the hiring process.</p>
             <p>If you have any questions or require further clarification, please do not hesitate to reach out.</p>
             <p>Best regards,<br>The CareerSync Team</p>
@@ -189,7 +194,7 @@ router.post('/send-email', async (req, res) => {
     res.json({ message: 'Email sent successfully' });
   } catch (error) {
     console.error('Error sending email:', error);
-    res.status(500).json({ message: 'Error sending email' });
+    res.status(500).json({ error: 'Error sending email' });
   }
 });
 

@@ -6,7 +6,7 @@ import {BiLogoZoom} from "react-icons/bi";
 
 import {Button} from "@/components/ui/button"
 
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Link from "next/link";
 import {
     MdArrowBack,
@@ -32,22 +32,24 @@ import DatePicker from "react-datepicker";
 import {Input} from "@/components/ui/input";
 
 
-export default function ForgotPassword() {
+export default function ScheduleMeeting() {
 
     const {candidate, setCandidate, employer, setEmployer} = useAppContext();
     const [showAlert, setShowAlert] = useState(false);
     const [alertMessage, setAlertMessage] = useState("");
     const [title, setTitle] = useState("");
     const [isLoading, setIsLoading] = useState(false);
-    const [passwordChanged, setPasswordChanged] = useState(false);
+    const [mailSend, setMailSend] = useState(false);
     const [email, setEmail] = useState("••••••••••••••••");
     const path = usePathname()
-    const params = useParams();
     const searchParams = useSearchParams();
-    const userId = searchParams.get('userId');
-    const uuid = useSearchParams().get('uuid');
+    let code = searchParams.get('code');
     const [day, setDay] = useState('Select Day');
     const [date, setDate] = useState(null);
+    const [time, setTime] = useState(null);
+    const [candidateEmail, setCandidateEmail] = useState(null);
+    const [employerEmail, setEmployerEmail] = useState(null);
+    const [meetingUrl, setMeetingUrl] = useState(null);
 
     const {
         register,
@@ -63,12 +65,80 @@ export default function ForgotPassword() {
 
     const [selectedDate, setSelectedDate] = useState(null);
 
-    const handleDateChange = (date) => {
-        setSelectedDate(date);
-    };
+    useEffect(() => {
+            if (code) {
+                async function createMeeting() {
+                    try{
+                        const response = await fetch(`${HOST}/api/zoom/auth/callback?code=${code}`);
+                        const data = await response.json();
+                        console.log(data)
+                        setCandidateEmail(data.candidate_email);
+                        setEmployerEmail(data.employer_email);
+                        setMeetingUrl(data.meetingUrl);
+                    }
+                    catch (error) {
+                        console.error(error);
+                        setAlertMessage("An error occurred while scheduling the meeting. Please try again.");
+                        setTitle("Error");
+                        setShowAlert(true);
+                        setTimeout(() => {
+                            setShowAlert(false);
+                        }, 4000);
+                    }
 
-    const onSubmit = (data) => {
+                }
+                createMeeting();
+            }
+       return () => {
+           code = null;
+       }
+    }, []);
+
+
+    const onSubmit = async (data) => {
         setIsLoading(true);
+        const {agenda} = data;
+        const meetingDetails = {
+            candidateEmail,
+            employerEmail,
+            date,
+            day,
+            time,
+            topic: agenda,
+            meetingURL: meetingUrl,
+        };
+        try {
+            const response = await fetch(`${HOST}/send-email`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(meetingDetails),
+            });
+            const data = await response.json();
+            if(data.message){
+                setMailSend(true);
+                setIsLoading(false);
+            }
+            else {
+                setAlertMessage("An error occurred while scheduling the meeting.");
+                setTitle("Error");
+                setShowAlert(true);
+                setTimeout(() => {
+                    setShowAlert(false);
+                }, 4000);
+                setIsLoading(false);
+            }
+        }
+        catch (error) {
+            setAlertMessage("An error occurred while scheduling the meeting.");
+            setTitle("Error");
+            setShowAlert(true);
+            setTimeout(() => {
+                setShowAlert(false);
+            }, 4000);
+            setIsLoading(false);
+        }
 
     }
     return (
@@ -77,7 +147,7 @@ export default function ForgotPassword() {
                 <DynamicAlert title={title} alertMessage={alertMessage}/>
             )}
             <div
-                className="max-w-md w-full h-[65vh] flex flex-col justify-center items-center gap-2 mx-auto rounded-none md:rounded-2xl p-4">
+                className="max-w-md w-full h-auto flex flex-col justify-center items-center gap-2 mx-auto rounded-none md:rounded-2xl p-4">
                 <span
                     className='text-slate-50'><BiLogoZoom size={60}/></span>
                 <h2 className="font-bold w-full text-xl text-center text-slate-50">
@@ -85,7 +155,7 @@ export default function ForgotPassword() {
                 </h2>
                 <div className="mt-0 w-full">
                     <form className='flex flex-col justify-center items-center' onSubmit={handleSubmit(onSubmit)}>
-                        {passwordChanged ? <Image src='/verified.gif' alt={'Verified'} width={140} height={140}/>
+                        {mailSend ? <Image src='/verified.gif' alt={'Verified'} width={140} height={140}/>
                             :
                             <>
                                 <DropdownMenu>
@@ -114,6 +184,16 @@ export default function ForgotPassword() {
                                            className='text-slate-50 bg-slate-900 placeholder:text-slate-400'
                                            onChange={(e) => setDate(e.target.value)}/>
                                 </LabelInputContainer>
+                                <LabelInputContainer className="mt-4">
+                                    <Label htmlFor="time" className='text-slate-50'>
+                                        Enter Meeting Time
+                                    </Label>
+                                    <Input Icon={<MdLock size={20}/>}
+                                           placeholder="10:00 AM"
+                                           type="text"
+                                           className='text-slate-50 bg-slate-900 placeholder:text-slate-400'
+                                           onChange={(e) => setTime(e.target.value)}/>
+                                </LabelInputContainer>
                                 <LabelInputContainer className="mt-4 mb-4">
                                     <Label htmlFor="agenda" className='text-slate-50'>
                                         Agenda of Meeting
@@ -121,7 +201,7 @@ export default function ForgotPassword() {
                                     <Textarea id="agenda" Icon={<MdOutlineAlternateEmail size={20}/>
                                     }
                                               placeholder='Taking Interview...'
-                                              type="email"
+                                              type="text"
                                               className='text-slate-50 bg-slate-900 placeholder:text-slate-400'
                                               {...register("agenda")}/>
                                 </LabelInputContainer>

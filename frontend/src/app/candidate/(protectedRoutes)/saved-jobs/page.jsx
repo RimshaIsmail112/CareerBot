@@ -21,7 +21,118 @@ function Page(props) {
                     throw new Error('Network response was not ok');
                 }
                 const data = await response.json();
-                setJobsData(data);
+                setJobsData([{
+                    job_id: "6YIdOJwFSeEKqAPkAAAAAA==",
+                    employer_name: "CGI Group, Inc.",
+                    employer_logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/CGI_logo.svg/1280px-CGI_logo.svg.png",
+                    employer_website: "http://www.cgi.com",
+                    employer_company_type: "Computer Services",
+                    job_publisher: "Learn4Good",
+                    job_employment_type: "FULLTIME",
+                    job_title: "Full Stack Python Developer",
+                    job_apply_link: "https://www.learn4good.com/jobs/online_remote/software_development/3049078486/e/",
+                    job_apply_is_direct: false,
+                    job_apply_quality_score: 0.4193,
+                    apply_options: [
+                        {
+                            publisher: "Learn4Good",
+                            apply_link: "https://www.learn4good.com/jobs/online_remote/software_development/3049078486/e/",
+                            is_direct: false
+                        }
+                    ],
+                    job_description: "Full Stack Python Developer\n\nPosition Description\nCGI is Seeking a Sr.Full stack Python developer with experience developing and deploying applications on cloud platforms such as Azure/AWS. The candidate will work with cloud architects to produce scalable solutions using front and back-end coding languages, development frameworks and third-party libraries. This individual should be self-motivated to drive solutions and familiar with Agile methodologies.\n\n• This is fulltime position. Contract is not allowed for this role.\n\n• Candidate should be flexible to work in Hybrid model from any of our CGI offices. No remote work allowed.\n\n• Candidate should be willing to work in Eastern time zone.\n\nExperience working with front-end and the back-end, Python Web framework (Django / Flask), Databases like Mongo / Postgres SQL, & Azure are key for this role.\n\nYour future duties and responsibilities\n\n• Build applications with best in class UI/UX design principles\n\n• Work with data scientists and cloud architects to develop and manage well-functioning databases and applications.\n\n• Participate in vision workshops and create minimum viable products to get business buy in and demonstrate ROI.\n\n• Write technical documentation and communicate appropriate key points to all stakeholders.\n\n• Test software to ensure responsiveness and efficiency cross platform optimization.\n\nRequired qualifications to be successful in this role\n\n• 10 + years of experience as a Full Stack Developer role\n\n• Experience working with multiple front-end languages and libraries (e.g. HTML/ CSS, JavaScript, XML, jQuery)\n\n• Experience working with multiple back-end languages (e.g. C#, Java, Python) and JavaScript frameworks (e.g. Angular, React, Node.js)\n\n• Experience with API design and implementation. Experience developing desktop and mobile applications.\n\n• 5 + years\n\nExperience with databases (e.g. Postgres, Mongo\n\nDB), web servers (e.g. Apache) and UI/UX design.\n\nExperience working with Python Web Frameworks like Django/Flast is must.\n\n• Experience with software versioning, packaging and deployment, e.g. Git, Artifactory, RPM, Docker, Jenkins .\n\n• experience with Azure or AWS cloud service provider is must.\n\n• Experience with Infrastructure as code (IaS) using terraform or cloud formation.\n\n• Excellent communication and teamwork skills\n\nRequired BS Science or equivalent\n• CGI is required by law in some jurisdictions to include a reasonable estimate of the compensation range for this role. The determination of this range includes various factors not limited to: skill set level; experience and training; and licensure and certifications. CGI typically does not hire individuals at or near the top of the range for their role. Compensation decisions are dependent on the facts and circumstances of each case.\n\nA reasonable estimate of the current range is $59,700 -$176,300.\n\nAt CGI we call our professionals \"members\" to reinforce that all who join our team are, as owners, empowered to participate in the challenges and rewards that come from building a world-class company. CGI's benefits include:\n\nCompetitive base salaries\nEligibility to participate in an attractive Share Purchase Plan (SPP) in which the company matches dollar-for-dollar contributions made by eligible employees, up to a maximum, for their job category\n401(k) Plan and Profit Participation for eligible members\nGenerous holidays, vacation, and sick leave plans\nComprehensive insurance plans that include, among other benefits, medical, dental, vision, life, disability, out-of-county emergency coverage in all countries of employment;\nBack-up child care, Pet insurance, a Member Assistance Program, a 529 college savings program, a personal financial management tool, lifestyle management programs and more.\n\n#LI-KB5\n\nInsights you can act on\n\nWhile technology is at the heart of our clients' digital transformation, we understand that people are at the heart of business success.\n\nWhen you join CGI, you become a trusted advisor, collaborating with colleagues and clients to bring forward actionable insights that deliver meaningful and sustainable outcomes. We call our employees \"members\" because they are CGI shareholders and owners and owners who enjoy working and growing together to build a company we are proud of. This has been our Dream since 1976, and it has brought us to where we are today - one of the world's largest independent providers of IT and business consulting services.\n\nAt CGI, we recognize the richness that diversity brings. We strive to create a work culture where all belong and collaborate with clients in building more inclusive communities. As an equal-opportunity employer, we want to empower all our members to succeed and grow. If you require an accommodation at any point during the recruitment process, please let us know. We will be happy to assist.\n\nReady to become part of our success story? Join CGI - where your ideas and actions make a difference.\n\nQualified applicants will receive consideration for employment without regard to their race, ethnicity,…,",
+                    job_is_remote: true,
+                    job_posted_at_timestamp: 1712448000,
+                    job_posted_at_datetime_utc: "2024-04-07T00:00:00.000Z",
+                    job_city: "Dallas",
+                    job_state: "TX",
+                    job_country: "US",
+                    job_latitude: 32.776665,
+                    job_longitude: -96.79699,
+                    job_benefits: [
+                        "health_insurance",
+                        "dental_coverage",
+                        "retirement_savings",
+                        "paid_time_off"
+                    ],
+                    job_google_link: "https://www.google.com/search?gl=us&hl=en&rciv=jb&q=python+developer+in+texas,+usa&start=90&ibp=htl;jobs#fpstate=tldetail&htivrt=jobs&htiq=python+developer+in+texas,+usa&htidocid=6YIdOJwFSeEKqAPkAAAAAA%3D%3D",
+                    job_offer_expiration_datetime_utc: "2024-10-06T00:00:00.000Z",
+                    job_offer_expiration_timestamp: 1728172800,
+                    job_required_experience: {
+                        no_experience_required: false,
+                        required_experience_in_months: 120,
+                        experience_mentioned: true,
+                        experience_preferred: false
+                    },
+                    job_required_skills: null,
+                    job_required_education: {
+                        postgraduate_degree: false,
+                        professional_certification: false,
+                        high_school: false,
+                        associates_degree: false,
+                        bachelors_degree: false,
+                        degree_mentioned: true,
+                        degree_preferred: true,
+                        professional_certification_mentioned: true
+                    },
+                    job_experience_in_place_of_education: false,
+                    job_min_salary: 59700,
+                    job_max_salary: 176300,
+                    job_salary_currency: "USD",
+                    job_salary_period: "YEAR",
+                    job_highlights: {
+                        Qualifications: [
+                            "This individual should be self-motivated to drive solutions and familiar with Agile methodologies",
+                            "Candidate should be willing to work in Eastern time zone",
+                            "Experience working with front-end and the back-end, Python Web framework (Django / Flask), Databases like Mongo / Postgres SQL, & Azure are key for this role",
+                            "10 + years of experience as a Full Stack Developer role",
+                            "Experience working with multiple front-end languages and libraries (e.g. HTML/ CSS, JavaScript, XML, jQuery)",
+                            "Experience working with multiple back-end languages (e.g. C#, Java, Python) and JavaScript frameworks (e.g",
+                            "Angular, React, Node.js)",
+                            "Experience with API design and implementation",
+                            "Experience developing desktop and mobile applications",
+                            "5 + years",
+                            "DB), web servers (e.g. Apache) and UI/UX design",
+                            "Experience working with Python Web Frameworks like Django/Flast is must",
+                            "Experience with software versioning, packaging and deployment, e.g",
+                            "Git, Artifactory, RPM, Docker, Jenkins ",
+                            "experience with Azure or AWS cloud service provider is must",
+                            "Experience with Infrastructure as code (IaS) using terraform or cloud formation",
+                            "Excellent communication and teamwork skills",
+                            "Required BS Science or equivalent",
+                            "CGI is required by law in some jurisdictions to include a reasonable estimate of the compensation range for this role"
+                        ],
+                        Responsibilities: [
+                            "This is fulltime position",
+                            "Build applications with best in class UI/UX design principles",
+                            "Work with data scientists and cloud architects to develop and manage well-functioning databases and applications",
+                            "Participate in vision workshops and create minimum viable products to get business buy in and demonstrate ROI",
+                            "Write technical documentation and communicate appropriate key points to all stakeholders",
+                            "Test software to ensure responsiveness and efficiency cross platform optimization"
+                        ],
+                        Benefits: [
+                            "A reasonable estimate of the current range is $59,700 -$176,300",
+                            "Competitive base salaries",
+                            "Eligibility to participate in an attractive Share Purchase Plan (SPP) in which the company matches dollar-for-dollar contributions made by eligible employees, up to a maximum, for their job category",
+                            "401(k) Plan and Profit Participation for eligible members",
+                            "Generous holidays, vacation, and sick leave plans",
+                            "Comprehensive insurance plans that include, among other benefits, medical, dental, vision, life, disability, out-of-county emergency coverage in all countries of employment;",
+                            "Back-up child care, Pet insurance, a Member Assistance Program, a 529 college savings program, a personal financial management tool, lifestyle management programs and more"
+                        ]
+                    },
+                    job_job_title: null,
+                    job_posting_language: "en",
+                    job_onet_soc: "15113300",
+                    job_onet_job_zone: "4",
+                    job_occupational_categories: [
+                        "Python",
+                        "Senior Developer",
+                        "Software Engineer",
+                        "Full Stack Developer"
+                    ],
+                    job_naics_code: "541512",
+                    job_naics_name: "Computer Systems Design Services"
+                }]);
             } catch (error) {
                 console.error('Error fetching saved jobs:', error);
             }

@@ -12,7 +12,8 @@ import {ImSpinner2} from "react-icons/im";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import {HOST} from "@/lib/utils";
 import {MdDelete} from "react-icons/md";
-import {usePathname} from "next/navigation";
+import {usePathname, useRouter} from "next/navigation";
+import {router} from "next/client";
 
 
 function Page({params}) {
@@ -21,6 +22,7 @@ function Page({params}) {
     const [portfolioShow, setPortfolioShow] = useState(false);
     const [portfolio, setPortfolio] = useState(null);
     const path = usePathname();
+    const router = useRouter();
 
     async function handlePortfolioTab() {
         setPortfolioShow(true);
@@ -54,11 +56,11 @@ function Page({params}) {
     }, []);
 
     async function handleMeetings() {
-        const response = await fetch(`${HOST}/api/zoom/meeting`, {
-            method: 'GET'
+        const response = await fetch(`${HOST}/api/zoom/meeting/?candidateEmail=${encodeURIComponent("dev.abubakarsiddique@gmail.com")}&employerEmail=${encodeURIComponent("hamzashafqat098@gmail.com")}`, {
+            method: 'GET',
         });
         const data = await response.json();
-        console.log(data.authUrl);
+        window.open(data.authUrl, '_blank');
     }
     return (
         <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-8 lg:px-12">
@@ -82,13 +84,15 @@ function Page({params}) {
                             <div className="flex-between mt-6 w-full flex-wrap gap-3">
                                 <div
                                     className="flex flex-col md:flex-row items-center gap-3 max-sm:flex-wrap justify-center mb-5">
-                                    <Metric
-                                        imgUrl="/resume.svg"
-                                        alt="briefcase"
-                                        value={'Resume'}
-                                        textStyles="small-medium text-light-500"
-                                        className="w-full md:w-auto"
-                                    />
+                                    <Link href={'https://cyan-bibbie-53.tiiny.site'} target={'_blank'}>
+                                        <Metric
+                                            imgUrl="/resume.svg"
+                                            alt="briefcase"
+                                            value={'Resume'}
+                                            textStyles="small-medium text-light-500"
+                                            className="w-full md:w-auto"
+                                        />
+                                    </Link>
                                     <div className='w-full md:w-auto cursor-pointer' onClick={handlePortfolioTab}>
                                         <Metric
                                             imgUrl="/portfolio.svg"
@@ -227,7 +231,7 @@ function Page({params}) {
                                     )}
                                     <div
                                         onClick={handleMeetings}
-                                        className="block w-full mt-4 bg-blue-500 hover:bg-blue-600 text-slate-50 font-semibold py-2 px-4 rounded-lg text-center"
+                                        className="block cursor-pointer w-full mt-4 bg-blue-500 hover:bg-blue-600 text-slate-50 font-semibold py-2 px-4 rounded-lg text-center"
                                     >
                                         Schedule Interview
                                     </div>
