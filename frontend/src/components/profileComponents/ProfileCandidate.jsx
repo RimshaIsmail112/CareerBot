@@ -60,7 +60,7 @@ function Modal({onClose, onSave, type, children}) {
 }
 
 function ProfileDetailsForm() {
-    const {candidateData, candidate} = useAppContext();
+    const {candidateData, candidate, setCandidateData} = useAppContext();
     const [isLoading, setIsLoading] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
     const [alertMessage, setAlertMessage] = useState("");
@@ -209,6 +209,17 @@ function ProfileDetailsForm() {
                     setShowAlert(false);
                 }, 4000);
                 window.scrollTo({top: 0, behavior: 'smooth'});
+                setCandidateData({
+                    fullName: data.profileData.fullName,
+                    email: data.profileData.emails,
+                    preferredJobLocation: data.profileData.preferredJobLocation,
+                    phone: data.profileData.phone,
+                    skills: data.profileData.skills,
+                    workExperiences: data.profileData.workExperiences,
+                    education: data.profileData.education,
+                    profilePictureUrl: data.profileData.profilePictureUrl,
+                    profession: data.profileData.profession,
+                })
                 return "success";
             }
         }

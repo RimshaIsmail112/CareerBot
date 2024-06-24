@@ -12,10 +12,10 @@ const md = markdownit({
     breaks: true,
 })
 
-const genAI = new GoogleGenerativeAI("AIzaSyAofrrLkJCAsl2O8HRQalb93dqjSq50fCs");
+const genAI = new GoogleGenerativeAI("AIzaSyBC616_lDK58jxLboU2mcw4pX6OqmST1uw");
 
 export async function ask(question) {
-    const model = genAI.getGenerativeModel({model: 'gemini-pro'})
+    const model = genAI.getGenerativeModel({model: 'gemini-1.5-flash'})
     const chat = model.startChat({
         history: [],
         generationConfig: {

@@ -56,7 +56,7 @@ function ProfileMenu({profileMenuItems}) {
                 </Button>
             </MenuHandler>
             <MenuList className="p-1">
-                {profileMenuItems && profileMenuItems.map(({label, icon}, key) => {
+                {profileMenuItems && profileMenuItems.map(({label, href, icon}, key) => {
                     const isLastItem = key === profileMenuItems.length - 1;
                     return (
                         <MenuItem
@@ -68,10 +68,10 @@ function ProfileMenu({profileMenuItems}) {
                                     : ""
                             }`}
                         >
-                            <div className={'flex gap-1 p-2 text-slate-950 hover:text-slate-50 w-full'}>
+                            <Link href={href} target={"_self"} className={'flex gap-1 p-2 text-slate-950 hover:text-slate-50 w-full'}>
                                 {icon}
                                 {label}
-                            </div>
+                            </Link>
                         </MenuItem>
                     );
                 })}
@@ -133,11 +133,7 @@ export default function ComplexNavbar({navListItems, profileMenuItems}) {
                         <Bars2Icon className="h-6 w-6"/>
                     </IconButton>
                     <div className={'flex justify-center items-center'}>
-                        <div className={'flex justify-center items-center mr-4'}>
-                            <Badge content="5">
-                                <FaBell size={25} className={'text-slate-950'}/>
-                            </Badge>
-                        </div>
+
                         <ProfileMenu profileMenuItems={profileMenuItems}/>
                     </div>
                 </div>

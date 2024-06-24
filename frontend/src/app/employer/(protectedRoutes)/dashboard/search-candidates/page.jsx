@@ -44,7 +44,11 @@ function Page() {
         if(params.size !== 0){
             async function getCandidateResult(search, location){
                 const realTimeCandidateData = await allCandidates()
-                const mostRecommendedCandidates = await getSearchedCandidates(realTimeCandidateData, search. location) //Replace with actual search and location
+                //const mostRecommendedCandidates = await getSearchedCandidates(realTimeCandidateData, search. location) //Replace with actual search and location
+                const mostRecommendedCandidates = realTimeCandidateData.filter(candidate =>
+                    candidate.profession.toLowerCase().includes(search.toLowerCase()) && candidate.preferredJobLocation.toLowerCase().includes(location.toLowerCase())
+                );
+                console.log("Most Recommended Candidates", mostRecommendedCandidates)
                 setSearchedCandidates(mostRecommendedCandidates);
             }
             getCandidateResult(params.get('search'), params.get('location'));

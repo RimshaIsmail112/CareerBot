@@ -3,27 +3,29 @@ import {HOST} from "@/lib/utils";
 
 export const searchJobs = async (querySearch, location, giveRecommended) => {
     let formattedSkills = "";
-    if(giveRecommended) formattedSkills = querySearch.map(skill => encodeURIComponent(skill)).join('%20OR%20');
+    // if(giveRecommended) formattedSkills = querySearch.map(skill => encodeURIComponent(skill)).join('%20OR%20');
     const formattedLocation = encodeURIComponent(location);
 
-    const url = `https://jsearch.p.rapidapi.com/search?query=${giveRecommended ? formattedSkills : querySearch}%20in%20${formattedLocation}&page=10&num_pages=10`;
+    // const url = `https://jsearch.p.rapidapi.com/search?query=${giveRecommended ? formattedSkills : querySearch}%20in%20${formattedLocation}&page=10&num_pages=10`;
+    const url = `https://jsearch.p.rapidapi.com/search?query=${querySearch}%20in%20${formattedLocation}&page=1&num_pages=10&date_posted=month`;
+
     const options = {
         method: 'GET',
         headers: {
-            'X-RapidAPI-Key': '8a1326e09amshb6fa253ec61c44ap1a0580jsn385ebe3bbb1d',
-            'X-RapidAPI-Host': 'jsearch.p.rapidapi.com'
+            'x-rapidapi-key': 'b769a2752amsh3b98805aac28d99p1104edjsne4034e2cf194',
+            'x-rapidapi-host': 'jsearch.p.rapidapi.com'
         }
     };
 
     try {
         const response = await fetch(url, options);
-        const data = await response.json();
-        return jobs.data; //replace with actual data
+        const result = await response.json();
+        // const data = await response.json();
+        console.log(result)
+        return  result.data; //replace with actual data
 
     } catch (error) {
-        console.log("Abubakar",jobs.data)
-        return jobs.data;
-        console.error(error);
+        console.log(error)
     }
 };
 

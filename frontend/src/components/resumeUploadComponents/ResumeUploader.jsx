@@ -56,12 +56,12 @@ function ResumeUploader() {
         const formData = new FormData();
         formData.append('wait', 'true');
         formData.append('file', selectedFile);
-        formData.append('workspace', 'FmsCdiUN');
+        formData.append('workspace', 'FJvoemOB');
 
         const url = 'https://api.affinda.com/v3/documents';
         const options = {
             method: 'POST', headers: {
-                accept: 'application/json', authorization: 'Bearer aff_3cb77d027beb8ac30800fc4e5ac769bbb712d662' // Replace with your authorization token
+                accept: 'application/json', authorization: 'Bearer aff_e57330de9159cafd151e1ab2f3d7e73d7947f327' // Replace with your authorization token
             }, body: formData
         };
         const response = await fetch(url, options);

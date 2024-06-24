@@ -14,6 +14,18 @@ import {HOST} from "@/lib/utils";
 import {MdDelete} from "react-icons/md";
 import {usePathname, useRouter} from "next/navigation";
 import {router} from "next/client";
+import { Button } from "@/components/ui/button"
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
 
 
 function Page({params}) {
@@ -21,6 +33,8 @@ function Page({params}) {
     const {candidateCardData} = useAppContext();
     const [portfolioShow, setPortfolioShow] = useState(false);
     const [portfolio, setPortfolio] = useState(null);
+    const [testName, setTestName] = useState('');
+    const [score, setScore] = useState('');
     const path = usePathname();
     const router = useRouter();
 
@@ -62,6 +76,36 @@ function Page({params}) {
         const data = await response.json();
         window.open(data.authUrl, '_blank');
     }
+    async function handleUploadScore(email, testName, score) {
+        if (score === '' || testName === '') {
+            alert('Please fill in the test name and score');
+            return;
+        }
+        const url = `${HOST}/post-scores/${email}`;
+        const payload = {
+            testName: testName,
+            score: score
+        };
+
+        try {
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            const data = await response.json();
+            console.log('Test result saved successfully:', data);
+        } catch (error) {
+            console.error('Error saving test result:', error);
+        }
+    }
     return (
         <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-8 lg:px-12">
             <div className="w-full space-y-8 bg-slate-50 p-8 rounded-lg shadow-lg">
@@ -80,11 +124,12 @@ function Page({params}) {
                             )}
                         </div>
                         <p className="text-center text-slate-950 font-bold">{candidate.profession}</p>
+                        <p className="text-center text-slate-950 font-medium italic">{candidate.email}</p>
                         <div className="divide-y divide-gray-200">
                             <div className="flex-between mt-6 w-full flex-wrap gap-3">
                                 <div
                                     className="flex flex-col md:flex-row items-center gap-3 max-sm:flex-wrap justify-center mb-5">
-                                    <Link href={'https://cyan-bibbie-53.tiiny.site'} target={'_blank'}>
+                                    <Link className='w-full md:w-auto cursor-pointer' href={'https://cyan-bibbie-53.tiiny.site'} target={'_blank'}>
                                         <Metric
                                             imgUrl="/resume.svg"
                                             alt="briefcase"
@@ -109,7 +154,8 @@ function Page({params}) {
                                     {!portfolio ? <ImSpinner2 size={30}
                                                               className="animate-spin w-full text-slate-950"/> :
                                         <>
-                                            <div className='flex justify-center sm:justify-start w-full p-5 items-center'>
+                                            <div
+                                                className='flex justify-center sm:justify-start w-full p-5 items-center'>
                                                 <IoMdArrowRoundBack size={32} onClick={() => setPortfolioShow(false)}/>
                                             </div>
 
@@ -235,6 +281,58 @@ function Page({params}) {
                                     >
                                         Schedule Interview
                                     </div>
+                                    <div className={'flex flex-col md:flex-row gap-3'}>
+                                        <Link
+                                            href={"https://app.testgorilla.com/customer/assessments?assessmentPage=0"}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="block cursor-pointer w-full mt-4 bg-blue-500 hover:bg-blue-600 text-slate-50 font-semibold py-2 px-4 rounded-lg text-center"
+                                        >
+                                            Taking Online Assessment
+                                        </Link>
+                                        <Dialog>
+                                            <DialogTrigger asChild>
+                                                <Button className={'block cursor-pointer w-full mt-4 bg-blue-500 hover:bg-blue-600 text-slate-50 font-bold py-2 px-4 rounded-lg text-center'}>Upload Result</Button>
+                                            </DialogTrigger>
+                                            <DialogContent className="sm:max-w-[425px]">
+                                                <DialogHeader>
+                                                    <DialogTitle>Upload Result</DialogTitle>
+                                                </DialogHeader>
+                                                <div className="grid gap-4 py-4">
+                                                    <div className="grid grid-cols-4 items-center gap-4">
+                                                        <Label htmlFor="name" className="text-right">
+                                                            Test Name
+                                                        </Label>
+                                                        <input
+                                                            id="name"
+                                                            onChange={(e) => setTestName(e.target.value)}
+                                                            placeholder="Software Development"
+                                                            className="col-span-3"
+                                                        />
+                                                    </div>
+                                                    <div className="grid grid-cols-4 items-center gap-4">
+                                                        <Label htmlFor="score" className="text-right">
+                                                            Score
+                                                        </Label>
+                                                        <input
+                                                            id="score"
+                                                            onChange={(e) => setScore(e.target.value)}
+                                                            placeholder="80%"
+                                                            className="col-span-3"
+                                                        />
+                                                    </div>
+                                                </div>
+                                                <DialogFooter>
+                                                    <Button type="submit">
+                                                        <div onClick={() => handleUploadScore(candidate.email, testName, score)}>
+                                                            Upload Score
+                                                        </div>
+                                                    </Button>
+                                                </DialogFooter>
+                                            </DialogContent>
+                                        </Dialog>
+                                    </div>
+
                                 </>
                             }
                         </div>

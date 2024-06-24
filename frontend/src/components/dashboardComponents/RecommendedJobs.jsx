@@ -14,7 +14,7 @@ import Link from "next/link";
 
 export default function RecommendedJobs() {
     const [recommendedJobs, setRecommendedJobs] = React.useState(null);
-    const {jobsData ,setJobsData} = useAppContext();
+    const {jobsData ,setJobsData, setCandidateData, candidateData} = useAppContext();
     const [active, setActive] = React.useState(1);
     const [itemsPerPage] = React.useState(6);
     const [currentPage, setCurrentPage] = React.useState(1);
@@ -50,14 +50,14 @@ export default function RecommendedJobs() {
             async function getJobsResult(search, location) {
                 const giveRecommended = true;
                 const realTimeJobsData = await searchJobs(search, location, giveRecommended)
-                //const mostRecommendedJobs = await getMostRecommendedJobs(realTimeJobsData, resumeData) //Replace with actual resume data
+                //const mostRecommendedJobs = await getMostRecommendedJobs(realTimeJobsData, candidateData) //Replace with actual resume data (done)
                 setRecommendedJobs(realTimeJobsData);
                 setJobsData(realTimeJobsData);
             }
 
-            const candidateSkills = ["React", "Node", "MongoDB", "Express"] // Replace with actual candidate skills
-            const location = "Lahore" // Replace with actual candidate location
-            getJobsResult(candidateSkills, location);
+            const candidateProfession = candidateData.profession // Replace with actual candidate profession (done)
+            const location = candidateData.preferredJobLocation // Replace with actual candidate location (done)
+            getJobsResult(candidateProfession, location);
         }
         else{
             console.log("Jobs data")

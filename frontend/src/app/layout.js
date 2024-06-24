@@ -39,21 +39,22 @@ const candidateNavItems = [
 
     },
 ];
+
 const employerNavItems = [
     {
         label: "Find Candidates",
-        href: "/candidate/jobs",
+        href: "/employer/dashboard/search-candidates",
         icon: <FaUserTie size={18}/>
 
     },
     {
         label: "Interview History",
-        href: "/portfolio",
+        href: "/employer/InterviewHistory",
         icon: <FaBriefcase size={18}/>,
     },
     {
         label: "Saved Candidates",
-        href: "/saved-jobs",
+        href: "/employer/saved-candidates",
         icon: <FaBookmark size={18}/>,
     },
 ];

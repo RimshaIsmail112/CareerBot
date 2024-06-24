@@ -44,10 +44,10 @@ function Page() {
 
 
     useEffect(() => {
-        if(jobsData){
-            setSearchedJobs(jobsData);
-        }
-        else{
+        // if(jobsData){
+        //     setSearchedJobs(jobsData);
+        // }
+        // else{
             if(params.size !== 0) {
                 async function getJobsResult(search,location){
                     const giveRecommended = false
@@ -57,7 +57,7 @@ function Page() {
                 }
                 getJobsResult(params.get('search'), params.get('location'));
             }
-        }
+        // }
 
     }, [params.size]);
 
