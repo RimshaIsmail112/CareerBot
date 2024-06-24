@@ -141,5 +141,3 @@ const Chatbot = ({ question }) => {
 };
 
 export default Chatbot;
-
-

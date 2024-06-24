@@ -23,6 +23,8 @@ const candidateProfileRouter = require("./router/candidateProfileRouter");
 const employerProfileRouter = require("./router/employerProfileRouter");
 
 const candidatePortfolioRouter = require("./router/candidatePortfolioRouter");
+const testRouter = require("./router/testResults");
+
 app.use(express.json());
 app.use(
   cors({
@@ -46,7 +48,7 @@ app.use(candidatePortfolioRouter);
 
 app.use(require("./router/zoomRouter"));
 app.use(require("./router/emailRouter"));
-
+app.use(testRouter);
 app.listen(process.env.PORT, () => {
   console.log(`Server listening on port ${process.env.PORT}`);
 });
