@@ -175,7 +175,7 @@ function CandidatePortfolio() {
         async function fetchProjects() {
             setIsLoading(true);
             try {
-                const response = await fetch(`http://localhost:3001/candidate/projects/660a89b1c16089e0e1433a6b`);
+                const response = await fetch(`http://localhost:3001/candidate/getProjects/660a89b1c16089e0e1433a6b`);
                 if (!response.ok) {
                     throw new Error('Failed to fetch projects');
                 }
