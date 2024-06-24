@@ -17,6 +17,7 @@ import {
 } from "@/lib/utils";
 import {getLogo, logoPlaceholders} from "@/lib/CompanyLogo";
 import {useEffect, useState} from "react";
+import {useAppContext} from "@/Context/Candidate_Employer_Data";
 
 export const JobCard = ({
                             jobId,
@@ -51,6 +52,7 @@ export const JobCard = ({
         city && state && country ? ", " : ""
     }${country || ""}`;
     const [isBookmarked, setIsBookmarked] = useState(saved);
+    const {candidate} = useAppContext()
 
     const handleJobBookMark = async () => {
         try {
@@ -64,7 +66,7 @@ export const JobCard = ({
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    candidateId: "6613fe12c67946b9213620d6", // Replace with the actual candidate id
+                    candidateId: candidate.id, // Replace with the actual candidate id
                     jobId,
                     title,
                     saved,

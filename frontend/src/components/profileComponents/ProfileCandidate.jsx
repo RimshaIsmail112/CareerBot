@@ -139,9 +139,8 @@ function ProfileDetailsForm() {
     };
 
     const addWorkExperience = (workExperience) => {
-        if (!workExperience.title || !workExperience.companyName || !workExperience.location || !workExperience.duration || !workExperience.description) {
-            alert("Please Add Your Work Experience");
-            setIsWorkExperienceModalOpen(true);
+        if (!workExperience.title || !workExperience.companyName || !workExperience.location || !workExperience.duration) {
+            alert("Kindly Fill Out the Required Fields.");
             return;
         }
         setFormData((prevState) => ({
@@ -151,18 +150,16 @@ function ProfileDetailsForm() {
         setIsWorkExperienceModalOpen(false);
     };
     const isExperienceValid = (exp) => {
-        return exp.title && exp.companyName && exp.location && exp.duration && exp.description;
+        return exp.title && exp.companyName && exp.location && exp.duration;
     };
     const addEducation = (educationEntry) => {
         if (
             !educationEntry.degree ||
             !educationEntry.universityName ||
             !educationEntry.duration ||
-            !educationEntry.location ||
-            !educationEntry.description
+            !educationEntry.location
         ) {
-            alert("Please fill in the degree, university name, and duration.");
-            setIsEducationModalOpen(true);
+            alert("Kindly Fill Out the Required Fields.");
             return;
         }
 
@@ -173,7 +170,7 @@ function ProfileDetailsForm() {
         setIsEducationModalOpen(false);
     };
     const isEducationValid = (edu) => {
-        return edu.degree && edu.universityName && edu.location && edu.duration && edu.description;
+        return edu.degree && edu.universityName && edu.location && edu.duration;
     };
 
     const handleDelete = (index, name) => {

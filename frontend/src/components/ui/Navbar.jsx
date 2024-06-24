@@ -89,6 +89,7 @@ function NavList({navListItems}) {
             {navListItems && navListItems.map(({label, icon, href}, key) => (
                 <Link
                     href={href}
+                    target={href.startsWith("http") ? "_blank" : "_self"}
                     key={href}
                     className="font-medium text-slate-950"
                 >

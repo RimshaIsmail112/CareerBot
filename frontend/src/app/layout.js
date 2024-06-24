@@ -8,6 +8,7 @@ import {MobileDrawer} from "@/components/ui/MobileDrawer";
 import {usePathname} from "next/navigation";
 import {FaBookmark, FaBriefcase, FaUserTie} from "react-icons/fa";
 import dotenv from "dotenv";
+import {MdAssessment} from "react-icons/md";
 dotenv.config();
 
 const notoSans = Noto_Sans({subsets: ["latin"]});
@@ -20,7 +21,6 @@ const candidateNavItems = [
         label: "Find Jobs",
         href: "/candidate/jobs",
         icon: <FaUserTie size={18}/>
-
     },
     {
         label: "My Portfolio",
@@ -31,6 +31,12 @@ const candidateNavItems = [
         label: "Saved Jobs",
         href: "/saved-jobs",
         icon: <FaBookmark size={18}/>,
+    },
+    {
+        label: "Self Assessment",
+        href: "https://careersync-self-assessment.vercel.app/",
+        icon: <MdAssessment size={18}/>
+
     },
 ];
 const employerNavItems = [

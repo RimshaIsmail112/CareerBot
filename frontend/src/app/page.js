@@ -4,5 +4,5 @@ import CanidateHeroSection from "@/components/dashboardComponents/CanidateHeroSe
 
 export default function Home() {
 
-  return <CanidateHeroSection/>
+  return <RedirectToLogin><CanidateHeroSection/></RedirectToLogin>
 }

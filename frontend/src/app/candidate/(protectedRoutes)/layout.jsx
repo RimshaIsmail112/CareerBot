@@ -4,6 +4,8 @@ import ComplexNavbar from "@/components/ui/Navbar";
 import { CgProfile } from "react-icons/cg";
 import { FiHelpCircle } from "react-icons/fi";
 import { FaSignOutAlt, FaUserTie, FaBriefcase, FaBookmark } from "react-icons/fa";
+import { MdAssessment } from "react-icons/md";
+
 import CandidateHeroSection from "@/components/dashboardComponents/CanidateHeroSection";
 import RecommendedJobs from "@/components/dashboardComponents/RecommendedJobs";
 import {Footer} from "@/components/ui/Footer";
@@ -40,6 +42,12 @@ function Layout({children}) {
             label: "Saved Jobs",
             href: "/candidate/saved-jobs",
             icon: <FaBookmark size={18}/>,
+        },
+        {
+            label: "Self Assessment",
+            href: "https://careersync-self-assessment.vercel.app/",
+            icon: <MdAssessment size={18}/>
+
         },
     ];
 

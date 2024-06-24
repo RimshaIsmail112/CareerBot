@@ -109,7 +109,6 @@ function CandidatePortfolio() {
 
             const updatedProject = {...project, thumbnailUrl: uploadedImageUrl};
 
-            candidate.id = "660a89b1c16089e0e1433a6b";
             const submitResponse = await fetch(`http://localhost:3001/candidate/setProjects/${candidate.id}`, {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
@@ -152,10 +151,9 @@ function CandidatePortfolio() {
 
 
     const deleteProject = async (projectId, index) => {
-        const candidateId = "660a89b1c16089e0e1433a6b";
 
         try {
-            const response = await fetch(`http://localhost:3001/candidate/deleteProject/${candidateId}/${projectId}`, {
+            const response = await fetch(`http://localhost:3001/candidate/deleteProject/${candidate.id}/${projectId}`, {
                 method: 'DELETE',
             });
 

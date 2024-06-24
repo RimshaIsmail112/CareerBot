@@ -39,12 +39,12 @@ function Layout({children}) {
         },
         {
             label: "Interview History",
-            href: "/portfolio",
+            href: "/employer/dashboard",
             icon: <FaBriefcase size={18}/>,
         },
         {
             label: "Saved Candidates",
-            href: "/saved-jobs",
+            href: "/employer/saved-candidates",
             icon: <FaBookmark size={18}/>,
         },
     ];

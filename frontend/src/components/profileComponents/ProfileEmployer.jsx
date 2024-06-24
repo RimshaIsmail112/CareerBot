@@ -142,7 +142,7 @@ function EmployerDetailsForm() {
                 .then(async (data) => {
                     formData.profilePicture = data.secure_url;
                     await storeCompleteData(formData);
-                    await router.push("/");
+                    await router.push("/employer/dashboard");
                 })
                 .catch((error) => {
                     setShowAlert(true);
