@@ -1,13 +1,17 @@
 'use client'
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import Image from 'next/image'
 import {AiOutlineSearch} from 'react-icons/ai'
 import {FaLocationDot} from "react-icons/fa6";
 import {searchJobs} from "@/lib/JobSearch";
 import {ImSpinner2} from "react-icons/im";
 import {usePathname, useRouter} from "next/navigation";
+import io from 'socket.io-client';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import {WavyBackground} from "@/components/ui/wavy-background";
 
+const socket = io('http://localhost:3001');
 
 const CandidateHeroSection = () => {
     const [search, setSearch] = useState('')
@@ -15,6 +19,16 @@ const CandidateHeroSection = () => {
     const [isLoading, setIsLoading] = useState(false)
     const path = usePathname();
     const router = useRouter();
+
+    useEffect(() => {
+        socket.on('notify', (msg) => {
+            toast.info(msg); // Display toast notification
+        });
+
+        return () => {
+            socket.off('notify');
+        };
+    }, []);
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -86,6 +100,17 @@ const CandidateHeroSection = () => {
                     </form>
                 </div>
             </WavyBackground>
+            <ToastContainer
+                position="top-right"
+                autoClose={3000}
+                hideProgressBar={false}
+                newestOnTop
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+            />
         </div>
     )
 }

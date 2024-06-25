@@ -60,7 +60,7 @@ export default function EmployerSignIn() {
                     setTimeout(() => {
                         setShowAlert(false);
                     }, 4000);
-                    await router.push("/");
+                    await router.push("/employer/dashboard");
                     setIsLoading(null);
                 }
             })

@@ -11,8 +11,12 @@ export const searchJobs = async (querySearch, location, giveRecommended) => {
 
     const options = {
         method: 'GET',
+        // headers: {
+        //     'x-rapidapi-key': 'b769a2752amsh3b98805aac28d99p1104edjsne4034e2cf194',
+        //     'x-rapidapi-host': 'jsearch.p.rapidapi.com'
+        // }
         headers: {
-            'x-rapidapi-key': 'b769a2752amsh3b98805aac28d99p1104edjsne4034e2cf194',
+            'x-rapidapi-key': '687c38f401msh4af25a8aa9e835dp140282jsnf5aa0c555561',
             'x-rapidapi-host': 'jsearch.p.rapidapi.com'
         }
     };

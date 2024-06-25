@@ -12,7 +12,7 @@ const md = markdownit({
     breaks: true,
 })
 
-const genAI = new GoogleGenerativeAI("AIzaSyBC616_lDK58jxLboU2mcw4pX6OqmST1uw");
+const genAI = new GoogleGenerativeAI("AIzaSyDUJovMPuHUNbW77G3vsDcOdTMbc3d2Ies");
 
 export async function ask(question) {
     const model = genAI.getGenerativeModel({model: 'gemini-1.5-flash'})

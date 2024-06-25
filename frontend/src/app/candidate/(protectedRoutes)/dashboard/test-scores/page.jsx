@@ -33,12 +33,12 @@ const TestScores = () => {
     const {candidateData} = useAppContext();
 
     useEffect(() => {
-        getTestScores(candidateData.email).then(setTests);
-        // setTests([
-        //     {testName: 'Test 1', score: 90},
-        //     {testName: 'Test 2', score: 85},
-        //     {testName: 'Test 3', score: 95},
-        // ])
+        //getTestScores(candidateData.email).then(setTests);
+        setTests([
+            {testName: 'Software Development', score: 90},
+            {testName: 'Problem Solving', score: 85},
+            {testName: 'Communication', score: 95},
+        ])
     }, []);
 
     return (

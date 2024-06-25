@@ -1,98 +1,32 @@
-'use client';
-import React, { useEffect, useState } from 'react';
-import { cn, getCountryCode } from '@/lib/utils';
-import { ImSpinner2 } from 'react-icons/im';
-import { CandidateCard } from '@/components/ui/bento-grid';
-import { Button, IconButton } from '@material-tailwind/react';
+'use client'
+import {cn, getCountryCode} from "@/lib/utils";
+import React, {useEffect} from "react";
+import {CandidateCard, JobCard} from "@/components/ui/bento-grid";
+import {Button, IconButton} from "@material-tailwind/react";
 import {ArrowRightIcon, ArrowLeftIcon} from "@heroicons/react/24/outline";
-import { useAppContext } from '@/Context/Candidate_Employer_Data';
 
-function Page(props) {
-    const [savedCandidates, setSavedCandidates] = useState([
-        {
-            _id: {
-                $oid: '66141e7ae03adb773da13ba0'
-            },
-            candidateId: {
-                $oid: '6613fe12c67946b9213620d6'
-            },
-            fullName: 'M.ABUBAKAR SIDDIQUE',
-            email: 'dev.abubakarsiddique@gmail.com',
-            phone: '+923494101609',
-            preferredJobLocation: 'Lahore, Punjab, Pakistan',
-            profession: 'Python Developer',
-            skills: [
-                'Problem Solving',
-                'Communications',
-                'HyperText Markup Language (HTML)',
-                'Amazon S3',
-                'Management',
-                'Agile Software Development',
-                'Amazon Web Services',
-                'Firebase',
-                'MongoDB',
-                'Leadership',
-                'Operations',
-                'Cascading Style Sheets (CSS)',
-                'Node.js',
-                'Application Programming Interface (API)',
-                '3D Printing',
-                'Agile Methodology',
-                'RESTful API',
-                'Team Leadership',
-                'Express.js',
-                'GraphQL',
-                'Web Development',
-                'TypeScript',
-                'Server-Side'
-            ],
-            workExperiences: [
-                {
-                    title: 'Frontend Developer',
-                    companyName: 'Softpers',
-                    location: 'Lahore, Punjab, Pakistan',
-                    duration: '2023-03-01 - 2023-10-01',
-                    description:
-                        'Softpers is a leading software house, known for its rapid-paced development and innovative solutions in the realm of demanding projects.',
-                    _id: {
-                        $oid: '6613ff2cc67946b9213620e3'
-                    }
-                }
-            ],
-            education: [
-                {
-                    degree: 'B.S. in Software Engineering',
-                    universityName: 'COMSATS Unversity',
-                    location: 'Lahore, Punjab, Pakistan',
-                    duration: '01/02/2020 - 08/04/2024',
-                    description: 'Grade: 3.5',
-                    _id: {
-                        $oid: '6613ff2cc67946b9213620e4'
-                    }
-                }
-            ],
-            profilePictureUrl:
-                'https://res.cloudinary.com/dy5yzo1ji/image/upload/v1712586539/cbdh12eadqojstsrnxgr.png',
-            bookmarked: false,
-            __v: {
-                $numberInt: '0'
-            }
-        }
-    ]);
-    const { setCandidateCardData } = useAppContext();
-    const [active, setActive] = useState(1);
-    const [itemsPerPage] = useState(6);
-    const [currentPage, setCurrentPage] = useState(1);
+import {JobsFilter} from "@/components/dashboardComponents/JobsFilter";
+import {ImSpinner2} from "react-icons/im";
+import {allCandidates, getMostRecommendedCandidates, getMostRecommendedJobs, searchJobs} from "@/lib/JobSearch";
+import {candidatesData, jobs, resumeData} from "@/lib/dummyData";
+import {useAppContext} from "@/Context/Candidate_Employer_Data";
+import Link from "next/link";
+
+export default function JobsSection() {
+    const [savedCandidate, setSavedCandidate] = React.useState(null);
+    const [active, setActive] = React.useState(1);
+    const [itemsPerPage] = React.useState(6);
+    const [currentPage, setCurrentPage] = React.useState(1);
 
     const next = () => {
         if (active === 5) return;
         setActive(active + 1);
         setCurrentPage(currentPage + 1);
     };
-    const numberButtonHandler = index => {
+    const numberButtonHandler = (index) => {
         setActive(index);
         setCurrentPage(index);
-    };
+    }
 
     const prev = () => {
         if (active === 1) return;
@@ -100,31 +34,62 @@ function Page(props) {
         setCurrentPage(currentPage - 1);
     };
 
-    const getItemProps = index => ({
-        variant: active === index ? 'filled' : 'text',
-        color: 'gray',
-        onClick: () => setActive(index)
+    const getItemProps = (index) => ({
+        variant: active === index ? "filled" : "text", color: "gray", onClick: () => setActive(index),
     });
 
-    const currentData =
-        savedCandidates && savedCandidates.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const currentData = savedCandidate && savedCandidate.slice(startIndex, endIndex);
+    function pickRandomElements(arr, n) {
+        const shuffled = [...arr].sort(() => 0.5 - Math.random());
+        return shuffled.slice(0, n);
+    }
+    useEffect(() => {
+        async function getSavedCandidates(){
+            const realTimeCandidateData = await allCandidates()
+            //const mostRecommendedCandidates = await getMostRecommendedCandidates(realTimeCandidateData, "I want react/nextjs developer") //Replace with actual job description
+            setSavedCandidate(pickRandomElements(realTimeCandidateData, 3));
+        }
+        getSavedCandidates();
+    }, []);
 
-    return (
-        <div className={'flex flex-col p-8 gap-3 justify-center lg:justify-normal items-center lg:items-start'}>
-            <h2 className={cn('text-3xl font-bold text-slate-50 dark:text-neutral-100', 'mt-10 mb-4')}>
-                All Saved Candidates
-            </h2>
-            {!currentData ? (
-                <ImSpinner2 size={30} className="animate-spin w-full text-slate-50" />
-            ) : (
-                currentData.map((candidateItem, index) => {
-                    const [city, state, country] = candidateItem.preferredJobLocation.split(',').map(item => item.trim());
-                    getCountryCode(country).then(countryCode => {
-                        return (
-                            <div className="p-1" key={candidateItem._id}>
+
+    // const handleFilterChange = (filterOptions) => {
+    //     console.log(filterOptions);
+    //     const filtered = (searchedData || allJobs).filter((job) => {
+    //         return (
+    //             (filterOptions.showFullTime && job.job_employment_type.toLowerCase() === "fulltime") ||
+    //             (filterOptions.showPartTime && job.job_employment_type.toLowerCase() === "parttime") ||
+    //             (filterOptions.showContract && job.job_employment_type.toLowerCase() === "contractor") ||
+    //             (filterOptions.showInternship && job.job_employment_type.toLowerCase() === "intern") ||
+    //             (filterOptions.showRemote && job.job_is_remote) ||
+    //             (filterOptions.showOnSite && !job.job_is_remote)
+    //         );
+    //     });
+    //
+    //     console.log(filtered)
+    //     filtered.length === 0 ? setAllJobs(jobs.data) : setAllJobs(filtered);
+    // };
+
+    return (<div className={'w-screen px-8 md:px-12 lg:px-16'}>
+        <div className={'flex flex-col gap-3 w-full justify-center items-center'}>
+            <div className={'flex flex-col lg:flex-row gap-5 md:justify-between w-full items-center mt-8'}>
+                <h2 className={cn('text-3xl w-full font-bold text-center md:text-left text-slate-50 dark:text-neutral-100', 'mt-10 mb-4')}>
+                    All Saved Candidates
+                </h2>
+            </div>
+            <div className="flex w-full flex-col gap-3">
+                {!currentData ? (<ImSpinner2 size={30}
+                                             className="animate-spin w-full text-slate-50"/>) :
+                    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 justify-center gap-5 items-center">
+                        {(currentData.map(async (candidateItem, index) => {
+                            const [city, state, country] = candidateItem.preferredJobLocation.split(',').map(item => item.trim());
+                            const countryCode = await getCountryCode(country)
+                            return (<div className="p-2 md:p-5 w-full md:basis-1/3" key={candidateItem._id}>
                                 <CandidateCard
                                     id={candidateItem._id}
-                                    saved={false}
+                                    saved={true}
                                     fullName={candidateItem.fullName}
                                     email={candidateItem.email}
                                     phone={candidateItem.phone}
@@ -137,27 +102,24 @@ function Page(props) {
                                     education={candidateItem.education}
                                     imageUrl={candidateItem.profilePictureUrl}
                                 />
-                            </div>
-                        );
-                    });
-                })
-            )}
+                            </div>);
+                        }))}
+                    </div>}
+            </div>
+
             <div className="flex items-center justify-center gap-4 mt-5 w-full">
                 <Button
                     variant="text"
-                    className="items-center justify-center gap-2 active:bg-slate-400 flex bg-slate-50 hover:bg-slate-200 text-slate-950 bg-opacity-100"
+                    className="items-center justify-center gap-2 active:bg-slate-400 flex bg-slate-50 hover:bg-slate-200 text-slate-950  bg-opacity-100"
                     onClick={prev}
                     disabled={currentPage === 1}
                 >
-                    <ArrowLeftIcon strokeWidth={2} className="h-4 w-4" /> Previous
+                    <ArrowLeftIcon strokeWidth={2} className="h-4 w-4"/> Prev
                 </Button>
                 <div className="flex items-center gap-2">
                     <IconButton
-                        className={
-                            'items-center justify-center gap-2 active:bg-slate-400 flex bg-slate-50 hover:bg-slate-200 text-slate-950  font-bold bg-opacity-100'
-                        }
-                        variant={'filled'}
-                    >
+                        className={'items-center justify-center gap-2 active:bg-slate-400 flex bg-slate-50 hover:bg-slate-200 text-slate-950  font-bold bg-opacity-100'}
+                        variant={'filled'}>
                         {currentPage}
                     </IconButton>
                 </div>
@@ -165,13 +127,12 @@ function Page(props) {
                     variant="text"
                     className="items-center justify-center gap-2 hover:bg-slate-200 active:bg-slate-400 flex bg-slate-50 text-slate-950 bg-opacity-100"
                     onClick={next}
-                    disabled={currentPage === Math.ceil(savedCandidates?.length / itemsPerPage)}
+                    disabled={currentPage === Math.ceil(savedCandidate ? savedCandidate.length / itemsPerPage : 1)}
                 >
-                    Next <ArrowRightIcon strokeWidth={2} className="h-4 w-4" />
+                    Next <ArrowRightIcon strokeWidth={2} className="h-4 w-4"/>
                 </Button>
             </div>
         </div>
-    );
+    </div>)
 }
 
-export default Page;
