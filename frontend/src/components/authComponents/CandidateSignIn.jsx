@@ -77,9 +77,9 @@ export default function CandidateSignIn() {
         <h2 className="font-bold w-full text-xl text-slate-50">
           Welcome To CareerBot, Your Career Companion!
         </h2>
-        <p className="text-sm w-full text-slate-200 italic">
+        {/* <p className="text-sm w-full text-slate-200 italic">
           &quot;Unlock opportunities and explore tailored career paths.&quot;
-        </p>
+        </p> */}
         <div className="mt-12 w-full">
           <form onSubmit={handleSubmit(onSubmit)}>
             <LabelInputContainer className="mb-4">

@@ -95,7 +95,7 @@ export default function RecommendedJobs() {
                 {!currentData ? (<ImSpinner2 size={30}
                                              className="animate-spin w-full text-slate-50"/>) : <div
                     className="grid grid-cols-1 xl:grid-cols-2 justify-center items-center">
-                    {(currentData.map(async (jobItem, index) => {
+                    {/* {(currentData.map(async (jobItem, index) => {
                         return (<div className="p-2 md:p-5 w-full md:basis-1/3" key={jobItem.job_id} >
                             <JobCard
                                 jobId={jobItem.job_id}
@@ -124,7 +124,7 @@ export default function RecommendedJobs() {
                                 postedAt={jobItem.job_posted_at_datetime_utc}
                             />
                         </div>);
-                    }))}
+                    }))} */}
                 </div>}
             </div>
 

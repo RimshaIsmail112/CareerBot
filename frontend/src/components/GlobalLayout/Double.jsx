@@ -43,10 +43,10 @@ export default function Double({ children }) {
   useEffect(() => {
     if (pathname.includes("employer")) {
       setHeading(
-        "CareerBot: Empowering Career Excellence Through AI"
+        "CareerBot: Where AI Meets Career Success"
       );
     } else {
-      setHeading("CareerBot: Transforming Career Pathways with AI Precision");
+      setHeading("CareerBot: Where AI Meets Career Success");
     }
   }, [pathname]);
   const handleSwitcher = async (checked) => {

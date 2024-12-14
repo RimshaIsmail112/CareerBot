@@ -10,10 +10,10 @@ export function Footer() {
       <div className="flex flex-row flex-wrap items-center justify-center gap-y-6 gap-x-12 text-center md:justify-between">
         <Link href={"/"}>
           <Image
-            src={"/Logo-White.svg"}
-            height={70}
-            width={70}
-            alt="CareerSync"
+            src={"/CareerBot-Logo.png"}
+            height={80}
+            width={80}
+            alt="CareerBot"
           />
         </Link>
       </div>
@@ -22,7 +22,7 @@ export function Footer() {
         color="blue-gray"
         className="text-center font-normal text-slate-50"
       >
-        &copy; 2024 CareerSync. All rights reserved.
+        &copy; 2024 CareerBot. All rights reserved.
       </Typography>
     </footer>
   );

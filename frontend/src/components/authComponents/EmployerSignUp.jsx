@@ -86,10 +86,10 @@ export default function EmployerSignUp() {
         <h2 className="font-bold text-xl w-full text-slate-50">
           Welcome To CareerBot, Your Career Companion!
         </h2>
-        <p className="text-sm text-slate-200 w-full italic">
+        {/* <p className="text-sm text-slate-200 w-full italic">
           &quot;Simplify recruitment today and connect with the perfect
           candidates.&quot;
-        </p>
+        </p> */}
         <form className="my-8 w-full" onSubmit={handleSubmit(onSubmit)}>
           <div className="flex justify-center flex-col sm:flex-row items-center gap-5  mb-4">
             <LabelInputContainer>

@@ -68,14 +68,18 @@ function ResumeUploader() {
     const formData = new FormData();
     formData.append("wait", "true");
     formData.append("file", selectedFile);
-    formData.append("workspace", "FJvoemOB");
+    // formData.append("workspace", "FJvoemOB");
+    // formData.append("workspace", "vELBPKAU");
+    formData.append("workspace", "uKncfNHW");
 
     const url = "https://api.affinda.com/v3/documents";
     const options = {
       method: "POST",
       headers: {
         accept: "application/json",
-        authorization: "Bearer aff_e57330de9159cafd151e1ab2f3d7e73d7947f327", // Replace with your authorization token
+        // authorization: "Bearer aff_e57330de9159cafd151e1ab2f3d7e73d7947f327", // Replace with your authorization token
+        // authorization: "Bearer aff_aa1fccd667842934c4391558a83d245bb3a108f7",
+        authorization: "Bearer aff_bbbe877aa90276e2f48c1235353752c54c7013e1",
       },
       body: formData,
     };
@@ -86,46 +90,48 @@ function ResumeUploader() {
     const { data } = await response.json();
     console.log("Upload successful:", data);
 
-    const skillNames = data.skills.map((skill) =>
-      skill.name ? skill.name : null
+    const skillNames = data.skill?.map((skill) =>
+      skill.raw ? skill.raw : null
     );
-    const workExperiences = data.workExperience.map((exp) => ({
-      title: exp.jobTitle ? exp.jobTitle : null,
-      companyName: exp.organization ? exp.organization : null,
-      location: exp.location ? exp.location.formatted : null,
-      duration: exp.dates
-        ? `${exp.dates.startDate} - ${exp.dates.endDate}`
-        : null,
-      description: exp.jobDescription ? exp.jobDescription : null,
+    const workExperiences = data.workExperience?.map((exp) => ({
+      title: exp.parsed ? exp.parsed.jobTitle?.raw : null,
+      companyName: exp.parsed ? exp.parsed.workExperienceOrganization?.raw : null,
+      location: exp.parsed ? exp.parsed.workExperienceLocation?.parsed.formatted : null,
+      // duration: exp.dates
+      //   ? `${exp.dates.startDate} - ${exp.dates.endDate}`
+      //   : null,
+      duration: exp.parsed ? exp.parsed.workExperienceDateRange?.raw : null,
+      description: exp.parsed ? exp.parsed.workExperienceType?.parsed.label : null,
     }));
 
     const education = data.education
-      ? data.education.map((edu) => ({
-          degree: edu.accreditation ? edu.accreditation.inputStr : null,
-          universityName: edu.organization ? edu.organization : null,
-          location: edu.location ? edu.location.formatted : null,
-          duration: edu.dates
-            ? `${
-                edu.dates.startDate
-                  ? new Date(edu.dates.startDate).toLocaleDateString()
-                  : ""
-              } - ${
-                edu.dates.completionDate
-                  ? new Date(edu.dates.completionDate).toLocaleDateString()
-                  : edu.dates.isCurrent
-                  ? "Present"
-                  : ""
-              }`
-            : null,
-          description: edu.grade ? `Grade: ${edu.grade.raw || ""}` : null,
+      ? data.education?.map((edu) => ({
+          degree: edu.parsed ? edu.parsed.educationAccreditation?.raw : null,
+          universityName: edu.parsed ? edu.parsed.educationOrganization?.raw : null,
+          location: edu.parsed ? edu.parsed.educationLocation?.parsed.formatted : null,
+          // duration: edu.dates
+          //   ? `${
+          //       edu.dates.startDate
+          //         ? new Date(edu.dates.startDate).toLocaleDateString()
+          //         : ""
+          //     } - ${
+          //       edu.dates.completionDate
+          //         ? new Date(edu.dates.completionDate).toLocaleDateString()
+          //         : edu.dates.isCurrent
+          //         ? "Present"
+          //         : ""
+          //     }`
+          //   : null,
+          duration: edu.parsed ? edu.parsed.educationDateRange?.raw : null,
+          description: edu.parsed ? `Grade: ${edu.parsed.educationGrade?.raw || ""}` : null,
         }))
       : null;
 
     setCandidateData({
-      fullName: data.name ? data.name.raw : null,
-      email: data.emails ? data.emails[0] : null,
-      preferredJobLocation: data.location ? data.location.formatted : null,
-      phone: data.phoneNumbers ? data.phoneNumbers[0] : null,
+      fullName: data.candidateName ? data.candidateName.raw : null,
+      email: data.email ? data.email[0].raw : null,
+      preferredJobLocation: data.location ? data.location.raw : null,
+      phone: data.phoneNumber ? data.phoneNumber[0].parsed.formattedNumber : null,
       skills: skillNames,
       workExperiences: workExperiences,
       education: education,

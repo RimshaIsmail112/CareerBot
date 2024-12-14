@@ -93,7 +93,7 @@ function NavList({ navListItems }) {
 
   return (
     <ul className="mt-2 mb-4 flex flex-col justify-center gap-2 lg:mb-0 lg:mt-0 lg:flex-row items-center">
-      {navListItems &&
+      {/* {navListItems &&
         navListItems.map(({ label, icon, href }, key) => (
           <Link
             href={href}
@@ -112,7 +112,7 @@ function NavList({ navListItems }) {
               <span> {label}</span>
             </MenuItem>
           </Link>
-        ))}
+        ))} */}
     </ul>
   );
 }
@@ -136,7 +136,7 @@ export default function ComplexNavbar({ navListItems, profileMenuItems }) {
                 : "/candidate/dashboard"
             }
           >
-            <Image src={"/Logo.svg"} height={50} width={50} alt="CareerSync" />
+            {/* <Image src={"/CareerBot-Logo.png"} height={50} width={50} alt="CareerBot" /> */}
           </Link>
           <div className="hidden lg:ml-12 lg:flex lg:justify-center lg:items-center">
             <NavList navListItems={navListItems} />
