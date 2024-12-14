@@ -1,11 +1,11 @@
-const express = require('express');
-const nodemailer = require('nodemailer');
+const express = require("express");
+const nodemailer = require("nodemailer");
 // const
 
 const router = express.Router();
 
 const transporter = nodemailer.createTransport({
-  service: 'gmail',
+  service: "gmail",
   auth: {
     user: process.env.AUTHENTICATION_EMAIL,
     pass: process.env.AUTHENTICATION_PASSWORD,
@@ -15,31 +15,35 @@ const transporter = nodemailer.createTransport({
 const sendEmail = async (to, subject, htmlContent) => {
   try {
     await transporter.sendMail({
-      from: 'careersync.contact@gmail.com',
+      from: "careerbot.contact@gmail.com",
       to,
       subject,
       html: htmlContent,
     });
   } catch (error) {
-    console.error('Error sending email:', error);
+    console.error("Error sending email:", error);
     throw error;
   }
 };
 
-router.post('/send-email', async (req, res) => {
-  const {
+router.post("/send-email", async (req, res) => {
+  const { candidateEmail, employerEmail, date, day, time, topic, meetingURL } =
+    req.body;
+  console.log(
     candidateEmail,
     employerEmail,
     date,
     day,
-      time,
+    time,
     topic,
-    meetingURL,
-  } = req.body;
-  console.log(candidateEmail, employerEmail, date, day, time, topic, meetingURL);
+    meetingURL
+  );
 
   try {
-    await sendEmail(candidateEmail, 'CareerSync: Your Scheduled Interview Meeting', `
+    await sendEmail(
+      candidateEmail,
+      "CareerSync: Your Scheduled Interview Meeting",
+      `
       <!DOCTYPE html>
       <html>
       <head>
@@ -112,9 +116,13 @@ router.post('/send-email', async (req, res) => {
         </div>
       </body>
       </html>
-    `);
+    `
+    );
 
-    await sendEmail(employerEmail, 'CareerSync: Candidate Interview Meeting Details', `
+    await sendEmail(
+      employerEmail,
+      "CareerSync: Candidate Interview Meeting Details",
+      `
       <!DOCTYPE html>
       <html>
       <head>
@@ -189,12 +197,13 @@ router.post('/send-email', async (req, res) => {
         </div>
       </body>
       </html>
-    `);
+    `
+    );
 
-    res.json({ message: 'Email sent successfully' });
+    res.json({ message: "Email sent successfully" });
   } catch (error) {
-    console.error('Error sending email:', error);
-    res.status(500).json({ error: 'Error sending email' });
+    console.error("Error sending email:", error);
+    res.status(500).json({ error: "Error sending email" });
   }
 });
 

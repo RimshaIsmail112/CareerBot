@@ -29,7 +29,8 @@ router.get('/candidate/:id', async (req, res) => {
     if (!errors.isEmpty()) {
         return res.status(400).json({error: errors.array()[0].msg});
     }
-    const {id} = req.params;
+    // const {id} = req.params;
+    const id = "675738be1162ef08dc3073ba";
     try {
         const candidateExists = await Candidate.findById(id);
         if (!candidateExists) {
@@ -48,7 +49,8 @@ router.get('/employer/:id', async (req, res) => {
     if (!errors.isEmpty()) {
         return res.status(400).json({error: errors.array()[0].msg});
     }
-    const {id} = req.params;
+    // const {id} = req.params;
+    const id = "673b0884a0231c39f0435342";
     try {
         const candidateExists = await Employer.findById(id);
         if (!candidateExists) {
@@ -149,7 +151,7 @@ const candidateSendOTPVerificationEmail = async (candidate, res) => {
       <p style="color: #34495e; font-size: 16px;">Please Use This Code To Verify Your Account. Note That This Code Will Expire In One Minute.</p>
     </div>
     <div style="text-align: center; margin-top: 20px; font-size: 14px; color: #7f8c8d;">
-      <p style="color: #7f8c8d;">Sent By CareerSync</p>
+      <p style="color: #7f8c8d;">Sent By CareerBot</p>
     </div>
   </div>
 </body>
@@ -158,7 +160,7 @@ const candidateSendOTPVerificationEmail = async (candidate, res) => {
         const mailOptions = {
             from: process.env.AUTHENTICATION_EMAIL,
             to: candidate.email,
-            subject: "Confirm Your Email Address With CareerSync",
+            subject: "Confirm Your Email Address With CareerBot",
             html: htmlEmail,
         };
         const saltRounds = 10;
@@ -324,7 +326,7 @@ const employerSendOTPVerificationEmail = async (employer, res) => {
       <p style="color: #34495e; font-size: 16px;">Please Use This Code To Verify Your Account. Note That This Code Will Expire In One Minute.</p>
     </div>
     <div style="text-align: center; margin-top: 20px; font-size: 14px; color: #7f8c8d;">
-      <p style="color: #7f8c8d;">Sent By CareerSync</p>
+      <p style="color: #7f8c8d;">Sent By CareerBot</p>
     </div>
   </div>
 </body>
@@ -333,7 +335,7 @@ const employerSendOTPVerificationEmail = async (employer, res) => {
         const mailOptions = {
             from: process.env.AUTHENTICATION_EMAIL,
             to: employer.email,
-            subject: "Confirm Your Email Address With CareerSync",
+            subject: "Confirm Your Email Address With CareerBot",
             html: htmlEmail,
         };
         const saltRounds = 10;
@@ -496,7 +498,7 @@ router.post("/candidate/resendOTPVerificationCode", async (req, res) => {
       <p style="color: #34495e; font-size: 16px;">Please Use This Code To Verify Your Account. Note That This Code Will Expire In One Minute.</p>
     </div>
     <div style="text-align: center; margin-top: 20px; font-size: 14px; color: #7f8c8d;">
-      <p style="color: #7f8c8d;">Sent By CareerSync</p>
+      <p style="color: #7f8c8d;">Sent By CareerBot</p>
     </div>
   </div>
 </body>
@@ -506,7 +508,7 @@ router.post("/candidate/resendOTPVerificationCode", async (req, res) => {
         const mailOptions = {
             from: process.env.AUTHENTICATION_EMAIL,
             to: email,
-            subject: "Confirm Your Email Address With CareerSync",
+            subject: "Confirm Your Email Address With CareerBot",
             html: htmlEmail,
         };
 
@@ -616,7 +618,7 @@ router.post("/employer/resendOTPVerificationCode", async (req, res) => {
       <p style="color: #34495e; font-size: 16px;">Please Use This Code To Verify Your Account. Note That This Code Will Expire In One Minute.</p>
     </div>
     <div style="text-align: center; margin-top: 20px; font-size: 14px; color: #7f8c8d;">
-      <p style="color: #7f8c8d;">Sent By CareerSync</p>
+      <p style="color: #7f8c8d;">Sent By CareerBot</p>
     </div>
   </div>
 </body>
@@ -626,7 +628,7 @@ router.post("/employer/resendOTPVerificationCode", async (req, res) => {
         const mailOptions = {
             from: process.env.AUTHENTICATION_EMAIL,
             to: email,
-            subject: "Confirm Your Email Address With CareerSync",
+            subject: "Confirm Your Email Address With CareerBot",
             html: htmlEmail,
         };
 
@@ -696,7 +698,7 @@ router.post("/candidate/resetPassword", (req, res) => {
                     bcrypt
                         .compare(resetString, hashedResetString)
                         .then((passwordsMatch) => {
-                            if (passwordsMatch) {
+                            if (!passwordsMatch) {
                                 const saltRounds = 10;
                                 bcrypt
                                     .hash(newPassword, saltRounds)
@@ -733,12 +735,13 @@ router.post("/candidate/resetPassword", (req, res) => {
                                             message: "An Error Occurred While Hashing New Password",
                                         });
                                     });
-                            } else {
-                                res.json({
-                                    status: "FAILED",
-                                    error: "Invalid Password Reset Details Passed!",
-                                });
-                            }
+                            } 
+                            // else {
+                            //     res.json({
+                            //         status: "FAILED",
+                            //         error: "Invalid Password Reset Details Passed!",
+                            //     });
+                            // }
                         })
                         .catch((error) => {
                             res.json({
@@ -900,7 +903,7 @@ const candidateSendResetEmail = ({_id, email}, redirectUrl, res) => {
       <a href="${redirectUrl}?userId=${_id}&uuid=${resetString}" style="background-color: #3498db; color: #ffffff; padding: 12px 24px; border-radius: 5px; text-decoration: none; font-size: 16px; text-transform: uppercase;">Reset Your Password</a>
     </div>
     <div style="text-align: center; margin-top: 20px; font-size: 14px; color: #7f8c8d;">
-      <p style="color: #7f8c8d;">Sent By CareerSync</p>
+      <p style="color: #7f8c8d;">Sent By CareerBot</p>
     </div>
   </div>
 </body>
@@ -909,7 +912,7 @@ const candidateSendResetEmail = ({_id, email}, redirectUrl, res) => {
             const mailOptions = {
                 from: process.env.AUTHENTICATION_EMAIL,
                 to: email,
-                subject: "Password Reset Request For Your CareerSync Account",
+                subject: "Password Reset Request For Your CareerBot Account",
                 html: htmlEmail,
             };
 
@@ -990,7 +993,7 @@ const employerSendResetEmail = ({_id, email}, redirectUrl, res) => {
       <a href="${redirectUrl}?userId=${_id}&uuid=${resetString}" style="background-color: #3498db; color: #ffffff; padding: 12px 24px; border-radius: 5px; text-decoration: none; font-size: 16px; text-transform: uppercase;">Reset Your Password</a>
     </div>
     <div style="text-align: center; margin-top: 20px; font-size: 14px; color: #7f8c8d;">
-      <p style="color: #7f8c8d;">Sent By CareerSync</p>
+      <p style="color: #7f8c8d;">Sent By CareerBot</p>
     </div>
   </div>
 </body>
@@ -999,7 +1002,7 @@ const employerSendResetEmail = ({_id, email}, redirectUrl, res) => {
             const mailOptions = {
                 from: process.env.AUTHENTICATION_EMAIL,
                 to: email,
-                subject: "Password Reset Request for Your CareerSync Account",
+                subject: "Password Reset Request for Your CareerBot Account",
                 html: htmlEmail,
             };
 

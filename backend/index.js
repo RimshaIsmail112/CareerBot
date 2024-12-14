@@ -68,11 +68,11 @@ io.on('connection', (socket) => {
     });
 });
 
-const sendJobUpdateNotification = () => {
-    const message = 'Jobs have been updated!';
-    io.emit('notify', message);
-    console.log('Notification sent:', message);
-};
+// const sendJobUpdateNotification = () => {
+//     const message = 'Jobs have been updated!';
+//     io.emit('notify', message);
+//     console.log('Notification sent:', message);
+// };
 
 const sendNotificationWhenCandidateJoins = (message) => {
     io.emit('notify', message);
@@ -88,8 +88,8 @@ const checkForNewCandidates = async () => {
     }
 };
 
-const intervalTime = 1 * 60 * 1000;
-setInterval(sendJobUpdateNotification, intervalTime);
+// const intervalTime = 1 * 60 * 1000;
+// setInterval(sendJobUpdateNotification, intervalTime);
 
 const interval = 1 * 60 * 1000;
 setInterval(checkForNewCandidates, interval);
