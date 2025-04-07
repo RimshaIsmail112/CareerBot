@@ -13,7 +13,7 @@ function Page({ params }) {
 
   useEffect(() => {
     async function fetchJobs() {
-      const fetchJob = await jobsData.find(
+      const fetchJob = await jobsData?.find(
         (job) => job.job_id === decodeURIComponent(params.id)
       );
       setJob(fetchJob);

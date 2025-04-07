@@ -276,6 +276,7 @@ function ProfileDetailsForm() {
         .then(async (data) => {
           formData.profilePicture = data.secure_url;
           const message = await storeCompleteData(formData);
+          localStorage.setItem("formData", JSON.stringify(formData));
           message === "success" && router.push("/candidate/dashboard");
         })
         .catch((error) => {
