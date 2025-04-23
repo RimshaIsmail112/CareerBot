@@ -17,16 +17,17 @@ import {Footer} from "@/components/ui/Footer";
 
 function Layout({children}) {
     const profileMenuItems = [
-        {
-            label: "My Profile",
-            icon: <CgProfile size={18}/>
-        },
-        {
-            label: "Help",
-            icon: <FiHelpCircle size={18}/>,
-        },
+        // {
+        //     label: "My Profile",
+        //     icon: <CgProfile size={18}/>
+        // },
+        // {
+        //     label: "Help",
+        //     icon: <FiHelpCircle size={18}/>,
+        // },
         {
             label: "Sign Out",
+            href: "/employer/signin",
             icon: <FaSignOutAlt size={18}/>,
         },
     ];

@@ -53,14 +53,16 @@ export default function EmployerSignIn() {
           }, 4000);
           setIsLoading(null);
         } else {
-          setEmployer({ id: data.id, email: data.email });
+          console.log(data);
+          setEmployer({ id: data.employer._id, email: data.employer.email });
+          localStorage.setItem("employerEmail", data.employer.email);
           setShowAlert(true);
           setTitle("Success");
           setAlertMessage(data.message);
           setTimeout(() => {
             setShowAlert(false);
           }, 4000);
-          await router.push("/employer/dashboard");
+          await router.push("/employer/profile");
           setIsLoading(null);
         }
       })

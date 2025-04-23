@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 
 import { MdInsertLink, MdOutlineAlternateEmail } from "react-icons/md";
 import { ImFacebook2, ImSpinner2 } from "react-icons/im";
@@ -16,9 +16,12 @@ import { ReloadIcon } from "@radix-ui/react-icons";
 import DynamicAlert from "@/components/ui/DynamicAlert";
 import { useRouter } from "next/navigation";
 import process from "next/dist/build/webpack/loaders/resolve-url-loader/lib/postcss";
+import {useAppContext} from "@/Context/Candidate_Employer_Data";
+import {EmployerContext} from "@/Context/Employer_Context";
 
 function EmployerDetailsForm() {
   const [formData, setFormData] = useState({
+    employerId: "",
     profilePicture: null,
     companyName: "",
     industry: "",
@@ -33,9 +36,12 @@ function EmployerDetailsForm() {
   });
   const [isLoading, setIsLoading] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
+  const {employerDataState, setEmployerData} = useContext(EmployerContext);
   const [alertMessage, setAlertMessage] = useState("");
   const [title, setTitle] = useState("");
   const router = useRouter();
+  const {employer} = useAppContext();
+  console.log(employer);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -79,6 +85,9 @@ function EmployerDetailsForm() {
           }, 7000);
           window.scrollTo({ top: 0, behavior: "smooth" });
         } else {
+          console.log("Data Response", data);
+          setEmployerData(data);
+          console.log("Data", employerDataState);
           setShowAlert(true);
           setTitle("Success");
           setAlertMessage(data.message);
@@ -152,7 +161,8 @@ function EmployerDetailsForm() {
       })
         .then((response) => response.json())
         .then(async (data) => {
-          formData.profilePicture = data.secure_url;
+          formData.profilePicture = data.url;
+          formData.employerId = employer.id;
           await storeCompleteData(formData);
           await router.push("/employer/dashboard");
         })

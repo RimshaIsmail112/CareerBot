@@ -64,6 +64,14 @@ function Page({ params }) {
   }, []);
 
   useEffect(() => {
+    console.log(candidate);
+    if(candidate && candidate?.email){
+    localStorage.setItem("candidateEmail", candidate?.email);
+  }
+  }, [candidate])
+  
+
+  useEffect(() => {
     const url = window.location.href;
     console.log(url);
     const fragmentIndex = url.indexOf("#");
@@ -73,7 +81,8 @@ function Page({ params }) {
     }
   }, []);
 
-  async function handleMeetings() {
+  async function handleMeetings(email) {
+    console.log("Mail", email);
     const response = await fetch(
       `${HOST}/api/zoom/meeting/?candidateEmail=${encodeURIComponent(
         "dev.abubakarsiddique@gmail.com"
@@ -145,7 +154,7 @@ function Page({ params }) {
                 <div className="flex flex-col md:flex-row items-center gap-3 max-sm:flex-wrap justify-center mb-5">
                   <Link
                     className="w-full md:w-auto cursor-pointer"
-                    href={"https://cyan-bibbie-53.tiiny.site"}
+                    href={candidate.resumeUrl}
                     target={"_blank"}
                   >
                     <Metric
@@ -156,7 +165,7 @@ function Page({ params }) {
                       className="w-full md:w-auto"
                     />
                   </Link>
-                  <div
+                  {/* <div
                     className="w-full md:w-auto cursor-pointer"
                     onClick={handlePortfolioTab}
                   >
@@ -167,7 +176,7 @@ function Page({ params }) {
                       textStyles="small-medium text-light-500"
                       className="w-full md:w-auto"
                     />
-                  </div>
+                  </div> */}
                 </div>
               </div>
               {portfolioShow ? (
@@ -351,12 +360,12 @@ function Page({ params }) {
                     </div>
                   )}
                   <div
-                    onClick={handleMeetings}
+                    onClick={() => handleMeetings(candidate.email)}
                     className="block cursor-pointer w-full mt-4 bg-blue-500 hover:bg-blue-600 text-slate-50 font-semibold py-2 px-4 rounded-lg text-center"
                   >
                     Schedule Interview
                   </div>
-                  <div className={"flex flex-col md:flex-row gap-3"}>
+                  {/* <div className={"flex flex-col md:flex-row gap-3"}>
                     <Link
                       href={
                         "https://app.testgorilla.com/customer/assessments?assessmentPage=0"
@@ -422,7 +431,7 @@ function Page({ params }) {
                         </DialogFooter>
                       </DialogContent>
                     </Dialog>
-                  </div>
+                  </div> */}
                 </>
               )}
             </div>

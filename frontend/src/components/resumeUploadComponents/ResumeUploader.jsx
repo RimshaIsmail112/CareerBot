@@ -32,7 +32,7 @@ function ResumeUploader() {
     "application/msword",
     "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
   ];
-  const { setCandidateData, candidate } = useAppContext();
+  const { setCandidateData, candidate, setResumeUrlCandidate } = useAppContext();
   const router = useRouter();
   const handleDragEnter = (e) => {
     e.preventDefault(); // Prevent default browser behavior
@@ -214,8 +214,11 @@ function ResumeUploader() {
             candidate.id,
             data.bytes,
             data.format,
-            data.secure_url
+            data.url
           );
+          console.log(data);
+          console.log("URL", data.url);
+          setResumeUrlCandidate(data.url);
           if (message === "success") {
             await ATSscanner();
             await router.push("/candidate/profile");

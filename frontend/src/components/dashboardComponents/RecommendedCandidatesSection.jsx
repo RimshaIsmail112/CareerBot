@@ -43,6 +43,8 @@ export default function JobsSection() {
     const endIndex = startIndex + itemsPerPage;
     const currentData = recommendedCandidates && recommendedCandidates.slice(startIndex, endIndex);
 
+    console.log("Data", currentData);
+
     useEffect(() => {
         async function getCandidateResult(){
             const realTimeCandidateData = await allCandidates()
@@ -101,6 +103,7 @@ export default function JobsSection() {
                                     workExperiences={candidateItem.workExperiences}
                                     education={candidateItem.education}
                                     imageUrl={candidateItem.profilePictureUrl}
+                                    resume={candidateItem.resumeUrl}
                                 />
                             </div>);
                         }))}

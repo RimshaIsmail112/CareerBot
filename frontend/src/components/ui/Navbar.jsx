@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import {
   Navbar,
   MobileNav,
@@ -21,13 +21,17 @@ import { usePathname } from "next/navigation";
 import { Badge } from "@material-tailwind/react";
 import { FaBell } from "react-icons/fa";
 import { candidatesData } from "@/lib/dummyData";
+import {EmployerContext} from "@/Context/Employer_Context";
 
 function ProfileMenu({ profileMenuItems }) {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const { candidateData } = useAppContext();
   const path = usePathname();
+  const {employerDataState, setEmployerData} = useContext(EmployerContext);
 
   const closeMenu = () => setIsMenuOpen(false);
+  console.log("Data Inside", employerDataState);
+  console.log("Items", profileMenuItems);
 
   return (
     <Menu open={isMenuOpen} handler={setIsMenuOpen} placement="bottom-end">
@@ -44,7 +48,7 @@ function ProfileMenu({ profileMenuItems }) {
             className="border border-slate-950 p-0.5"
             src={
               path.includes("/employer")
-                ? "https://careersync-one.vercel.app/Logo.svg"
+                ? employerDataState?.profile.profilePictureUrl
                 : candidateData.profilePictureUrl
             }
           />

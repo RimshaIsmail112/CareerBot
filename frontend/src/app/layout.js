@@ -10,6 +10,7 @@ import { FaBookmark, FaBriefcase, FaUserTie } from "react-icons/fa";
 import dotenv from "dotenv";
 import { MdAssessment } from "react-icons/md";
 import Head from "next/head";
+import { EmployerProvider } from "@/Context/Employer_Context";
 dotenv.config();
 
 const notoSans = Noto_Sans({ subsets: ["latin"] });
@@ -70,6 +71,7 @@ export default function RootLayout({ children }) {
         <link rel="icon" href="/icon.ico" />
       </Head>
       <body className={`${notoSans.className} bg-slate-900`}>
+      <EmployerProvider>
         <CandidateEmployerData>
           <AuthProvider>
             <MobileDrawer
@@ -82,6 +84,7 @@ export default function RootLayout({ children }) {
             {children}
           </AuthProvider>
         </CandidateEmployerData>
+        </EmployerProvider>
       </body>
     </html>
   );

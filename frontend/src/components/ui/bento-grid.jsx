@@ -229,6 +229,7 @@ export const CandidateCard = ({
   workExperiences,
   education,
   imageUrl,
+  resume,
 
   className,
 }) => {
@@ -236,7 +237,9 @@ export const CandidateCard = ({
     city && state && country ? ", " : ""
   }${country || ""}`;
   const [isBookmarked, setIsBookmarked] = useState(saved);
-  const [resumeUrl, setResumeUrl] = useState(null);
+  // const [resumeUrl, setResumeUrl] = useState(null);
+
+  console.log(resume);
 
   function handleBookMark() {
     setIsBookmarked(!isBookmarked);
@@ -302,7 +305,7 @@ export const CandidateCard = ({
       </Link>
       <div className="flex-between mt-6 w-full flex-wrap gap-3">
         <div className="flex flex-col md:flex-row items-center gap-3 max-sm:flex-wrap justify-center">
-          <Link href={"https://cyan-bibbie-53.tiiny.site"} target={"_blank"}>
+          <Link href={resume} target={"_blank"}>
             <Metric
               imgUrl="/resume.svg"
               alt="briefcase"
@@ -311,7 +314,7 @@ export const CandidateCard = ({
               className="w-full md:w-auto"
             />
           </Link>
-          <Link href={`/employer/candidate/${id}#portfolio-tab`}>
+          {/* <Link href={`/employer/candidate/${id}#portfolio-tab`}>
             <Metric
               imgUrl="/portfolio.svg"
               alt="people"
@@ -319,7 +322,7 @@ export const CandidateCard = ({
               textStyles="small-medium text-light-500"
               className="w-full md:w-auto"
             />
-          </Link>
+          </Link> */}
         </div>
       </div>
     </div>

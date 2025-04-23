@@ -60,7 +60,7 @@ function Modal({ onClose, onSave, type, children }) {
 }
 
 function ProfileDetailsForm() {
-  const { candidateData, candidate, setCandidateData } = useAppContext();
+  const { candidateData, candidate, setCandidateData, resumeUrlCandidate } = useAppContext();
   const [isLoading, setIsLoading] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
@@ -79,6 +79,7 @@ function ProfileDetailsForm() {
     workExperiences: candidateData.workExperiences ?? [],
     education: candidateData.education ?? [],
     profilePicture: null,
+    resumeUrl: resumeUrlCandidate ?? "",
   });
 
   const [isWorkExperienceModalOpen, setIsWorkExperienceModalOpen] =
@@ -224,6 +225,7 @@ function ProfileDetailsForm() {
           education: data.profileData.education,
           profilePictureUrl: data.profileData.profilePictureUrl,
           profession: data.profileData.profession,
+          resumeUrl: data.profileData.resumeUrl,
         });
         return "success";
       }
@@ -274,7 +276,7 @@ function ProfileDetailsForm() {
       })
         .then((response) => response.json())
         .then(async (data) => {
-          formData.profilePicture = data.secure_url;
+          formData.profilePicture = data.url;
           const message = await storeCompleteData(formData);
           localStorage.setItem("formData", JSON.stringify(formData));
           message === "success" && router.push("/candidate/dashboard");

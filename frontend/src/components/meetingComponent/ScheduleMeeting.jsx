@@ -53,6 +53,9 @@ export default function ScheduleMeeting() {
   const [employerEmail, setEmployerEmail] = useState(null);
   const [meetingUrl, setMeetingUrl] = useState(null);
 
+  console.log("Employer", employer);
+  console.log("Email", localStorage.getItem("employerEmail"));
+
   const {
     register,
     handleSubmit,
@@ -79,8 +82,8 @@ export default function ScheduleMeeting() {
           );
           const data = await response.json();
           console.log(data);
-          setCandidateEmail(data.candidate_email);
-          setEmployerEmail(data.employer_email);
+          setCandidateEmail(localStorage.getItem("candidateEmail"));
+          setEmployerEmail(localStorage.getItem("employerEmail"));
           setMeetingUrl(data.meetingUrl);
         } catch (error) {
           console.error(error);
@@ -175,7 +178,9 @@ export default function ScheduleMeeting() {
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent className="w-56">
-                    <DropdownMenuRadioGroup value={day} onValueChange={setDay}>
+                    <DropdownMenuRadioGroup value={day} onValueChange={(e) => {
+                      console.log(e);
+                      setDay(e)}}>
                       <DropdownMenuRadioItem value="MONDAY">
                         MONDAY
                       </DropdownMenuRadioItem>

@@ -13,6 +13,7 @@ function CandidateEmployerData({children}) {
         email: "",
     });
     const [candidateData, setCandidateData] = useState({});
+    const [resumeUrlCandidate, setResumeUrlCandidate] = useState({});
     const [employerData, setEmployerData] = useState({});
     const [jobsData, setJobsData] = useState(null);
     const [candidateCardData, setCandidateCardData] = useState(null);
@@ -20,7 +21,7 @@ function CandidateEmployerData({children}) {
 
     return (
         <AppContext.Provider value={{candidateData, setCandidateData, employer, setEmployer, candidate, setCandidate,
-        drawerOpen, setDrawerOpen, jobsData, setJobsData, candidateCardData, setCandidateCardData}}>
+        drawerOpen, setDrawerOpen, jobsData, setJobsData, candidateCardData, setCandidateCardData, resumeUrlCandidate, setResumeUrlCandidate}}>
             {children}
         </AppContext.Provider>
     );
