@@ -33,10 +33,11 @@ const candidateProfileSchema = new mongoose.Schema({
     },
   ],
   profilePictureUrl: String,
+  resumeUrl: String,
   bookmarked: {
     type: Boolean,
     default: false
   }
-});
+}, { timestamps: true });
 
 module.exports = mongoose.model("CandidateProfile", candidateProfileSchema);

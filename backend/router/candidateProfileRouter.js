@@ -15,6 +15,7 @@ router.post("/candidate-profile", async (req, res) => {
       education,
       profession,
       profilePicture,
+      resumeUrl,
     } = req.body;
     const profileData = {
       candidateId,
@@ -27,6 +28,7 @@ router.post("/candidate-profile", async (req, res) => {
       workExperiences,
       education,
       profilePictureUrl: profilePicture,
+      resumeUrl,
     };
 
     Object.keys(profileData).forEach(
@@ -60,7 +62,7 @@ router.get("/candidate-profile/:id", async (req, res) => {
 
 router.get("/candidates", async (req, res) => {
   try {
-    const candidates = await CandidateProfile.find();
+    const candidates = await CandidateProfile.find().sort({ createdAt: -1 });
     res.status(200).json(candidates);
   } catch (error) {
     console.error("Error fetching candidates:", error);
