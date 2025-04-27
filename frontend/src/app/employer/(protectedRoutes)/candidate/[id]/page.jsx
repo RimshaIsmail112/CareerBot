@@ -24,6 +24,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { toast, ToastContainer } from "react-toastify";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
@@ -114,6 +115,10 @@ function Page({ params }) {
         body: JSON.stringify(payload),
       });
 
+      if(response.status === 201){
+        console.log("Called")
+        toast.success("Test result saved successfully");
+      }
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
@@ -365,7 +370,7 @@ function Page({ params }) {
                   >
                     Schedule Interview
                   </div>
-                  {/* <div className={"flex flex-col md:flex-row gap-3"}>
+                  <div className={"flex flex-col md:flex-row gap-3"}>
                     <Link
                       href={
                         "https://app.testgorilla.com/customer/assessments?assessmentPage=0"
@@ -419,7 +424,7 @@ function Page({ params }) {
                             <div
                               onClick={() =>
                                 handleUploadScore(
-                                  candidate.email,
+                                  candidate?.email,
                                   testName,
                                   score
                                 )
@@ -431,13 +436,24 @@ function Page({ params }) {
                         </DialogFooter>
                       </DialogContent>
                     </Dialog>
-                  </div> */}
+                  </div>
                 </>
               )}
             </div>
           </>
         )}
       </div>
+      <ToastContainer
+              position="top-right"
+              autoClose={3000}
+              hideProgressBar={false}
+              newestOnTop
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+            />
     </div>
   );
 }

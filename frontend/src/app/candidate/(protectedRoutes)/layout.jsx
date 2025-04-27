@@ -18,11 +18,11 @@ function Layout({children}) {
             href: "/candidate/profile",
             icon: <CgProfile size={18}/>,
         },
-        // {
-        //     label: "Test Scores",
-        //     href: "/candidate/dashboard/test-scores",
-        //     icon: <MdAssessment size={18}/>,
-        // },
+        {
+            label: "Test Scores",
+            href: "/candidate/dashboard/test-scores",
+            icon: <MdAssessment size={18}/>,
+        },
         {
             label: "Sign Out",
             href: "/candidate/signin",

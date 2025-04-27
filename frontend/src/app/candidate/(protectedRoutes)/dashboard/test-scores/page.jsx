@@ -20,7 +20,7 @@ async function getTestScores(email) {
         }
 
         const data = await response.json();
-        return data.tests;
+        return data.data.tests;
     } catch (error) {
         console.error('Error fetching test results:', error);
         return []; // Return an empty array in case of an error
@@ -29,21 +29,18 @@ async function getTestScores(email) {
 
 // React Component
 const TestScores = () => {
-    const [tests, setTests] = useState([]);
+    const [tests, setTests] = useState();
     const {candidateData} = useAppContext();
 
     useEffect(() => {
-        //getTestScores(candidateData.email).then(setTests);
-        setTests([
-            {testName: 'Software Development', score: 90},
-            {testName: 'Problem Solving', score: 85},
-            {testName: 'Communication', score: 95},
-        ])
+        const formData = localStorage.getItem("formData");
+        const email = JSON.parse(formData).email;
+        getTestScores(email).then(setTests);
     }, []);
-
+    console.log(tests);
     return (
         <div className='container mx-auto mt-10'>
-            {tests.length > 0 ? (
+            {tests?.length > 0 ? (
                 <div className='max-w-lg mx-auto shadow-xl p-5 bg-white rounded-lg'>
                     <h1 className='text-2xl font-semibold mb-4 text-center'>Test Scores</h1>
                     <table className="min-w-full">
@@ -64,7 +61,7 @@ const TestScores = () => {
                     </table>
                 </div>
             ) : (
-                <div className='text-center text-2xl font-bold text-slate-500'>No test scores available</div>
+                <div className='text-center text-2xl font-bold text-slate-500'>No Test Scores Available</div>
             )}
         </div>
     );
