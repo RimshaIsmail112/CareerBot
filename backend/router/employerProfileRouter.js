@@ -48,4 +48,18 @@ router.post("/employer-profile", async (req, res) => {
   }
 });
 
+router.get("/employer-profile/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const profile = await EmployerProfile.findOne({ employerId: id });
+    if (!profile) {
+      return res.status(404).send({ message: "Profile not found" });
+    }
+    res.status(200).json(profile);
+  } catch (error) {
+    console.error("Fetching error:", error);
+    res.status(500).send({ error: error.message });
+  }
+});
+
 module.exports = router;

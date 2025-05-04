@@ -49,7 +49,7 @@ router.post("/candidate-profile", async (req, res) => {
 router.get("/candidate-profile/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const profile = await CandidateProfile.findById(id);
+    const profile = await CandidateProfile.findOne({ candidateId: id });
     if (!profile) {
       return res.status(404).send({ message: "Profile not found" });
     }

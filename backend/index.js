@@ -83,7 +83,7 @@ const checkForNewCandidates = async () => {
     const currentCandidateCount = await getCandidateCount();
     if (currentCandidateCount > previousCandidateCount) {
         const message = 'A new candidate has registered!';
-        sendNotificationToClients(message);
+        // sendNotificationToClients(message);
         previousCandidateCount = currentCandidateCount;
     }
 };

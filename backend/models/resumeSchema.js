@@ -11,7 +11,7 @@ const resumeSchema = mongoose.Schema({
   },
   contentType: {
     type: String,
-    required: true,
+    required: false,
   },
   protectedUrl: {
     type: String,
