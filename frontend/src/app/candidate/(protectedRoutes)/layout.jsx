@@ -15,7 +15,7 @@ function Layout({children}) {
     const profileMenuItems = [
         {
             label: "My Profile",
-            href: "/candidate/profile",
+            href: "/candidate/profile?isAuthenticated=true",
             icon: <CgProfile size={18}/>,
         },
         {

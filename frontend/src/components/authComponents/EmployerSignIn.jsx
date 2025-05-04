@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { cn, HOST } from "@/lib/utils";
@@ -17,6 +17,7 @@ import { AppContext, useAppContext } from "@/Context/Candidate_Employer_Data";
 import { ImSpinner2 } from "react-icons/im";
 import DynamicAlert from "@/components/ui/DynamicAlert";
 import process from "next/dist/build/webpack/loaders/resolve-url-loader/lib/postcss";
+import {EmployerContext} from "@/Context/Employer_Context";
 
 export default function EmployerSignIn() {
   const router = useRouter();
@@ -26,6 +27,7 @@ export default function EmployerSignIn() {
   const [alertMessage, setAlertMessage] = useState("");
   const [title, setTitle] = useState("");
   const [isLoading, setIsLoading] = useState(null);
+  const {employerDataState, setEmployerData} = useContext(EmployerContext);
 
   const {
     register,
@@ -35,6 +37,7 @@ export default function EmployerSignIn() {
 
   const onSubmit = (data) => {
     setIsLoading("signin");
+  
     fetch(`${HOST}/employer/signin`, {
       method: "POST",
       headers: {
@@ -48,33 +51,40 @@ export default function EmployerSignIn() {
           setShowAlert(true);
           setTitle("Error");
           setAlertMessage(data.message);
-          setTimeout(() => {
-            setShowAlert(false);
-          }, 4000);
+          setTimeout(() => setShowAlert(false), 4000);
           setIsLoading(null);
         } else {
-          console.log(data);
-          setEmployer({ id: data.employer._id, email: data.employer.email });
+          const employerId = data.employer._id;
+          setEmployer({ id: employerId, email: data.employer.email });
           localStorage.setItem("employerEmail", data.employer.email);
+
+          const profileRes = await fetch(`${HOST}/employer-profile/${employerId}`);
+          const profileData = await profileRes.json();
+  
+          if (profileData?.message === "Profile not found") {
+            await router.push("/employer/profile");
+          } else {
+            console.log("PROFILE DATA", profileData);
+            setEmployerData(profileData);
+            await router.push("/employer/dashboard");
+          }
+  
           setShowAlert(true);
           setTitle("Success");
           setAlertMessage(data.message);
-          setTimeout(() => {
-            setShowAlert(false);
-          }, 4000);
-          await router.push("/employer/profile");
+          setTimeout(() => setShowAlert(false), 4000);
           setIsLoading(null);
         }
       })
       .catch((error) => {
         setShowAlert(true);
         setTitle("Error");
-        setAlertMessage(error.error);
-        setTimeout(() => {
-          setShowAlert(false);
-        }, 4000);
+        setAlertMessage(error?.message || "Something went wrong.");
+        setTimeout(() => setShowAlert(false), 4000);
+        setIsLoading(null);
       });
   };
+  
 
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);

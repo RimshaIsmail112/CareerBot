@@ -15,6 +15,7 @@ import { AppContext, useAppContext } from "@/Context/Candidate_Employer_Data";
 import DynamicAlert from "@/components/ui/DynamicAlert";
 import { useRouter } from "next/navigation";
 import { ImSpinner2 } from "react-icons/im";
+import { useSearchParams } from 'next/navigation';
 
 function Modal({ onClose, onSave, type, children }) {
   const [entry, setEntry] = useState({
@@ -66,20 +67,28 @@ function ProfileDetailsForm() {
   const [alertMessage, setAlertMessage] = useState("");
   const [title, setTitle] = useState("");
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const isAuthenticated = searchParams.get('isAuthenticated') === 'true';
+  const formDataLocal = localStorage.getItem("formData");
+  const profilePictureLocal = JSON.parse(formDataLocal).profilePictureUrl || JSON.parse(formDataLocal).profilePicture;
+  const professionLocal = JSON.parse(formDataLocal).profession;
+  const resumeLocal = JSON.parse(formDataLocal).resumeUrl;
+  const emailLocal = JSON.parse(formDataLocal).email;
+
 
   const [formData, setFormData] = useState({
     candidateId: candidate.id,
     fullName: candidateData.fullName ?? "",
-    email: candidateData.email ?? "",
+    email: isAuthenticated ? emailLocal : candidateData.email ?? "",
     preferredJobLocation: candidateData.preferredJobLocation ?? "",
     phone: candidateData.phone ?? [],
-    profession: "",
+    profession: isAuthenticated ? professionLocal : null,
     skills: candidateData.skills ?? [],
     currentSkill: "",
     workExperiences: candidateData.workExperiences ?? [],
     education: candidateData.education ?? [],
-    profilePicture: null,
-    resumeUrl: resumeUrlCandidate ?? "",
+    profilePicture: isAuthenticated ? profilePictureLocal : null,
+    resumeUrl: isAuthenticated ? resumeLocal : resumeUrlCandidate ?? "",
   });
 
   const [isWorkExperienceModalOpen, setIsWorkExperienceModalOpen] =
@@ -355,6 +364,7 @@ function ProfileDetailsForm() {
               id="email"
               type="email"
               name="email"
+              disabled
               value={formData.email}
               onChange={handleChange}
               placeholder="example@gmail.com"

@@ -49,13 +49,13 @@ function Page() {
         // }
         // else{
             if(params.size !== 0) {
-                async function getJobsResult(search,location){
+                async function getJobsResult(search,location,datePosted,employmentType) {
                     const giveRecommended = false
-                    const realTimeJobsData = await searchJobs(search, location, giveRecommended)
+                    const realTimeJobsData = await searchJobs(search, location, giveRecommended, datePosted, employmentType);
                     setSearchedJobs(realTimeJobsData);
                     setJobsData(realTimeJobsData)
                 }
-                getJobsResult(params.get('search'), params.get('location'));
+                getJobsResult(params.get('search'), params.get('location'), params.get('datePosted'), params.get('employmentType'));
             }
         // }
 
@@ -69,7 +69,7 @@ function Page() {
                         <div className='w-auto h-44 flex justify-center items-center'><h1 className={'text-slate-50'}>Type to search</h1></div> : <>
                             <div
                                 className={'flex flex-col lg:flex-row gap-5 md:justify-between w-full items-center mt-8'}>
-                            <h2 className={cn('text-3xl w-full font-bold text-center md:text-left text-slate-50 dark:text-neutral-100', 'mt-10 mb-4')}>
+                            <h2 className={cn('text-3xl w-full font-bold text-center md:text-left text-slate-50 dark:text-neutral-100')}>
                                 Searched Jobs
                             </h2>
                         </div>

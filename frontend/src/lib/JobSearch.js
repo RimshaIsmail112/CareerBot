@@ -1,13 +1,13 @@
 import {jobs} from "@/lib/dummyData";
 import {HOST} from "@/lib/utils";
 
-export const searchJobs = async (querySearch, location, giveRecommended) => {
+export const searchJobs = async (querySearch, location, giveRecommended, datePosted, employmentType) => {
     let formattedSkills = "";
     // if(giveRecommended) formattedSkills = querySearch.map(skill => encodeURIComponent(skill)).join('%20OR%20');
     const formattedLocation = encodeURIComponent(location);
 
     // const url = `https://jsearch.p.rapidapi.com/search?query=${giveRecommended ? formattedSkills : querySearch}%20in%20${formattedLocation}&page=10&num_pages=10`;
-    const url = `https://jsearch.p.rapidapi.com/search?query=${querySearch}%20in%20${formattedLocation}&page=1&num_pages=10&date_posted=month`;
+    const url = `https://jsearch.p.rapidapi.com/search?query=${querySearch}%20in%20${formattedLocation}&page=1&num_pages=10&date_posted=${datePosted}&employment_types=${employmentType}`;
 
     const options = {
         method: 'GET',

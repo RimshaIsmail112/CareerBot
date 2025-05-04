@@ -20,51 +20,95 @@ import DynamicAlert from "@/components/ui/DynamicAlert";
 import process from "next/dist/build/webpack/loaders/resolve-url-loader/lib/postcss";
 
 export default function CandidateSignIn() {
-  const { setCandidate } = useAppContext();
+  const { setCandidate, candidate, candidateData, setCandidateData } = useAppContext();
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
   const [title, setTitle] = useState("");
   const [isLoading, setIsLoading] = useState(null);
+  const [shouldNavigate, setShouldNavigate] = useState(false);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     setIsLoading("signin");
-    fetch(`${HOST}/candidate/signin`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
-      .then((res) => res.json())
-      .then(async (data) => {
-        if (data.error) {
-          setShowAlert(true);
-          setTitle("Error");
-          setAlertMessage(data.error);
-          setTimeout(() => {
-            setShowAlert(false);
-          }, 4000);
-          setIsLoading(null);
-        } else {
-          setCandidate({ id: data.id, email: data.email });
-          setShowAlert(true);
-          setTitle("Success");
-          setAlertMessage(data.message);
-          setTimeout(() => {
-            setShowAlert(false);
-          }, 4000);
-          await router.push("/candidate/resume");
-          setIsLoading(null);
-        }
-      })
-      .catch((error) => console.log(error));
-  };
+  
+    try {
+      const response = await fetch(`${HOST}/candidate/signin`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+  
+      const result = await response.json();
+  
+      if (result.error) {
+        setShowAlert(true);
+        setTitle("Error");
+        setAlertMessage(result.error);
+        setTimeout(() => setShowAlert(false), 4000);
+        setIsLoading(null);
+        return;
+      }
+  
+      setCandidate({ id: result.id, email: result.email });
+  
+      const profileResponse = await fetch(`${HOST}/candidate-profile/${result.id}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+  
+      const profileData = await profileResponse.json();
+      let navigate = false;
+  
+      if (profileData.error) {
+        setShowAlert(true);
+        setTitle("Error");
+        setAlertMessage(profileData.error);
+        setTimeout(() => setShowAlert(false), 4000);
+        setIsLoading(null);
+        return;
+      }
+  
+      if (profileData.message !== "Profile not found" || profileData._id) {
+        const candidateInfo = {
+          fullName: profileData.fullName,
+          email: profileData.email,
+          preferredJobLocation: profileData.preferredJobLocation,
+          phone: profileData.phone,
+          skills: profileData.skills,
+          workExperiences: profileData.workExperiences,
+          education: profileData.education,
+          profilePictureUrl: profileData.profilePictureUrl,
+          profession: profileData.profession,
+          resumeUrl: profileData.resumeUrl,
+        };
+  
+        setCandidateData(candidateInfo);
+        localStorage.setItem("formData", JSON.stringify(candidateInfo));
+        setShouldNavigate(true);
+        navigate = true;
+      }
+  
+      setShowAlert(true);
+      setTitle("Success");
+      setAlertMessage(result.message);
+      setTimeout(() => setShowAlert(false), 4000);
+  
+      await router.push(navigate ? "/candidate/dashboard" : "/candidate/resume");
+    } catch (error) {
+      console.error("Submission error:", error);
+    } finally {
+      setIsLoading(null);
+    }
+  };  
 
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);

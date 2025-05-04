@@ -48,7 +48,7 @@ function ProfileMenu({ profileMenuItems }) {
             className="border border-slate-950 p-0.5"
             src={
               path.includes("/employer")
-                ? employerDataState?.profile.profilePictureUrl
+                ? (employerDataState?.profile ? employerDataState?.profile?.profilePictureUrl : employerDataState?.profilePictureUrl)
                 : candidateData.profilePictureUrl
             }
           />
@@ -130,9 +130,19 @@ export default function ComplexNavbar({ navListItems, profileMenuItems }) {
   }
 
   return (
-    <div className={"w-screen-xl p-5 flex justify-center items-center"}>
-      <Navbar className="border-none p-2 px-8 bg-opacity-100 rounded-full shadow-2xl shadow-black bg-slate-50">
-        <div className="relative flex items-center justify-between text-slate-950">
+    <div className={"w-screen-xl flex lg:justify-between items-center"}>
+      {/* <Navbar className="border-none p-2 px-8 bg-opacity-100 rounded-full shadow-2xl shadow-black bg-slate-50"> */}
+        {/* <div className="relative flex items-center justify-between text-slate-950"> */}
+        <div>
+        <Link href={"/"}>
+          <Image
+            src={"/CareerBot-Logo.png"}
+            height={70}
+            width={70}
+            alt="CareerBot"
+          />
+        </Link>
+      </div>
           <Link
             href={
               path.includes("/employer")
@@ -157,8 +167,8 @@ export default function ComplexNavbar({ navListItems, profileMenuItems }) {
           <div className={"flex justify-center items-center"}>
             <ProfileMenu profileMenuItems={profileMenuItems} />
           </div>
-        </div>
-      </Navbar>
+        {/* </div> */}
+      {/* </Navbar> */}
     </div>
   );
 }

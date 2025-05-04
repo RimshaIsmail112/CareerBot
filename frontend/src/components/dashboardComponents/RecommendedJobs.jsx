@@ -33,7 +33,7 @@ export default function RecommendedJobs() {
   const options = {
     method: "GET",
     headers: {
-      "x-rapidapi-key": "71b142c628msh0c70e7e2d83d1c7p1bf2b6jsn8758c923f1b8",
+      "x-rapidapi-key": "7bc227051amsh7126393e0d75c94p1456d7jsn09c1c60eddf4",
       "x-rapidapi-host": "jsearch.p.rapidapi.com",
     },
   };
@@ -308,8 +308,7 @@ export default function RecommendedJobs() {
         >
           <h2
             className={cn(
-              "text-3xl w-full font-bold text-center md:text-left text-slate-50 dark:text-neutral-100",
-              "mt-10 mb-4"
+              "text-3xl w-full font-bold text-center md:text-left text-slate-50 dark:text-neutral-100"
             )}
           >
             Recommended Jobs

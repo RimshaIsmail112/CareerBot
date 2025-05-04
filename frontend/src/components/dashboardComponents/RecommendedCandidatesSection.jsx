@@ -77,7 +77,7 @@ export default function JobsSection() {
     return (<div className={'w-screen px-8 md:px-12 lg:px-16'}>
         <div className={'flex flex-col gap-3 w-full justify-center items-center'}>
             <div className={'flex flex-col lg:flex-row gap-5 md:justify-between w-full items-center mt-8'}>
-                <h2 className={cn('text-3xl w-full font-bold text-center md:text-left text-slate-50 dark:text-neutral-100', 'mt-10 mb-4')}>
+                <h2 className={cn('text-3xl w-full font-bold text-center md:text-left text-slate-50 dark:text-neutral-100')}>
                     Recommended Candidates
                 </h2>
             </div>
