@@ -2,6 +2,65 @@ const express = require("express");
 const router = express.Router();
 const CandidateProfile = require("../models/candidateProfile");
 
+router.post("/update-candidate-profile", async (req, res) => {
+  try {
+    const {
+      candidateId,
+      fullName,
+      email,
+      preferredJobLocation,
+      phone,
+      skills,
+      workExperiences,
+      education,
+      profession,
+      profilePicture,
+      resumeUrl,
+      isProfilePublic,
+    } = req.body;
+
+    if (!candidateId) {
+      return res.status(400).json({ error: "Candidate ID is required" });
+    }
+
+    const updateData = {
+      fullName,
+      email,
+      phone,
+      preferredJobLocation,
+      profession,
+      skills,
+      workExperiences,
+      education,
+      profilePictureUrl: profilePicture,
+      resumeUrl,
+      isProfilePublic,
+    };
+
+    Object.keys(updateData).forEach(
+      (key) => updateData[key] === undefined && delete updateData[key]
+    );
+
+    const updatedProfile = await CandidateProfile.findOneAndUpdate(
+      { candidateId },
+      { $set: updateData },
+      { new: true }
+    );
+
+    if (!updatedProfile) {
+      return res.status(404).json({ error: "Profile not found for this candidateId" });
+    }
+
+    res.status(200).json({
+      message: "Profile updated successfully",
+      updatedProfile,
+    });
+  } catch (error) {
+    console.error("Update error:", error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
 router.post("/candidate-profile", async (req, res) => {
   try {
     const {
@@ -16,6 +75,7 @@ router.post("/candidate-profile", async (req, res) => {
       profession,
       profilePicture,
       resumeUrl,
+      isProfilePublic,
     } = req.body;
     const profileData = {
       candidateId,
@@ -29,6 +89,7 @@ router.post("/candidate-profile", async (req, res) => {
       education,
       profilePictureUrl: profilePicture,
       resumeUrl,
+      isProfilePublic,
     };
 
     Object.keys(profileData).forEach(
@@ -62,7 +123,7 @@ router.get("/candidate-profile/:id", async (req, res) => {
 
 router.get("/candidates", async (req, res) => {
   try {
-    const candidates = await CandidateProfile.find().sort({ createdAt: -1 });
+    const candidates = await CandidateProfile.find({isProfilePublic: true}).sort({ createdAt: -1 });
     res.status(200).json(candidates);
   } catch (error) {
     console.error("Error fetching candidates:", error);

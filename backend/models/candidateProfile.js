@@ -10,6 +10,7 @@ const candidateProfileSchema = new mongoose.Schema({
     required: [true, "Full name is required"],
   },
   email: String,
+  isProfilePublic: Boolean,
   phone: String,
   preferredJobLocation: String,
   profession: String,

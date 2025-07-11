@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const TestResult = require("../models/testResult");
+const RatingResult = require("../models/rating");
 const CandidateProfile = require("../models/candidateProfile"); // Make sure this is the correct path to your model
 
 router.post("/post-scores/:email", async (req, res) => {
@@ -38,6 +39,59 @@ router.post("/post-scores/:email", async (req, res) => {
         res.status(400).json({ error: error.message });
     }
 });
+
+router.post("/post-ratings/:email", async (req, res) => {
+    const { email } = req.params;
+    const { rating } = req.body;
+
+    try {
+        // Check if the candidate exists in the database
+        const candidateExists = await CandidateProfile.findOne({ email: email });
+        if (!candidateExists) {
+            return res.status(404).send({ message: "Candidate email not found, rating not submitted" });
+        }
+
+        // Check if the test result document exists for the given email
+        let ratingResult = await RatingResult.findOne({ candidateEmail: email });
+        if (ratingResult) {
+            // If test result exists, add the new test to the existing tests array
+            ratingResult.ratings.push({ rating });
+            await ratingResult.save();
+        } else {
+            // If no test result exists, create a new document
+            ratingResult = new RatingResult({
+                candidateEmail: email,
+                ratings: [{ rating }]
+            });
+            await ratingResult.save();
+        }
+
+        res.status(201).send({
+            message: "Rating result saved successfully",
+            data: ratingResult
+        });
+    } catch (error) {
+        console.error("Error saving rating result:", error);
+        res.status(400).json({ error: error.message });
+    }
+});
+
+router.get("/get-ratings", async (req, res) => {
+    try {
+        const ratingResults = await RatingResult.find();
+        if (!ratingResults || ratingResults.length === 0) {
+            return res.status(404).send({ message: "No rating results found" });
+        }
+        console.log(ratingResults);
+        res.status(200).json({
+            message: "Rating results retrieved successfully",
+            data: ratingResults
+        });
+    } catch (error) {
+        console.error("Error fetching rating results:", error);
+        res.status(500).json({ error: error.message });
+    }
+})
 
 router.get("/get-scores/:email", async (req, res) => {
     try {
