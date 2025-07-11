@@ -29,14 +29,14 @@ export default function RecommendedJobs() {
   const [currentPage, setCurrentPage] = React.useState(1);
   const [formData, setFormData] = React.useState(null);
   const url =
-    "https://jsearch.p.rapidapi.com/search?query=developer%20jobs%20in%20chicago&page=10&num_pages=10&country=us&date_posted=all";
-  const options = {
-    method: "GET",
-    headers: {
-      "x-rapidapi-key": "7bc227051amsh7126393e0d75c94p1456d7jsn09c1c60eddf4",
-      "x-rapidapi-host": "jsearch.p.rapidapi.com",
-    },
-  };
+  "https://jsearch.p.rapidapi.com/search?query=developer%20jobs%20in%20Pakistan&page=10&num_pages=10&country=pk&date_posted=all";
+const options = {
+  method: "GET",
+  headers: {
+    "x-rapidapi-key": "7bc227051amsh7126393e0d75c94p1456d7jsn09c1c60eddf4",
+    "x-rapidapi-host": "jsearch.p.rapidapi.com",
+  },
+};
 
   const next = () => {
     if (active === 5) return;

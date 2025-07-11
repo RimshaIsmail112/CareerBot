@@ -20,7 +20,7 @@ const JobBadge = ({
         <Badge variant={variant} className={`${classNames} ${badgeStyles}`}>
             {isLocation ? (
                 <div className={'flex gap-1'}>
-                    {data.location}
+                    {data.location.split("PK")[0]} PK
                     {data.country && (
                         <>
                             <Image

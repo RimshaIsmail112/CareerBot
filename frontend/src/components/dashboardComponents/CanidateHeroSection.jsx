@@ -14,7 +14,7 @@ const socket = io("http://localhost:3001");
 
 const CandidateHeroSection = () => {
   const [search, setSearch] = useState(null);
-  const [location, setLocation] = useState("");
+  const [location, setLocation] = useState(null);
   const [datePosted, setDatePosted] = useState(null);
   const [employmentType, setEmploymentType] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -37,7 +37,7 @@ const CandidateHeroSection = () => {
     setIsLoading(true);
     if (path.includes("candidate/dashboard")) {
       await router.push(
-        `/candidate/dashboard/search-jobs?search=${search ?? "developer"}&location=${location}&datePosted=${datePosted ?? "month"}&employmentType=${employmentType ?? "FULLTIME"}`
+        `/candidate/dashboard/search-jobs?search=${search ?? "developer"}&location=${location ?? "Pakistan"}&datePosted=${datePosted ?? "month"}&employmentType=${employmentType ?? "FULLTIME"}`
       );
     } else {
       await router.push(

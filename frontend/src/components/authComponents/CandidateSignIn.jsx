@@ -89,6 +89,7 @@ export default function CandidateSignIn() {
           profilePictureUrl: profileData.profilePictureUrl,
           profession: profileData.profession,
           resumeUrl: profileData.resumeUrl,
+          isProfilePublic: profileData.isProfilePublic,
         };
   
         setCandidateData(candidateInfo);

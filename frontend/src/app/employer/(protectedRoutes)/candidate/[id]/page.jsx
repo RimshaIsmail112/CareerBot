@@ -37,6 +37,41 @@ function Page({ params }) {
   const [score, setScore] = useState("");
   const path = usePathname();
   const router = useRouter();
+  const [rating, setRating] = useState('');
+
+  const handleSubmitRating = async (email, rating) => {
+  if (rating === "") {
+      alert("Please fill in the rating");
+      return;
+    }
+    const url = `${HOST}/post-ratings/${email}`;
+    const payload = {
+      rating: rating,
+    };
+
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if(response.status === 201){
+        console.log("Called")
+        toast.success("Rating saved successfully");
+      }
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log("Rating saved successfully:", data);
+    } catch (error) {
+      console.error("Error saving rating:", error);
+    }
+}
 
   async function handlePortfolioTab() {
     setPortfolioShow(true);
@@ -364,11 +399,71 @@ function Page({ params }) {
                       </div>
                     </div>
                   )}
+                  <div className={"flex flex-col md:flex-row gap-3"}>
                   <div
                     onClick={() => handleMeetings(candidate.email)}
                     className="block cursor-pointer w-full mt-4 bg-blue-500 hover:bg-blue-600 text-slate-50 font-semibold py-2 px-4 rounded-lg text-center"
                   >
                     Schedule Interview
+                  </div>
+                    <Dialog>
+  <DialogTrigger asChild>
+    <Button
+      className="block cursor-pointer w-full mt-4 bg-blue-500 hover:bg-blue-600 text-slate-50 font-bold py-2 px-4 rounded-lg text-center"
+    >
+      Rate Candidate
+    </Button>
+  </DialogTrigger>
+  <DialogContent className="sm:max-w-[425px]">
+    <DialogHeader>
+      <DialogTitle>Rate Candidate</DialogTitle>
+    </DialogHeader>
+    <div className="grid gap-6 py-6 px-4 bg-white rounded-lg shadow-md">
+  <div className="grid grid-cols-4 items-center gap-4">
+    <Label htmlFor="candidate" className="text-right font-medium text-gray-700">
+      Candidate
+    </Label>
+    <input
+      id="candidate"
+      value={candidate?.fullName || ""}
+      disabled
+      className="col-span-3 bg-gray-100 text-gray-700 px-3 py-2 rounded-md border border-gray-300"
+    />
+  </div>
+
+  <div className="grid grid-cols-4 items-center gap-4">
+    <Label htmlFor="rating" className="text-right font-medium text-gray-700">
+      Rating
+    </Label>
+    <select
+  id="rating"
+  onChange={(e) => setRating(e.target.value)}
+  className="col-span-3 px-3 py-2 rounded-md border border-gray-300 bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+>
+  <option value="">⭐ Select a rating</option>
+  <option value="1">★☆☆☆☆ - Poor</option>
+  <option value="2">★★☆☆☆ - Fair</option>
+  <option value="3">★★★☆☆ - Good</option>
+  <option value="4">★★★★☆ - Very Good</option>
+  <option value="5">★★★★★ - Excellent</option>
+</select>
+
+  </div>
+</div>
+    <DialogFooter>
+      <Button type="submit">
+        <div
+          onClick={() =>
+            handleSubmitRating(candidate?.email, rating)
+          }
+        >
+          Submit Rating
+        </div>
+      </Button>
+    </DialogFooter>
+  </DialogContent>
+</Dialog>
+
                   </div>
                   <div className={"flex flex-col md:flex-row gap-3"}>
                     <Link

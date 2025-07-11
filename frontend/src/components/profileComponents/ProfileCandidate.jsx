@@ -69,16 +69,17 @@ function ProfileDetailsForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const isAuthenticated = searchParams.get('isAuthenticated') === 'true';
-  const formDataLocal = localStorage.getItem("formData");
-  const profilePictureLocal = JSON.parse(formDataLocal).profilePictureUrl || JSON.parse(formDataLocal).profilePicture;
-  const professionLocal = JSON.parse(formDataLocal).profession;
-  const resumeLocal = JSON.parse(formDataLocal).resumeUrl;
-  const emailLocal = JSON.parse(formDataLocal).email;
+  const formDataLocal = localStorage?.getItem("formData");
+  const profilePictureLocal = JSON.parse(formDataLocal)?.profilePictureUrl || JSON.parse(formDataLocal)?.profilePicture;
+  const professionLocal = JSON.parse(formDataLocal)?.profession;
+  const resumeLocal = JSON.parse(formDataLocal)?.resumeUrl;
+  const emailLocal = JSON.parse(formDataLocal)?.email;
 
 
   const [formData, setFormData] = useState({
     candidateId: candidate.id,
     fullName: candidateData.fullName ?? "",
+    isProfilePublic: isAuthenticated ? candidateData.isProfilePublic ?? false : false,
     email: isAuthenticated ? emailLocal : candidateData.email ?? "",
     preferredJobLocation: candidateData.preferredJobLocation ?? "",
     phone: candidateData.phone ?? [],
@@ -103,6 +104,14 @@ function ProfileDetailsForm() {
       [name]: value,
     }));
   };
+
+  const handleCheckboxChange = (e) => {
+    console.log(e);
+    setFormData((prevState) => ({
+      ...prevState,
+      isProfilePublic: !prevState.isProfilePublic,
+    }));
+  }
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -197,7 +206,7 @@ function ProfileDetailsForm() {
 
   async function storeCompleteData(formData) {
     try {
-      const response = await fetch(`${HOST}/candidate-profile`, {
+      const response = await fetch(`${HOST}/${isAuthenticated ? 'update-candidate-profile' : 'candidate-profile'}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -205,7 +214,8 @@ function ProfileDetailsForm() {
         body: JSON.stringify(formData),
       });
       const data = await response.json();
-      if (data.error) {
+      console.log("data", data);
+      if (data && data.error) {
         setShowAlert(true);
         setTitle("Error");
         setAlertMessage(data.error);
@@ -225,7 +235,8 @@ function ProfileDetailsForm() {
         }, 4000);
         window.scrollTo({ top: 0, behavior: "smooth" });
         setCandidateData({
-          fullName: data.profileData.fullName,
+          fullName: data.profileData?.fullName,
+          isProfilePublic: data.profileData.isProfilePublic,
           email: data.profileData.emails,
           preferredJobLocation: data.profileData.preferredJobLocation,
           phone: data.profileData.phone,
@@ -239,15 +250,17 @@ function ProfileDetailsForm() {
         return "success";
       }
     } catch (error) {
-      setShowAlert(true);
-      setTitle("Error");
-      setAlertMessage(error.message);
-      setIsLoading(false);
-      setTimeout(() => {
-        setShowAlert(false);
-      }, 7000);
-      window.scrollTo({ top: 0, behavior: "smooth" });
-      return "error";
+      console.log(error);
+      // console.log("Called")
+      // setShowAlert(true);
+      // setTitle("Error");
+      // setAlertMessage(error.message);
+      // setIsLoading(false);
+      // setTimeout(() => {
+      //   setShowAlert(false);
+      // }, 7000);
+      // window.scrollTo({ top: 0, behavior: "smooth" });
+      // return "error";
     }
   }
   const handleSubmit = async (e) => {
@@ -341,6 +354,20 @@ function ProfileDetailsForm() {
               accept="image/*"
             />
           </div>
+          {isAuthenticated && (
+          <LabelInputContainer className="mb-4">
+  <label className="flex items-center space-x-2 text-slate-50">
+    <input
+      type="checkbox"
+      name="isProfilePublic"
+      checked={formData.isProfilePublic}
+      onChange={handleCheckboxChange}
+      className="accent-blue-600"
+    />
+    <span>Allow employers on the platform to view my profile</span>
+  </label>
+</LabelInputContainer>
+)}
           <LabelInputContainer className="mb-4">
             <Label htmlFor="fullName" className="text-slate-50">
               Full Name
@@ -364,7 +391,7 @@ function ProfileDetailsForm() {
               id="email"
               type="email"
               name="email"
-              disabled
+              disabled={formData.email ? true : false}
               value={formData.email}
               onChange={handleChange}
               placeholder="example@gmail.com"
